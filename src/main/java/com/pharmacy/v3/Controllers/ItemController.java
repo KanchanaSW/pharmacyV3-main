@@ -1,8 +1,67 @@
 package com.pharmacy.v3.Controllers;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.pharmacy.v3.Models.Item;
+import com.pharmacy.v3.Response.MessageResponse;
+import com.pharmacy.v3.Services.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("api/items")
 @RestController
 public class ItemController {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    private ItemService itemService;
+
+    @Autowired
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    //add new item
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/admin/new-item")
+    public ResponseEntity<MessageResponse> addItem(@RequestBody Item item, HttpServletRequest request){
+        return itemService.addItem(item);
+    }
+
+    //view all items
+    @GetMapping(value = "/itemAll")
+    public List<Item> getAllItems(){return itemService.getAllItems();}
+
+    @GetMapping(value = "/item/{itemId}")
+    public ResponseEntity<?> getProductsById(@PathVariable Integer itemId){
+        return itemService.getItemById(itemId);
+    }
+
+    //delete item
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(value = "/deleteItem/{itemId}")
+    public ResponseEntity<?> deleteItem(@PathVariable Integer itemId){
+      //  entityManager.createNativeQuery("DELETE FROM item_category WHERE item = :itemId").executeUpdate();
+        //       itemService.deleteItemCategory(itemId);
+        return itemService.deleteItemByItemId(itemId);
+    }
+
+    //update Item
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(value = "/updateItem/{itemId}")
+    public ResponseEntity<?> updateItem(@PathVariable Integer itemId,@RequestBody Item updateItem){
+        return itemService.updateItemById(itemId,updateItem);
+    }
+
+  /*  @RequestMapping(value = ("/category/item-all/{category}"))
+    public List<Item> getItemByCategoryId(@PathVariable String categoryName , HttpServletRequest request){
+        return itemService.getAllItemsByCategory(categoryName);
+    }*/
 
 }
