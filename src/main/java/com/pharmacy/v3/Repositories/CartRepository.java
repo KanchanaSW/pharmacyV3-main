@@ -26,9 +26,5 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
 
     List<Cart> findByUserAndIsPurchasedOrderByCartIdDesc(User user, boolean isPurchased);
 
-    @Modifying
-    @Transactional
-    @Query( value = "DELETE FROM cart WHERE user = ?1 and item =?2", nativeQuery = true)
-    void deleteItemfromCart(Integer userId,Integer itemId);
 
 }
