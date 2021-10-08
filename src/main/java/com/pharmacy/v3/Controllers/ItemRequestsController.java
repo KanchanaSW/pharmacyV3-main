@@ -43,7 +43,7 @@ public class ItemRequestsController {
     //view All requests ADMIN function
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/all")
-    public List<ItemRequests> viewAllNewItemRequests(){
+    public ResponseEntity<?> viewAllNewItemRequests(){
         return itemRequestsService.getAllNewItemRequestsService();
     }
 

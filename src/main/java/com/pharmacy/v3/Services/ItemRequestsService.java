@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemRequestsService {
@@ -57,17 +59,36 @@ public class ItemRequestsService {
     }
     public List<ItemRequests> getMyNewItemRequestsService(HttpServletRequest request) {
         User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
-        List<ItemRequests> list = itemRequestsRepository.findByUserOrderByItemRequestsIdDesc(user);
+
+        List<ItemRequests> list = itemRequestsRepository.findByUserOrderByItemRequestsIdDesc(user).
+                stream().map(this::mapRequests).collect(Collectors.toList());
         return list;
     }
 
     //Admin function
-    public List<ItemRequests> getAllNewItemRequestsService(){
+    public ResponseEntity<?> getAllNewItemRequestsService(){
 
         List<ItemRequests> list=itemRequestsRepository.findAll();
-
-        return list;
+        return ResponseEntity.ok().body(list);
     }
+
+    private ItemRequests mapRequests(ItemRequests ir){
+        return new ItemRequests(ir.getItemRequestsId(),ir.getNewItemName(),ir.getNote());
+    }
+    /*
+     //Admin function
+     public ResponseEntity<?> getAllNewItemRequestsService(){
+
+     List<ItemRequests> list=itemRequestsRepository.findAll();
+     List<String> newList=new ArrayList<String>();
+     for (ItemRequests i:list){
+     newList.add("Requested User : "+i.getUser().getUsername()+" Item Request Id : "+i.getItemRequestsId()+
+     " Requested Item Name : "+i.getNewItemName()+" Note : "+i.getNote());
+     }
+     return ResponseEntity.ok().body(newList);
+     }
+
+     */
 
 
 }

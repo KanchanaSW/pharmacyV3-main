@@ -27,6 +27,13 @@ public class ItemRequests {
 
     }
 
+    public ItemRequests(Integer itemRequestsId, String newItemName, String note) {
+        this.itemRequestsId=itemRequestsId;
+        this.newItemName = newItemName;
+        this.note = note;
+    }
+
+
     public Integer getItemRequestsId() {
         return itemRequestsId;
     }
