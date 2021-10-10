@@ -28,7 +28,7 @@ public class CartController {
     }
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/cartAll")
-    public List<Cart> viewMyCartItems(HttpServletRequest request) {
+    public ResponseEntity<?> viewMyCartItems(HttpServletRequest request) {
         return cartService.viewCartItems(request);
     }
 
@@ -47,7 +47,7 @@ public class CartController {
     //*****
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/cartAll/{userId}")
-    public List<Cart> getAllUnPurchasedCartItems(@PathVariable Integer userId, @RequestParam boolean isPurchased, HttpServletRequest request) {
+    public ResponseEntity<?> getAllUnPurchasedCartItems(@PathVariable Integer userId, @RequestParam boolean isPurchased, HttpServletRequest request) {
         return cartService.getAllPendingCartItems(userId, isPurchased, request);
     }
 

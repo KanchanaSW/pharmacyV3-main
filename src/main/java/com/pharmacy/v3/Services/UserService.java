@@ -22,23 +22,30 @@ public class UserService {
     }
 
     public ResponseEntity<?> getUserByUserId(Integer userId) {
-        if (userRepository.existsById(userId)) {
-            Optional<User> user = userRepository.findById(userId);
-            return ResponseEntity.ok(user);
+        try {
+            if (userRepository.existsById(userId)) {
+                Optional<User> user = userRepository.findById(userId);
+                return ResponseEntity.ok(user);
+            }
+            return ResponseEntity.badRequest().body(new MessageResponse("User not found!!!"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
-        return ResponseEntity.badRequest().body(new MessageResponse("User not found!!!"));
     }
 
     public ResponseEntity<MessageResponse> updateUserPasswordByUserId(Integer userId, String newPassword) {
-        if (userRepository.existsById(userId)) {
-            User user = userRepository.findById(userId).get();
-            user.setPassword(newPassword);
-            userRepository.save(user);
-            return ResponseEntity.ok(new MessageResponse("Successfully Updated"));
-        } else {
-            return ResponseEntity.badRequest().body(new MessageResponse("User not available!"));
+        try {
+            if (userRepository.existsById(userId)) {
+                User user = userRepository.findById(userId).get();
+                user.setPassword(newPassword);
+                userRepository.save(user);
+                return ResponseEntity.ok(new MessageResponse("Successfully Updated"));
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponse("User not available!"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
-
     }
 
     public User getUserByUserName(String username) {

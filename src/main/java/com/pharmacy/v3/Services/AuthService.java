@@ -38,56 +38,55 @@ public class AuthService {
         this.jwtUtils = jwtUtils;
 
     }
+
     public ResponseEntity<?> registerUserService(User registerUser) {
-        if (userRepository.existsByUsername(registerUser.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Username already taken!"));
-        }
-        if (userRepository.existsByEmail(registerUser.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Email already taken!")));
-        }
+        try {
+            if (userRepository.existsByUsername(registerUser.getUsername())) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Username already taken!"));
+            }
+            if (userRepository.existsByEmail(registerUser.getEmail())) {
+                return ResponseEntity.badRequest().body(new MessageResponse(("Email already taken!")));
+            }
+            //create a new user account after the checking
+            User user = new User(
+                    registerUser.getUsername(),
+                    registerUser.getEmail(),
+                    registerUser.getPhone(),
+                    passwordEncoder.encode(registerUser.getPassword())
+            );
 
-        //create a new user account after the checking
-        User user = new User(
-                registerUser.getUsername(),
-                registerUser.getEmail(),
-                registerUser.getPhone(),
-                passwordEncoder.encode(registerUser.getPassword())
-        );
-
-        Role role = roleService.getRoleByName("ROLE_USER");
-        user.setRole(role);
-        userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+            Role role = roleService.getRoleByName("ROLE_USER");
+            user.setRole(role);
+            userRepository.save(user);
+            return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error")));
+        }
     }
 
     public ResponseEntity<?> loginUserService(AuthRequest authRequest) {
-        System.out.println("with profile");
-        if (!userRepository.existsByUsername(authRequest.getUsername())) {
-            System.out.println("User name " + authRequest.getUsername() + " doesn't exist");
-            return ResponseEntity.ok("User name doesn't exist");
+        try {
+            if (!userRepository.existsByUsername(authRequest.getUsername())) {
+                return ResponseEntity.ok("User name doesn't exist");
+            }
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken((authentication));
+            Date expiretime = jwtUtils.expirationTime();
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    roles.get(0), expiretime));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error")));
         }
-        System.out.println("Username: "+ authRequest.getUsername());
-        System.out.println("Password: " + authRequest.getPassword());
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken((authentication));
-        Date expiretime = jwtUtils.expirationTime();
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-        System.out.println(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles.get(0), expiretime));
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles.get(0), expiretime));
     }
 }

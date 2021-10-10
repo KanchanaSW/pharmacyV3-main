@@ -24,41 +24,61 @@ public class CategoryService {
     }
 
     //add new category
-    public ResponseEntity<MessageResponse> addNewCategory(Category newCategory){
-        if (categoryRepository.existsByCategory(newCategory.getCategory())){
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: category already exists."));
+    public ResponseEntity<?> addNewCategory(Category newCategory) {
+        try {
+            if (categoryRepository.existsByCategory(newCategory.getCategory())) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Error: category already exists."));
+            }
+            Category category = new Category(newCategory.getCategory());
+            categoryRepository.save(category);
+            return ResponseEntity.ok().body(new MessageResponse("Success: Category added success."));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
-        Category category=new Category(newCategory.getCategory());
-        categoryRepository.save(category);
-        return ResponseEntity.ok().body(new MessageResponse("Success: Category added success."));
     }
 
     //delete a category
-    public ResponseEntity<?> deleteCategory(Integer id){
-        if (categoryRepository.existsById(id)){
-            if (!itemCatgRepo.existsByItemCategoryId(id)){
-                categoryRepository.deleteById(id);
-                return ResponseEntity.ok().body(new MessageResponse("Success: Category deleted success."));
-            }else{
-                return ResponseEntity.badRequest().body(new MessageResponse("Error: Unable to delete category "));
+    public ResponseEntity<?> deleteCategory(Integer id) {
+        try {
+            if (categoryRepository.existsById(id)) {
+                if (!itemCatgRepo.existsByItemCategoryId(id)) {
+                    categoryRepository.deleteById(id);
+                    return ResponseEntity.ok().body(new MessageResponse("Success: Category deleted success."));
+                } else {
+                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Unable to delete category "));
+                }
             }
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: No Category found with the name"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
-        return ResponseEntity.badRequest().body(new MessageResponse("Error: No Category found with the name"));
     }
 
     //public view all categories
-    public List<Category> getAllCategories(){
-        List<Category> categoryList=categoryRepository.findAllByOrderByCategoryIdDesc();
-        return categoryList;
+    public ResponseEntity<?> getAllCategories() {
+        try {
+            List<Category> categoryList = categoryRepository.findAllByOrderByCategoryIdDesc();
+            return ResponseEntity.ok().body(categoryList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
     }
 
-    public Iterable<ItemCategory> getAllItemCategories(){
-        Iterable<ItemCategory> list=itemCatgRepo.findAll();
-        return list;
+    public ResponseEntity<?> getAllItemCategories() {
+        try {
+            Iterable<ItemCategory> list = itemCatgRepo.findAll();
+            return ResponseEntity.ok().body(list);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
     }
 
-    public List<ItemCategory> getAllItemByCategoryId(Integer id){
-        List<ItemCategory> list=itemCatgRepo.findByItemCategoryId(id);
-        return list;
+    public ResponseEntity<?> getAllItemByCategoryId(Integer id) {
+        try {
+            List<ItemCategory> list = itemCatgRepo.findByItemCategoryId(id);
+            return ResponseEntity.ok().body(list);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
     }
 }

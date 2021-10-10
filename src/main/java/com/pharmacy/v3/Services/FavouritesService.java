@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FavouritesService {
@@ -30,7 +29,7 @@ public class FavouritesService {
 
     public ResponseEntity<?> onFavouritesItem(Integer itemId, HttpServletRequest request) {
         try {
-            Item item=itemRepository.findById(itemId).get();
+            Item item = itemRepository.findById(itemId).get();
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
 
             if (favouritesRepository.existsByItem(item) && favouritesRepository.existsByUser(user)) {
@@ -44,7 +43,7 @@ public class FavouritesService {
                 favouritesRepository.save(fav);
                 return ResponseEntity.ok().body(new MessageResponse("Success: Added to your Favourites"));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Item not found"));
         }
     }
@@ -54,7 +53,7 @@ public class FavouritesService {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
             List<Favourites> fav = favouritesRepository.findByUserOrderByFavouritesIdDesc(user);
             return ResponseEntity.ok().body(fav);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: no favourites"));
         }
     }
@@ -69,7 +68,7 @@ public class FavouritesService {
             } else {
                 return ResponseEntity.badRequest().body(new MessageResponse("Error: Could not found"));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Item not found"));
         }
     }

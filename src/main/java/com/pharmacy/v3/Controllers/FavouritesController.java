@@ -1,6 +1,5 @@
 package com.pharmacy.v3.Controllers;
 
-import com.pharmacy.v3.Models.Favourites;
 import com.pharmacy.v3.Services.FavouritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("api/fav")

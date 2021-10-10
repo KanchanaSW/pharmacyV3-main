@@ -36,61 +36,79 @@ public class OTPService {
     }
 
     public ResponseEntity<?> generateOPTSendEmail(Integer userId, String email) {
-        if (otpRepository.existsByUserUserId(userId)) {
-            OTP otp = otpRepository.findByUserUserId(userId);
-            int otpNum = generateOTP();
-            otp.setOtpNumber(otpNum);
-            otp.setUser(otp.getUser());
-            otp.setExpiryDate(10);
-            otpRepository.save(otp);
-            resetPassword.sendEmail(otp, email);
-            return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
-        } else {
-            User user = userRepository.findById(userId).get();
-            OTP otp = new OTP();
-            int otpNum = generateOTP();
-            otp.setOtpNumber(otpNum);
-            otp.setUser(user);
-            otp.setExpiryDate(10);
-            otpRepository.save(otp);
-            resetPassword.sendEmail(otp, email);
-            return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
-        }
-    }
-    public ResponseEntity<?> generateOTPEmail(String email) {
-        if (userRepository.existsByEmail(email)) {
-            User user = userRepository.findByEmail(email);
-            OTP otp = otpRepository.findByUserUserId(user.getUserId());
-            int otpNum = generateOTP();
-            otp.setOtpNumber(otpNum);
-            otp.setUser(otp.getUser());
-            otp.setExpiryDate(1);
-            otpRepository.save(otp);
-            resetPassword.sendEmail(otp, email);
-            return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
-        } else {
-            return ResponseEntity.ok().body(new MessageResponse("Error: "));
-        }
-    }
-    public ResponseEntity<?> checkOTPAvailable(Integer otpNumber) {
-        if (otpRepository.existsByOtpNumber(otpNumber)) {
-            OTP otp = otpRepository.findByOtpNumber(otpNumber);
-            Date today = Calendar.getInstance().getTime();
-            System.out.println(today);
-            if ((otp.getExpiryDate()).compareTo(today) > 0) {
-                return ResponseEntity.ok().body(new MessageResponse("Success: Valid OTP"));
+        try {
+            if (otpRepository.existsByUserUserId(userId)) {
+                OTP otp = otpRepository.findByUserUserId(userId);
+                int otpNum = generateOTP();
+                otp.setOtpNumber(otpNum);
+                otp.setUser(otp.getUser());
+                otp.setExpiryDate(10);
+                otpRepository.save(otp);
+                resetPassword.sendEmail(otp, email);
+                return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
             } else {
-                return ResponseEntity.ok().body(new MessageResponse(("Error: OTP is expired. Please generate a new one!")));
+                User user = userRepository.findById(userId).get();
+                OTP otp = new OTP();
+                int otpNum = generateOTP();
+                otp.setOtpNumber(otpNum);
+                otp.setUser(user);
+                otp.setExpiryDate(10);
+                otpRepository.save(otp);
+                resetPassword.sendEmail(otp, email);
+                return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
             }
-        } else {
-            return ResponseEntity.ok().body(new MessageResponse("Error: Please generate a new one"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
+    }
+
+    public ResponseEntity<?> generateOTPEmail(String email) {
+        try {
+            if (userRepository.existsByEmail(email)) {
+                User user = userRepository.findByEmail(email);
+                OTP otp = otpRepository.findByUserUserId(user.getUserId());
+                int otpNum = generateOTP();
+                otp.setOtpNumber(otpNum);
+                otp.setUser(otp.getUser());
+                otp.setExpiryDate(1);
+                otpRepository.save(otp);
+                resetPassword.sendEmail(otp, email);
+                return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
+            } else {
+                return ResponseEntity.ok().body(new MessageResponse("Error: "));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
+    }
+
+    public ResponseEntity<?> checkOTPAvailable(Integer otpNumber) {
+        try {
+            if (otpRepository.existsByOtpNumber(otpNumber)) {
+                OTP otp = otpRepository.findByOtpNumber(otpNumber);
+                Date today = Calendar.getInstance().getTime();
+                System.out.println(today);
+                if ((otp.getExpiryDate()).compareTo(today) > 0) {
+                    return ResponseEntity.ok().body(new MessageResponse("Success: Valid OTP"));
+                } else {
+                    return ResponseEntity.ok().body(new MessageResponse(("Error: OTP is expired. Please generate a new one!")));
+                }
+            } else {
+                return ResponseEntity.ok().body(new MessageResponse("Error: Please generate a new one"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
 
     public ResponseEntity<?> resetPassword(String password, Integer userId) {
-        User user = userRepository.findById(userId).get();
-        user.setPassword(passwordEncoder.encode(password));
-        userRepository.save(user);
-        return ResponseEntity.ok().body(new MessageResponse("Success: Password successfully updated"));
+        try {
+            User user = userRepository.findById(userId).get();
+            user.setPassword(passwordEncoder.encode(password));
+            userRepository.save(user);
+            return ResponseEntity.ok().body(new MessageResponse("Success: Password successfully updated"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
     }
 }
