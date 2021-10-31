@@ -64,8 +64,45 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/items/category/item-all/**").permitAll()
                 .antMatchers("/api/otp/password-change/**").permitAll()
                 .anyRequest().authenticated().and()
+
+                .formLogin()
+                .loginPage("/Home")
+                .loginProcessingUrl("/authenticate")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/SuccessLogin")
+                .permitAll().and()
+
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+      /*  http
+                .csrf().disable()
+
+                .authorizeRequests()
+                .antMatchers("/webjars/**", "/CSS/**", "/Images/**", "/visitor/authorize")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/api/auth/Home")
+                .loginProcessingUrl("/authenticate")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/SuccessLogin")
+                .permitAll()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .and().logout()
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/Home")
+                .permitAll();
+
+
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);*/
+
+     /*
+        */
     }
 }
