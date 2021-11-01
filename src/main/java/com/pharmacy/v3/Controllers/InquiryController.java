@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.InquiryDTO;
 import com.pharmacy.v3.Models.Inquiry;
 import com.pharmacy.v3.Services.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,14 @@ public class InquiryController {
     //add Inquiry
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping("/item/{itemId}")
-    public ResponseEntity<?> addInquiryByItemId(@PathVariable Integer itemId, @RequestBody Inquiry inquiry, HttpServletRequest request) {
+    public ResponseEntity<?> addInquiryByItemId(@PathVariable Integer itemId, @RequestBody InquiryDTO inquiry, HttpServletRequest request) {
         return inquiryService.addInquiryByItemId(itemId, inquiry, request);
     }
 
     //add reply
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/answer/{inquiryId}")
-    public ResponseEntity<?> addReplyByInquiryId(@PathVariable Integer inquiryId, @RequestBody Inquiry inquiry, HttpServletRequest request) {
+    public ResponseEntity<?> addReplyByInquiryId(@PathVariable Integer inquiryId, @RequestBody InquiryDTO inquiry, HttpServletRequest request) {
         return inquiryService.addReplyByInquiryId(inquiryId, inquiry);
     }
 

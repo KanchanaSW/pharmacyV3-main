@@ -1,5 +1,7 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.CartOrdersDTO;
+import com.pharmacy.v3.DTO.OrdersDTO;
 import com.pharmacy.v3.Models.*;
 import com.pharmacy.v3.Repositories.*;
 import com.pharmacy.v3.Response.MessageResponse;
@@ -56,7 +58,7 @@ public class OrdersService {
         return cartOrdersList;
     }
 
-    public ResponseEntity<?> addOrder(Orders newOrder, HttpServletRequest request) {
+    public ResponseEntity<?> addOrder(OrdersDTO newOrder, HttpServletRequest request) {
         try {
             String userName = request.getUserPrincipal().getName();
             User user = userRepository.findByUsername(userName).get();
@@ -74,7 +76,7 @@ public class OrdersService {
         }
     }
 
-    public ResponseEntity<MessageResponse> addCartOrders(CartOrders newCartOrders, HttpServletRequest request) {
+    public ResponseEntity<MessageResponse> addCartOrders(CartOrdersDTO newCartOrders, HttpServletRequest request) {
         try {
             CartOrders cartOrders = new CartOrders();
             cartOrders.setOrders(newCartOrders.getOrders());
@@ -92,7 +94,7 @@ public class OrdersService {
         }
     }
 
-    public ResponseEntity<?> updateOrderStatus(Integer cartOrdersId, CartOrders updateCartOrders) {
+    public ResponseEntity<?> updateOrderStatus(Integer cartOrdersId, CartOrdersDTO updateCartOrders) {
         try {
             if (cartOrdersRepository.existsById(cartOrdersId)) {
                 CartOrders cartOrders = cartOrdersRepository.findById(cartOrdersId).get();

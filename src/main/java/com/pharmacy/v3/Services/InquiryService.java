@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.InquiryDTO;
 import com.pharmacy.v3.Models.Inquiry;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Models.User;
@@ -29,7 +30,7 @@ public class InquiryService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<?> addInquiryByItemId(Integer itemId, Inquiry newInquiry, HttpServletRequest request) {
+    public ResponseEntity<?> addInquiryByItemId(Integer itemId, InquiryDTO newInquiry, HttpServletRequest request) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             String date = sdf.format(new Date());
@@ -69,7 +70,7 @@ public class InquiryService {
         }
     }
 
-    public ResponseEntity<?> addReplyByInquiryId(Integer inquiryId, Inquiry reply) {
+    public ResponseEntity<?> addReplyByInquiryId(Integer inquiryId, InquiryDTO reply) {
         try {
             if (inquiryRepository.existsById(inquiryId)) {
                 Inquiry inquiry = inquiryRepository.findById(inquiryId).get();

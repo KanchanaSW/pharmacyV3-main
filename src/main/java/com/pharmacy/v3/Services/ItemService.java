@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Models.ItemCategory;
@@ -25,7 +26,7 @@ public class ItemService {
     }
 
     //add item
-    public ResponseEntity<MessageResponse> addItem(Item newItem) {
+    public ResponseEntity<MessageResponse> addItem(ItemDTO newItem) {
         try {
             if (itemRepository.existsByItemName(newItem.getItemName())) {
                 return ResponseEntity.badRequest().body(new MessageResponse("Error: Product with the name exists!!"));
@@ -92,7 +93,7 @@ public class ItemService {
     }
 
     //update item details
-    public ResponseEntity<?> updateItemById(Integer itemId, Item updateItem) {
+    public ResponseEntity<?> updateItemById(Integer itemId, ItemDTO updateItem) {
         try {
             if (itemRepository.existsById(itemId)) {
                 Item item = itemRepository.findById(itemId).get();

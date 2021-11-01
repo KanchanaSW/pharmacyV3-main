@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.CartDTO;
 import com.pharmacy.v3.Models.Cart;
 import com.pharmacy.v3.Services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class CartController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/add-cart/{itemId}")
-    public ResponseEntity<?> addToCart(@PathVariable Integer itemId, @RequestBody Cart newCart, HttpServletRequest request) {
+    public ResponseEntity<?> addToCart(@PathVariable Integer itemId, @RequestBody CartDTO newCart, HttpServletRequest request) {
         return cartService.addNewCartToItem(itemId, newCart, request);
     }
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -41,7 +42,7 @@ public class CartController {
     //****
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/update-cart/{cartId}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCartItem(@PathVariable Integer cartId, @RequestBody Cart uCart, HttpServletRequest request) {
+    public ResponseEntity<?> updateCartItem(@PathVariable Integer cartId, @RequestBody CartDTO uCart, HttpServletRequest request) {
         return cartService.updateCartItem(cartId, uCart);
     }
     //*****

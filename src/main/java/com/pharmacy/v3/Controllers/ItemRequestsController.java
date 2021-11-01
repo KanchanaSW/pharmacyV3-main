@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.ItemRequestsDTO;
 import com.pharmacy.v3.Models.ItemRequests;
 import com.pharmacy.v3.Services.ItemRequestsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ItemRequestsController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/add-request")
-    public ResponseEntity<?> addItemRequests(@RequestBody ItemRequests itemRequests, HttpServletRequest request) {
+    public ResponseEntity<?> addItemRequests(@RequestBody ItemRequestsDTO itemRequests, HttpServletRequest request) {
         return itemRequestsService.addItemRequestsService(itemRequests, request);
     }
 

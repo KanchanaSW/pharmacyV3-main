@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class CategoryController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/admin/createCategory")
-    public ResponseEntity<?> addCategory(@RequestBody Category newCategory) {
+    public ResponseEntity<?> addCategory(@RequestBody CategoryDTO newCategory) {
         return categoryService.addNewCategory(newCategory);
     }
 

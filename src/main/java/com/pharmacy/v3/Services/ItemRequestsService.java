@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.ItemRequestsDTO;
 import com.pharmacy.v3.Models.ItemRequests;
 import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Repositories.ItemRepository;
@@ -27,7 +28,7 @@ public class ItemRequestsService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<?> addItemRequestsService(ItemRequests newRequestI, HttpServletRequest request) {
+    public ResponseEntity<?> addItemRequestsService(ItemRequestsDTO newRequestI, HttpServletRequest request) {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
 

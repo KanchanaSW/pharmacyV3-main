@@ -1,5 +1,7 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.CartOrdersDTO;
+import com.pharmacy.v3.DTO.OrdersDTO;
 import com.pharmacy.v3.Models.CartOrders;
 import com.pharmacy.v3.Models.Orders;
 import com.pharmacy.v3.Response.MessageResponse;
@@ -25,7 +27,7 @@ public class OrdersController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/cart/add-order")
-    public ResponseEntity<MessageResponse> addCartOrders(@RequestBody CartOrders newOrders, HttpServletRequest request) {
+    public ResponseEntity<MessageResponse> addCartOrders(@RequestBody CartOrdersDTO newOrders, HttpServletRequest request) {
         return ordersService.addCartOrders(newOrders, request);
     }
 
@@ -34,7 +36,7 @@ public class OrdersController {
     */
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/orders/add-order")
-    public ResponseEntity<?> addOrder(@RequestBody Orders orders, HttpServletRequest request) {
+    public ResponseEntity<?> addOrder(@RequestBody OrdersDTO orders, HttpServletRequest request) {
         return ordersService.addOrder(orders, request);
     }
 
@@ -52,7 +54,7 @@ public class OrdersController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PutMapping(value = "/order-update/{cartOrdersId}")
-    public ResponseEntity<?> updateOrderStatus(@PathVariable Integer cartOrdersId, @RequestBody CartOrders updateCartOrders, HttpServletRequest request) {
+    public ResponseEntity<?> updateOrderStatus(@PathVariable Integer cartOrdersId, @RequestBody CartOrdersDTO updateCartOrders, HttpServletRequest request) {
         return ordersService.updateOrderStatus(cartOrdersId, updateCartOrders);
     }
 

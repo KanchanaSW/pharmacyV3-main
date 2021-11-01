@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.Role;
 import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Repositories.UserRepository;
@@ -39,7 +40,7 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<?> registerUserService(User registerUser) {
+    public ResponseEntity<?> registerUserService(UserDTO registerUser) {
         try {
             if (userRepository.existsByUsername(registerUser.getUsername())) {
                 return ResponseEntity.badRequest().body(new MessageResponse("Username already taken!"));

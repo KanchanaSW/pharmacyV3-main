@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Request.AuthRequest;
 import com.pharmacy.v3.Services.AuthService;
@@ -28,7 +29,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User registerUser) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO registerUser) {
         return authService.registerUserService(registerUser);
     }
 

@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.ItemCategory;
 import com.pharmacy.v3.Repositories.CategoryRepository;
@@ -24,7 +25,7 @@ public class CategoryService {
     }
 
     //add new category
-    public ResponseEntity<?> addNewCategory(Category newCategory) {
+    public ResponseEntity<?> addNewCategory(CategoryDTO newCategory) {
         try {
             if (categoryRepository.existsByCategory(newCategory.getCategory())) {
                 return ResponseEntity.badRequest().body(new MessageResponse("Error: category already exists."));

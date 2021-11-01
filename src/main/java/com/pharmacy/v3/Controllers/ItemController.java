@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Response.MessageResponse;
 import com.pharmacy.v3.Services.ItemService;
@@ -29,7 +30,7 @@ public class ItemController {
     //add new item
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/admin/new-item")
-    public ResponseEntity<MessageResponse> addItem(@RequestBody Item item, HttpServletRequest request) {
+    public ResponseEntity<MessageResponse> addItem(@RequestBody ItemDTO item, HttpServletRequest request) {
         return itemService.addItem(item);
     }
 
@@ -54,7 +55,7 @@ public class ItemController {
     //update Item
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/updateItem/{itemId}")
-    public ResponseEntity<?> updateItem(@PathVariable Integer itemId, @RequestBody Item updateItem) {
+    public ResponseEntity<?> updateItem(@PathVariable Integer itemId, @RequestBody ItemDTO updateItem) {
         return itemService.updateItemById(itemId, updateItem);
     }
 

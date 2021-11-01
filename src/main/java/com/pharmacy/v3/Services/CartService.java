@@ -1,6 +1,7 @@
 package com.pharmacy.v3.Services;
 
 
+import com.pharmacy.v3.DTO.CartDTO;
 import com.pharmacy.v3.Models.Cart;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Models.User;
@@ -29,7 +30,7 @@ public class CartService {
     }
 
     //add new item to cart
-    public ResponseEntity<?> addNewCartToItem(Integer itemId, Cart newCart, HttpServletRequest request) {
+    public ResponseEntity<?> addNewCartToItem(Integer itemId, CartDTO newCart, HttpServletRequest request) {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
             Item item = itemRepository.findById(itemId).get();
@@ -55,7 +56,7 @@ public class CartService {
     }
 
     //Update Cart Items
-    public ResponseEntity<?> updateCartItem(Integer cartId, Cart uCart) {
+    public ResponseEntity<?> updateCartItem(Integer cartId, CartDTO uCart) {
         try {
             if (cartRepository.existsById(cartId)) {
                 Cart cart = cartRepository.findById(cartId).get();
