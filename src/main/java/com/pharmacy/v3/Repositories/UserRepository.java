@@ -2,6 +2,7 @@ package com.pharmacy.v3.Repositories;
 
 import com.pharmacy.v3.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -15,4 +16,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
+
+    @Query("SELECT u FROM User u WHERE u.username like ?1%")
+    User findUserByUsername(String username);
+
 }

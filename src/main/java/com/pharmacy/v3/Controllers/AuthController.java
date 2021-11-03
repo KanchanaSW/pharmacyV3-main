@@ -23,10 +23,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @GetMapping("/Home")
-    public String getLogin(){
-        return "Home";
-    }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO registerUser) {

@@ -62,25 +62,6 @@ public class OTPService {
         }
     }
 
-    public ResponseEntity<?> generateOTPEmail(String email) {
-        try {
-            if (userRepository.existsByEmail(email)) {
-                User user = userRepository.findByEmail(email);
-                OTP otp = otpRepository.findByUserUserId(user.getUserId());
-                int otpNum = generateOTP();
-                otp.setOtpNumber(otpNum);
-                otp.setUser(otp.getUser());
-                otp.setExpiryDate(1);
-                otpRepository.save(otp);
-                resetPassword.sendEmail(otp, email);
-                return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
-            } else {
-                return ResponseEntity.ok().body(new MessageResponse("Error: "));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }
-    }
 
     public ResponseEntity<?> checkOTPAvailable(Integer otpNumber) {
         try {
@@ -91,10 +72,10 @@ public class OTPService {
                 if ((otp.getExpiryDate()).compareTo(today) > 0) {
                     return ResponseEntity.ok().body(new MessageResponse("Success: Valid OTP"));
                 } else {
-                    return ResponseEntity.ok().body(new MessageResponse(("Error: OTP is expired. Please generate a new one!")));
+                    return ResponseEntity.badRequest().body(new MessageResponse(("Error: OTP is expired. Please generate a new one!")));
                 }
             } else {
-                return ResponseEntity.ok().body(new MessageResponse("Error: Please generate a new one"));
+                return ResponseEntity.badRequest().body(new MessageResponse("Error: Please generate a new one"));
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
@@ -104,6 +85,53 @@ public class OTPService {
     public ResponseEntity<?> resetPassword(String password, Integer userId) {
         try {
             User user = userRepository.findById(userId).get();
+            user.setPassword(passwordEncoder.encode(password));
+            userRepository.save(user);
+            return ResponseEntity.ok().body(new MessageResponse("Success: Password successfully updated"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
+    }
+///////////////////////
+    //// WEB
+    ///////////////////////
+    public ResponseEntity<?> sendOTPEmail(String email) {
+
+        try {
+            User u = userRepository.findByEmail(email);
+            Integer userId=u.getUserId();
+            if (otpRepository.existsByUserUserId(userId)) {
+                OTP otp = otpRepository.findByUserUserId(userId);
+                int otpNum = generateOTP();
+                otp.setOtpNumber(otpNum);
+                otp.setUser(otp.getUser());
+                otp.setExpiryDate(10);
+                otpRepository.save(otp);
+                resetPassword.sendEmail(otp, email);
+            } else {
+                User user = userRepository.findById(userId).get();
+                OTP otp = new OTP();
+                int otpNum = generateOTP();
+                otp.setOtpNumber(otpNum);
+                otp.setUser(user);
+                otp.setExpiryDate(10);
+                otpRepository.save(otp);
+                resetPassword.sendEmail(otp, email);
+            }
+            return ResponseEntity.ok().body(new MessageResponse("Success: Email has been sent to you!"));
+
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
+    }
+    public ResponseEntity<?> resetPasswordWithOTP(String password, Integer otp) {
+        try {
+            OTP u=otpRepository.findByOtpNumber(otp);
+            Integer un=u.getUser().getUserId();
+            User user = userRepository.findById(un).get();
+            System.out.println(u);
+
             user.setPassword(passwordEncoder.encode(password));
             userRepository.save(user);
             return ResponseEntity.ok().body(new MessageResponse("Success: Password successfully updated"));

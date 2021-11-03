@@ -49,7 +49,11 @@ public class UserService {
     }
 
     public User getUserByUserName(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username Not Found with username: " + username));
+        return userRepository.findByUsername(username).get();
+    }
+
+    public User directUserType(String username){
+        return userRepository.findUserByUsername(username);
     }
 
     public List<User> getAllUsers() {

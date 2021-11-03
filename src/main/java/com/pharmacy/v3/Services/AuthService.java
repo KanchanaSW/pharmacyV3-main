@@ -10,6 +10,7 @@ import com.pharmacy.v3.Response.MessageResponse;
 import com.pharmacy.v3.Security.Service.UserDetailsImpl;
 import com.pharmacy.v3.Security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,25 +44,27 @@ public class AuthService {
     public ResponseEntity<?> registerUserService(UserDTO registerUser) {
         try {
             if (userRepository.existsByUsername(registerUser.getUsername())) {
-                return ResponseEntity.badRequest().body(new MessageResponse("Username already taken!"));
+                //new MessageResponse("Username already taken!")
+                return ResponseEntity.badRequest().body(new MessageResponse(("Username already taken!")));
             }
-            if (userRepository.existsByEmail(registerUser.getEmail())) {
-                return ResponseEntity.badRequest().body(new MessageResponse(("Email already taken!")));
-            }
-            //create a new user account after the checking
-            User user = new User(
-                    registerUser.getUsername(),
-                    registerUser.getEmail(),
-                    registerUser.getPhone(),
-                    passwordEncoder.encode(registerUser.getPassword())
-            );
+            else if (userRepository.findByEmail(registerUser.getEmail()) != null) {
+               return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+            }else {
+                //create a new user account after the checking
+                User user = new User(
+                        registerUser.getUsername(),
+                        registerUser.getEmail(),
+                        registerUser.getPhone(),
+                        passwordEncoder.encode(registerUser.getPassword())
+                );
 
-            Role role = roleService.getRoleByName("ROLE_USER");
-            user.setRole(role);
-            userRepository.save(user);
-            return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+                Role role = roleService.getRoleByName("ROLE_USER");
+                user.setRole(role);
+                userRepository.save(user);
+                return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+            }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error")));
+            return ResponseEntity.badRequest().body(e);
         }
     }
 

@@ -63,17 +63,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/rate/item/rate/**").permitAll()
                 .antMatchers("/api/items/category/item-all/**").permitAll()
                 .antMatchers("/api/otp/password-change/**").permitAll()
+                .antMatchers("/api/otp/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and()
 
                 .formLogin()
                 .loginPage("/Home")
                 .loginProcessingUrl("/authenticate")
-                .usernameParameter("email")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/SuccessLogin")
-                .permitAll().and()
+                .permitAll()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .and().logout()
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/Home")
+                .permitAll();
 
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
       /*  http

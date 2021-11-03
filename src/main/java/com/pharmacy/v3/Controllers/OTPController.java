@@ -24,8 +24,8 @@ public class OTPController {
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/valid-check/{userId}")
-    public ResponseEntity<?> checkOTPAvailable(@PathVariable Integer userId, @RequestParam Integer otpNumber) {
+    @GetMapping(value = "/valid-check")
+    public ResponseEntity<?> checkOTPAvailable(@RequestParam Integer otpNumber) {
         return otpService.checkOTPAvailable(otpNumber);
     }
 
@@ -36,9 +36,11 @@ public class OTPController {
         return otpService.resetPassword(newPassword, userId);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/password-change/{email}")
-    public ResponseEntity<?> getEmailOnlyOtp(@PathVariable String email) {
-        return otpService.generateOTPEmail(email);
+
+//working
+    @PostMapping(value = "/send-otp-change")
+    public ResponseEntity<?> sendOTPEmail(@RequestParam String email) {
+        return otpService.sendOTPEmail(email);
+
     }
 }
