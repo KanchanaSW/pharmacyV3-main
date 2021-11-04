@@ -6,6 +6,9 @@
 </head>
 <body>
     <h1>Admin Home</h1>
-    <p>testin page</p>
+    <div class="card-read-more">
+        <a href="ViewAllUsers" class="btn btn-link btn-block">View All Users</a>
+        <a href="UpdateAUser" class="btn btn-link btn-block">Update my account</a>
+    </div>
 </body>
 </html>

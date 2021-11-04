@@ -40,6 +40,9 @@ public class WebAuthController {
         return "Home";
     }
 
+    @GetMapping("/UserHome")
+    public String getUserHome(){return "UserHome";}
+
     @GetMapping("/AdminHome")
     public String getAdminHome(){return "AdminHome";} //Admin page
 

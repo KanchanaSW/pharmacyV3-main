@@ -1,12 +1,19 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.UserDTO;
+import com.pharmacy.v3.Models.OTP;
 import com.pharmacy.v3.Models.User;
+import com.pharmacy.v3.Repositories.OTPRepository;
+import com.pharmacy.v3.Repositories.RoleRepository;
 import com.pharmacy.v3.Repositories.UserRepository;
 import com.pharmacy.v3.Response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,41 +22,39 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private OTPRepository otpRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<?> getUserByUserId(Integer userId) {
-        try {
-            if (userRepository.existsById(userId)) {
-                Optional<User> user = userRepository.findById(userId);
-                return ResponseEntity.ok(user);
-            }
-            return ResponseEntity.badRequest().body(new MessageResponse("User not found!!!"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }
-    }
+    public User updateUser(UserDTO userDTO){
+        Optional<User> user = userRepository.findById(userDTO.getUserId());
+        User u=user.get();
 
-    public ResponseEntity<MessageResponse> updateUserPasswordByUserId(Integer userId, String newPassword) {
-        try {
-            if (userRepository.existsById(userId)) {
-                User user = userRepository.findById(userId).get();
-                user.setPassword(newPassword);
-                userRepository.save(user);
-                return ResponseEntity.ok(new MessageResponse("Successfully Updated"));
-            } else {
-                return ResponseEntity.badRequest().body(new MessageResponse("User not available!"));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }
+        u.setEmail(userDTO.getEmail());
+        u.setPhone(userDTO.getPhone());
+        u.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        return userRepository.save(u);
     }
 
     public User getUserByUserName(String username) {
         return userRepository.findByUsername(username).get();
+    }
+
+    public User findUser(Integer userId){
+                Optional<User> user = userRepository.findById(userId);
+                User u = null;
+                if(user.isPresent()){
+                    u = user.get();
+                }
+                return u;
     }
 
     public User directUserType(String username){
@@ -59,5 +64,28 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+
+    public void deleteUser(Integer userID) {
+       /* if (otpRepository.existsByUserUserId(userID)){
+           OTP otp= otpRepository.findByUserUserId(userID);
+           otpRepository.delete(otp);
+        }*/
+        Optional<User> user = userRepository.findById(userID);
+        User u = null;
+
+        try {
+            if (otpRepository.existsByUserUserId(userID)) {
+                OTP otp = otpRepository.findByUserUserId(userID);
+                otpRepository.delete(otp);
+            }
+        } finally {
+            if(user.isPresent()){
+                u = user.get();
+                userRepository.delete(u);
+            }
+        }
+    }
+
 
 }

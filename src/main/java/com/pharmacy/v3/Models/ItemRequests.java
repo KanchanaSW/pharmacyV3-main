@@ -12,7 +12,7 @@ public class ItemRequests {
     private String newItemName;
     private String note;
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user")
     private User user;
 

@@ -15,7 +15,7 @@ public class User {
     private String phone;
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "role", referencedColumnName = "roleId")
     private Role role;
 

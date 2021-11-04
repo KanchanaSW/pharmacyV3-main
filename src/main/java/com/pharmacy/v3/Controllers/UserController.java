@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
+import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Response.MessageResponse;
 import com.pharmacy.v3.Services.UserService;
@@ -30,12 +31,14 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/user/{userId}")
     public ResponseEntity<?> getAUser(@PathVariable Integer userId) {
-        return userService.getUserByUserId(userId);
+        User user= userService.findUser(userId);
+        return ResponseEntity.ok(user);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PutMapping(value = "/reset-password/{userId}")
-    public ResponseEntity<MessageResponse> updateUserPasswordByUserId(@PathVariable Integer userId, @RequestBody String newPassword) {
-        return userService.updateUserPasswordByUserId(userId, newPassword);
+    @PutMapping(value = "/update-user/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable Integer userId, @RequestBody UserDTO userDTO) {
+        User user= userService.updateUser(userDTO);
+        return ResponseEntity.ok(user);
     }
 }
