@@ -4,6 +4,7 @@ import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Models.ItemCategory;
+import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Repositories.CategoryRepository;
 import com.pharmacy.v3.Repositories.ItemCatgRepo;
 import com.pharmacy.v3.Repositories.ItemRepository;
@@ -11,6 +12,10 @@ import com.pharmacy.v3.Response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemService {
@@ -70,26 +75,18 @@ public class ItemService {
     }
 
     //view all the items
-    public ResponseEntity<?> getAllItems() {
-        try {
-            return ResponseEntity.ok().body(itemRepository.findAll());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
     }
 
     //view item by id
-    public ResponseEntity<?> getItemById(Integer id) {
-        try {
-            if (!itemRepository.existsById(id)) {
-                return ResponseEntity.ok().body(new MessageResponse("Error: item not available"));
-            } else {
-                Item item = itemRepository.findById(id).get();
-                return ResponseEntity.ok().body(item);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+    public Item getItemById(Integer id) {
+        Optional<Item> item = itemRepository.findById(id);
+        Item u = null;
+        if(item.isPresent()){
+            u = item.get();
         }
+        return u;
     }
 
     //update item details
@@ -110,6 +107,16 @@ public class ItemService {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
+    }
+
+    public Item updateItem(ItemDTO updateItemDTO){
+        Optional<Item> item = itemRepository.findById(updateItemDTO.getItemId());
+        Item updateItem=item.get();
+        updateItem.setItemName(updateItem.getItemName());
+        updateItem.setDes(updateItem.getDes());
+        updateItem.setPrice(updateItem.getPrice());
+        updateItem.setQuantity(updateItem.getQuantity());
+        return itemRepository.save(updateItem);
     }
 /*
     public List<Item> getAllItemsByCategory(String itemCategoryName){

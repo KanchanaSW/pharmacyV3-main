@@ -6,6 +6,6 @@
 </head>
 <body>
     <h1>User Home</h1>
-    <p>testin page</p>
+    <a href="UpdateAUser" class="btn btn-link btn-block">Update my account</a>
 </body>
 </html>

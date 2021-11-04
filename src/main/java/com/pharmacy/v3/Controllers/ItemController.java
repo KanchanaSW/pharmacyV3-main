@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("api/items")
@@ -36,13 +37,14 @@ public class ItemController {
 
     //view all items
     @GetMapping(value = "/itemAll")
-    public ResponseEntity<?> getAllItems() {
-        return itemService.getAllItems();
+    public List<Item> getAllItems() {
+       return itemService.getAllItems();
     }
 
     @GetMapping(value = "/item/{itemId}")
     public ResponseEntity<?> getProductsById(@PathVariable Integer itemId) {
-        return itemService.getItemById(itemId);
+        Item item=itemService.getItemById(itemId);
+        return ResponseEntity.ok(item);
     }
 
     //delete item
