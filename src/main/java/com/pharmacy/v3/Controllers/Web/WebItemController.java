@@ -25,7 +25,11 @@ public class WebItemController {
     public String addNewItem(@ModelAttribute("newItem")ItemDTO itemDTO, Model model){
          try{
             ResponseEntity<?> newItem=itemService.addItem(itemDTO);
-            model.addAttribute("success", "Successfully Added");
+            if (newItem.getStatusCodeValue()==406){
+                model.addAttribute("error","item already found");
+            }else {
+                model.addAttribute("success", "Successfully Added");
+            }
         }catch(Exception e){
             model.addAttribute("error", "Failed add");
         }

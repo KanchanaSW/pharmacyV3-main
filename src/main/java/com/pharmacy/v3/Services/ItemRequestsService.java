@@ -8,11 +8,13 @@ import com.pharmacy.v3.Repositories.ItemRequestsRepository;
 import com.pharmacy.v3.Repositories.UserRepository;
 import com.pharmacy.v3.Response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +35,7 @@ public class ItemRequestsService {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
 
             if (itemRepository.existsByItemName(newRequestI.getNewItemName()) && itemRequestsRepository.existsByUser(user)) {
-                return ResponseEntity.badRequest().body(new MessageResponse("Error Item already exists check store"));
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new MessageResponse("exists"));
             } else {
                 ItemRequests ir = new ItemRequests();
                 ir.setNewItemName(newRequestI.getNewItemName());
@@ -51,10 +53,10 @@ public class ItemRequestsService {
         }
     }
 
-    public ResponseEntity<?> deleteItemRequestedService(Integer newItemId, HttpServletRequest request) {
+    public ResponseEntity<?> deleteItemRequestedService(Integer newItemId) {
         try {
-            User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
-            if (itemRequestsRepository.existsByUser(user) && itemRequestsRepository.existsById(newItemId)) {
+           // User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+            if (itemRequestsRepository.existsById(newItemId)) {
                 itemRequestsRepository.deleteById(newItemId);
                 return ResponseEntity.ok().body(new MessageResponse("Success: deleted success"));
             } else {
@@ -65,26 +67,43 @@ public class ItemRequestsService {
         }
     }
 
-    public ResponseEntity<?> getMyNewItemRequestsService(HttpServletRequest request) {
+    //view my requests
+    public List<ItemRequests> getMyNewItemRequestsService(HttpServletRequest request) {
+        User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+        List<ItemRequests> list = itemRequestsRepository.findByUserOrderByItemRequestsIdDesc(user).
+                stream().map(this::mapRequests).collect(Collectors.toList());
+        List<ItemRequests> list2=null;
+        if (! list.isEmpty()){
+            list2=list.stream().map(this::mapRequests).collect(Collectors.toList());
+        }
+        return list2;
+
+       /*
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
 
             List<ItemRequests> list = itemRequestsRepository.findByUserOrderByItemRequestsIdDesc(user).
                     stream().map(this::mapRequests).collect(Collectors.toList());
-            return ResponseEntity.ok().body(list);
+            return list;
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }
+        }*/
     }
 
     //Admin function
-    public ResponseEntity<?> getAllNewItemRequestsService() {
-        try {
+    public List<ItemRequests> getAllNewItemRequestsService() {
+        List<ItemRequests> list = itemRequestsRepository.findAll();
+        List<ItemRequests> list2=null;
+        if (! list.isEmpty()){
+            list2=list;
+        }
+        return list2;
+        /* try {
             List<ItemRequests> list = itemRequestsRepository.findAll();
             return ResponseEntity.ok().body(list);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }
+        }*/
     }
 
     private ItemRequests mapRequests(ItemRequests ir) {

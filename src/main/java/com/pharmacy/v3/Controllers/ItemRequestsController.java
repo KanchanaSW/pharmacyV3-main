@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("api/requests")
@@ -29,21 +30,21 @@ public class ItemRequestsController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @DeleteMapping(value = "/delete-request/{newItemRequestsId}")
-    public ResponseEntity<?> deleteNewItemRequests(@PathVariable Integer newItemRequestsId, HttpServletRequest request) {
-        return itemRequestsService.deleteItemRequestedService(newItemRequestsId, request);
+    public ResponseEntity<?> deleteNewItemRequests(@PathVariable Integer newItemRequestsId) {
+        return itemRequestsService.deleteItemRequestedService(newItemRequestsId);
     }
 
     //display all the item requests of a user
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/my-requests")
-    public ResponseEntity<?> viewMyNewItemRequests(HttpServletRequest request) {
+    public List<ItemRequests> viewMyNewItemRequests(HttpServletRequest request) {
         return itemRequestsService.getMyNewItemRequestsService(request);
     }
 
     //view All requests ADMIN function
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/all")
-    public ResponseEntity<?> viewAllNewItemRequests() {
+    public List<ItemRequests> viewAllNewItemRequests() {
         return itemRequestsService.getAllNewItemRequestsService();
     }
 

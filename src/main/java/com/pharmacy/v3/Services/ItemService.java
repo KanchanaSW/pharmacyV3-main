@@ -10,9 +10,10 @@ import com.pharmacy.v3.Repositories.ItemCatgRepo;
 import com.pharmacy.v3.Repositories.ItemRepository;
 import com.pharmacy.v3.Response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.stylesheets.LinkStyle;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -31,10 +32,10 @@ public class ItemService {
     }
 
     //add item
-    public ResponseEntity<MessageResponse> addItem(ItemDTO newItem) {
+    public ResponseEntity<?> addItem(ItemDTO newItem) {
         try {
             if (itemRepository.existsByItemName(newItem.getItemName())) {
-                return ResponseEntity.badRequest().body(new MessageResponse("Error: Product with the name exists!!"));
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new MessageResponse("exists"));
             }
             Item item = new Item();
             item.setItemName(newItem.getItemName());
@@ -109,6 +110,7 @@ public class ItemService {
         }
     }
 
+    //update function for web app
     public Item updateItem(ItemDTO updateItemDTO){
         Optional<Item> item = itemRepository.findById(updateItemDTO.getItemId());
         Item updateItem=item.get();
