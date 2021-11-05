@@ -67,9 +67,13 @@ public class WebItemRequestsController {
     public String allRequests(Model model){
         try {
             List<ItemRequests> allList= itemRequestsService.getAllNewItemRequestsService();
-            model.addAttribute("requests", allList);
+            if (! allList.isEmpty()) {
+                model.addAttribute("requests", allList);
+            }else {
+                model.addAttribute("error","empty");
+            }
         }catch (Exception e){
-            model.addAttribute("error","empty");
+            model.addAttribute("error","error");
         }
         return "ViewMyRequests";
     }

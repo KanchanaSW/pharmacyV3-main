@@ -10,12 +10,14 @@ import com.pharmacy.v3.Repositories.UserRepository;
 import com.pharmacy.v3.Response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InquiryService {
@@ -52,22 +54,22 @@ public class InquiryService {
         }
     }
 
-    public ResponseEntity<?> getAllInquiryByItemId(Integer itemId) {
-        try {
-            List<Inquiry> list = inquiryRepository.findByItemItemId(itemId);
-            return ResponseEntity.ok().body(list);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(new MessageResponse("None found "));
+    public List<Inquiry> getAllInquiryByItemId(Integer itemId) {
+        List<Inquiry> list = inquiryRepository.findByItemItemId(itemId);
+        List<Inquiry> list2=null;
+        if (! list.isEmpty()){
+            list2=list;
         }
+        return list2;
     }
 
-    public ResponseEntity<?> getAllInquiryIsReplied(boolean isReplied) {
-        try {
-            List<Inquiry> list = inquiryRepository.findByIsReplied(isReplied);
-            return ResponseEntity.ok().body(list);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(new MessageResponse("None found "));
+    public List<Inquiry> getAllInquiryIsReplied(boolean isReplied) {
+        List<Inquiry> list = inquiryRepository.findByIsReplied(isReplied);
+        List<Inquiry> list2=null;
+        if (! list.isEmpty()){
+            list2=list;
         }
+        return list2;
     }
 
     public ResponseEntity<?> addReplyByInquiryId(Integer inquiryId, InquiryDTO reply) {
@@ -86,25 +88,48 @@ public class InquiryService {
         }
     }
 
-    public ResponseEntity<?> getInquiryById(Integer inquiryId) {
+    public Inquiry getInquiryById(Integer inquiryId) {
+        Optional<Inquiry> info=inquiryRepository.findById(inquiryId);
+        Inquiry iq=null;
+        if (info.isPresent()){
+            iq=info.get();
+        }
+        return iq;
+        /*
         try {
             Inquiry inquiry=inquiryRepository.findById(inquiryId).get();
             return ResponseEntity.ok().body(inquiry);
         }catch (Exception e){
             return ResponseEntity.badRequest().body(new MessageResponse("None found "));
-        }
+        }*/
     }
 
-    public ResponseEntity<?> deleteInquiry(Integer inquiryId,HttpServletRequest request) {
+    public ResponseEntity<?> deleteInquiry(Integer inquiryId) {
         try {
             if (inquiryRepository.existsById(inquiryId)){
                 inquiryRepository.deleteById(inquiryId);
                 return ResponseEntity.ok().body(new MessageResponse("Success: deleted inquiry"));
             }else {
-                return ResponseEntity.badRequest().body(new MessageResponse("Error: Inquiry dont exists "));
+                return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: Inquiry dont exists "));
             }
         }catch (Exception e){
             return ResponseEntity.badRequest().body(new MessageResponse("Error "));
+        }
+    }
+
+    public List<Inquiry> allInquires(){
+        try {
+            return inquiryRepository.findAll();
+        }catch (Exception e){
+            return null;
+        }
+    }
+    public List<Inquiry> myInquires(Authentication authentication){
+        try {
+            User user=userRepository.findUserByUsername(authentication.getName());
+            return inquiryRepository.findByUserUserId(user.getUserId());
+        }catch (Exception e){
+            return null;
         }
     }
 }
