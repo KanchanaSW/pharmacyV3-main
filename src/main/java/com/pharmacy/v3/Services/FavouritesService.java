@@ -35,7 +35,7 @@ public class FavouritesService {
             if (favouritesRepository.existsByItem(item) && favouritesRepository.existsByUser(user)) {
                 Favourites deleteFavourite = favouritesRepository.findByItemAndUser(item, user);
                 favouritesRepository.delete(deleteFavourite);
-                return ResponseEntity.ok().body(new MessageResponse("Success: Removed from your Favourites"));
+                return ResponseEntity.unprocessableEntity().body(new MessageResponse("Success: Removed from your Favourites"));
             } else {
                 Favourites fav = new Favourites();
                 fav.setItem(item);
@@ -48,28 +48,28 @@ public class FavouritesService {
         }
     }
 
-    public ResponseEntity<?> getAllFavouritesItemsByUserToken(HttpServletRequest request) {
+    public List<Favourites> getAllFavouritesItemsByUserToken(HttpServletRequest request) {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
             List<Favourites> fav = favouritesRepository.findByUserOrderByFavouritesIdDesc(user);
-            return ResponseEntity.ok().body(fav);
+            return fav;
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: no favourites"));
+            return null;
         }
     }
 
-    public ResponseEntity<?> getFavouriteItem(Integer itemId, HttpServletRequest request) {
+    public Favourites getFavouriteItem(Integer itemId, HttpServletRequest request) {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
             Item item = itemRepository.findById(itemId).get();
             if (favouritesRepository.existsByItem(item) && favouritesRepository.existsByUser(user)) {
                 Favourites fav = favouritesRepository.findByItem(item);
-                return ResponseEntity.ok().body(fav);
+                return fav;
             } else {
-                return ResponseEntity.badRequest().body(new MessageResponse("Error: Could not found"));
+                return null;
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Item not found"));
+            return null;
         }
     }
 
