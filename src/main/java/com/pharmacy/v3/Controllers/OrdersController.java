@@ -32,7 +32,7 @@ public class OrdersController {
     }
 
     /* add order
-    {"total": 1000,"status": true,"date": "06/10/2021","city": "Rukmale", "address": "235/10 New Town" }
+    {"total": 1000,"status": "pending","date": "06/10/2021","city": "Rukmale", "address": "235/10 New Town" }
     */
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/orders/add-order")
@@ -41,9 +41,9 @@ public class OrdersController {
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/status/{orderStatus}/user/{userId}")
-    public List<Orders> getAllUserOrdersByStatus(@PathVariable Integer userId, @PathVariable String orderStatus, HttpServletRequest request) {
-        return ordersService.getAllUserOrders(userId, orderStatus, request);
+    @GetMapping(value = "/orders/user-orders")
+    public List<Orders> getAllUserOrdersByStatus(HttpServletRequest request) {
+        return ordersService.getAllUserOrders("pending",request);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -53,9 +53,9 @@ public class OrdersController {
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PutMapping(value = "/order-update/{cartOrdersId}")
-    public ResponseEntity<?> updateOrderStatus(@PathVariable Integer cartOrdersId, @RequestBody CartOrdersDTO updateCartOrders, HttpServletRequest request) {
-        return ordersService.updateOrderStatus(cartOrdersId, updateCartOrders);
+    @PutMapping(value = "/order-update")
+    public ResponseEntity<?> updateOrderStatus( @RequestBody CartOrdersDTO updateCartOrders, HttpServletRequest request) {
+        return ordersService.updateOrderStatus(updateCartOrders.getCartOrdersId(), updateCartOrders);
     }
 
     /////////
@@ -67,14 +67,14 @@ public class OrdersController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping("/cart-orders/{userId}")
-    public List<CartOrders> getAllCartOrdersByUserId(@PathVariable Integer userId, HttpServletRequest request) {
-        return ordersService.getAllCartOrdersByUserId(userId, request);
+    public List<CartOrders> getAllCartOrdersByUserId(HttpServletRequest request) {
+        return ordersService.getAllCartOrdersByUserId(request);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/all/{status}")
-    public List<Orders> getAllPendingOrdersByStatus(@PathVariable String status, HttpServletRequest request) {
-        return ordersService.getAllPendingOrdersByStatus(status);
+    @GetMapping("/allOrders")
+    public List<Orders> getAllPendingOrdersByStatus() {
+        return ordersService.getAllPendingOrdersByStatus("pending");
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")

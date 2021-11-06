@@ -31,8 +31,9 @@ public class OrdersService {
         this.cartOrdersRepository = cartOrdersRepository;
     }
 
-    public List<Orders> getAllUserOrders(Integer userId, String status, HttpServletRequest request) {
-        User user = userRepository.findById(userId).get();
+    public List<Orders> getAllUserOrders(String status, HttpServletRequest request) {
+        String userName = request.getUserPrincipal().getName();
+        User user = userRepository.findByUsername(userName).get();
         List<Orders> ordersList = ordersRepository.findByUserAndStatusOrderByOrdersIdDesc(user, status);
         return ordersList;
     }
@@ -49,12 +50,18 @@ public class OrdersService {
     }
 
     public Orders getAOrderById(Integer orderId) {
-        Orders orders = ordersRepository.findById(orderId).get();
-        return orders;
+        if (ordersRepository.existsById(orderId)) {
+            Orders orders = ordersRepository.findById(orderId).get();
+            return orders;
+        }else {
+            return null;
+        }
     }
 
-    public List<CartOrders> getAllCartOrdersByUserId(Integer userId, HttpServletRequest request) {
-        List<CartOrders> cartOrdersList = cartOrdersRepository.findByOrdersUserUserIdOrderByCartOrdersId(userId);
+    public List<CartOrders> getAllCartOrdersByUserId(HttpServletRequest request) {
+        String userName = request.getUserPrincipal().getName();
+        User user = userRepository.findByUsername(userName).get();
+        List<CartOrders> cartOrdersList = cartOrdersRepository.findByOrdersUserUserIdOrderByCartOrdersId(user.getUserId());
         return cartOrdersList;
     }
 
@@ -65,7 +72,7 @@ public class OrdersService {
             Orders orders = new Orders();
             orders.setUser(user);
             orders.setTotal(newOrder.getTotal());
-            orders.setStatus(newOrder.getStatus());
+            orders.setStatus("pending");
             orders.setDate(newOrder.getDate());
             orders.setCity(newOrder.getCity());
             orders.setAddress(newOrder.getAddress());
@@ -91,6 +98,14 @@ public class OrdersService {
             return ResponseEntity.ok().body(new MessageResponse("Success: Your orders are placed."));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
+    }
+    public CartOrders getByCartOrdersId(Integer cartOrdersId){
+        if (cartOrdersRepository.existsById(cartOrdersId)) {
+            CartOrders cartOrders = cartOrdersRepository.findById(cartOrdersId).get();
+            return cartOrders;
+        }else{
+            return null;
         }
     }
 
