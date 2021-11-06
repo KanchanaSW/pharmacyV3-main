@@ -30,7 +30,12 @@ public class CartController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/cartAll")
     public ResponseEntity<?> viewMyCartItems(HttpServletRequest request) {
-        return cartService.viewCartItems(request);
+        List<Cart> list=cartService.viewCartItems(request);
+        if (list.isEmpty()){
+            return ResponseEntity.ok().body("empty");
+        }else{
+            return ResponseEntity.ok().body(list);
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -47,11 +52,16 @@ public class CartController {
     }
     //*****
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/cartAll/{userId}")
-    public ResponseEntity<?> getAllUnPurchasedCartItems(@PathVariable Integer userId, @RequestParam boolean isPurchased, HttpServletRequest request) {
-        return cartService.getAllPendingCartItems(userId, isPurchased, request);
+    @GetMapping(value = "/cartAll")
+    public ResponseEntity<?> getAllUnPurchasedCartItems(HttpServletRequest request) {
+        List<Cart> list =cartService.getAllPendingCartItems(false, request);
+        if (list.isEmpty()){
+            return ResponseEntity.ok().body("Empty");
+        }else{
+            return ResponseEntity.ok().body(list);
+        }
     }
-
+    //delete whole cart
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @DeleteMapping(value = "/delete/{cartId}")
     public ResponseEntity<?> deleteCartId(@PathVariable Integer cartId) {

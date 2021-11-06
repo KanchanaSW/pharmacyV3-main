@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartService {
@@ -66,12 +67,20 @@ public class CartService {
                 cartRepository.save(cart);
                 return ResponseEntity.ok().body(new MessageResponse("Success: Updated Success"));
             }
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: updated un-successfull"));
+            return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: updated un-successfull"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
 
+    public Cart getCartFromId(Integer cartId){
+        Optional<Cart> cart=cartRepository.findById(cartId);
+        Cart c=null;
+        if (cart.isPresent()){
+            c=cart.get();
+        }
+        return c;
+    }
     //delete an item from the cart
     public ResponseEntity<?> deleteItemFromCart(Integer itemId, HttpServletRequest request) {
         try {
@@ -81,7 +90,7 @@ public class CartService {
                 cartRepository.delete(cart);
                 return ResponseEntity.ok().body(new MessageResponse("Success: Item deleted."));
             } else {
-                return ResponseEntity.ok().body(new MessageResponse("Error: item not available"));
+                return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: item not available"));
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
@@ -96,7 +105,7 @@ public class CartService {
                 cartRepository.delete(cart);
                 return ResponseEntity.ok().body(new MessageResponse("Success: Cart deleted."));
             } else {
-                return ResponseEntity.ok().body(new MessageResponse("Error: cart not available"));
+                return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: cart not available"));
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
@@ -104,24 +113,25 @@ public class CartService {
     }
 
     //display cart list
-    public ResponseEntity<?> viewCartItems(HttpServletRequest request) {
+    public List<Cart> viewCartItems(HttpServletRequest request) {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
             List<Cart> cartList = cartRepository.findByUserAndIsPurchased(user, false);
-            return ResponseEntity.ok().body(cartList);
+            return cartList;
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+            return null;
         }
     }
 
     //get all pending cart items
-    public ResponseEntity<?> getAllPendingCartItems(Integer userId, boolean isPurchased, HttpServletRequest request) {
+    public List<Cart> getAllPendingCartItems( boolean isPurchased, HttpServletRequest request) {
         try {
-            User user = userRepository.findById(userId).get();
+            User u = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+            User user = userRepository.findById(u.getUserId()).get();
             List<Cart> pendingCartList = cartRepository.findByUserAndIsPurchased(user, isPurchased);
-            return ResponseEntity.ok().body(pendingCartList);
+            return pendingCartList;
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+            return null;
         }
     }
 
