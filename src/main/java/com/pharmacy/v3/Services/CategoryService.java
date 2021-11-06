@@ -28,7 +28,7 @@ public class CategoryService {
     public ResponseEntity<?> addNewCategory(CategoryDTO newCategory) {
         try {
             if (categoryRepository.existsByCategory(newCategory.getCategory())) {
-                return ResponseEntity.badRequest().body(new MessageResponse("Error: category already exists."));
+                return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: category already exists."));
             }
             Category category = new Category(newCategory.getCategory());
             categoryRepository.save(category);
@@ -46,7 +46,7 @@ public class CategoryService {
                     categoryRepository.deleteById(id);
                     return ResponseEntity.ok().body(new MessageResponse("Success: Category deleted success."));
                 } else {
-                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Unable to delete category "));
+                    return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: Unable to delete category "));
                 }
             }
             return ResponseEntity.badRequest().body(new MessageResponse("Error: No Category found with the name"));
@@ -56,30 +56,30 @@ public class CategoryService {
     }
 
     //public view all categories
-    public ResponseEntity<?> getAllCategories() {
+    public List<Category> getAllCategories() {
         try {
             List<Category> categoryList = categoryRepository.findAllByOrderByCategoryIdDesc();
-            return ResponseEntity.ok().body(categoryList);
+            return categoryList;
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+            return null;
         }
     }
 
-    public ResponseEntity<?> getAllItemCategories() {
+    public List<ItemCategory> getAllItemCategories() {
         try {
-            Iterable<ItemCategory> list = itemCatgRepo.findAll();
-            return ResponseEntity.ok().body(list);
+            List<ItemCategory> list = itemCatgRepo.findAll();
+            return list;
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+            return null;
         }
     }
 
-    public ResponseEntity<?> getAllItemByCategoryId(Integer id) {
+    public List<ItemCategory> getAllItemByCategoryId(Integer id) {
         try {
             List<ItemCategory> list = itemCatgRepo.findByItemCategoryId(id);
-            return ResponseEntity.ok().body(list);
+            return list;
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+            return null;
         }
     }
 }
