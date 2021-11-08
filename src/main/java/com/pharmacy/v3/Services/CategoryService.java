@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,7 +60,12 @@ public class CategoryService {
             return null;
         }
     }
+
+
     public Category getCategory(String categoryName){
+        return categoryRepository.categoryIs(categoryName);
+
+        /*
         try{
             if (categoryRepository.existsByCategory(categoryName)){
                 return categoryRepository.categoryIs(categoryName);
@@ -68,7 +74,7 @@ public class CategoryService {
             }
         }catch (Exception e){
             return null;
-        }
+        }*/
     }
 
 /*

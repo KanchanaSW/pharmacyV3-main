@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.Item;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +43,7 @@ public class ItemService {
             item.setDes(newItem.getDes());
             item.setPrice(newItem.getPrice());
             item.setQuantity(newItem.getQuantity());
-            Category category=categoryService.getCategory(newItem.getCategory().getCategory());
+            Category category=categoryService.getCategory(newItem.getCategoryName());
             item.setCategory(category);
             itemRepository.save(item);
 
@@ -66,18 +68,49 @@ public class ItemService {
     }
 
     //view all the items
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
+    public List<ItemDTO> getAllItems() {
+        List<ItemDTO> list=new ArrayList<>();
+        for (Item item : itemRepository.findAll()){
+            ItemDTO i=new ItemDTO();
+            i.setItemId(item.getItemId());
+            i.setItemName(item.getItemName());
+            i.setDes(item.getDes());
+            i.setPrice(item.getPrice());
+            i.setQuantity(item.getQuantity());
+            i.setCategoryName(item.getCategory().getCategory());
+            list.add(i);
+        }
+        return list;
     }
 
+    /*
+    //view categories in addd item page
+    public List<CategoryDTO> getAllCate(){
+        List<CategoryDTO> list=new ArrayList<>();
+        for (Category category : categoryRepository.findAll()){
+            CategoryDTO categoryDTO=new CategoryDTO();
+            categoryDTO.setCategory(category.getCategory());
+            categoryDTO.setCategoryId(category.getCategoryId());
+            list.add(categoryDTO);
+        }
+        return list;
+    }
+    */
     //view item by id
-    public Item getItemById(Integer id) {
+    public ItemDTO getItemById(Integer id) {
         Optional<Item> item = itemRepository.findById(id);
-        Item u = null;
+        ItemDTO info=new ItemDTO();
+        Item u=null;
         if(item.isPresent()){
             u = item.get();
+            info.setItemId(u.getItemId());
+            info.setItemName(u.getItemName());
+            info.setDes(u.getDes());
+            info.setQuantity(u.getQuantity());
+            info.setPrice(u.getPrice());
+            info.setCategoryName(u.getCategory().getCategory());
         }
-        return u;
+        return info;
     }
 
     //update item details
@@ -89,27 +122,19 @@ public class ItemService {
                 item.setDes(updateItem.getDes());
                 item.setPrice(updateItem.getPrice());
                 item.setQuantity(updateItem.getQuantity());
+                Category category=categoryService.getCategory(updateItem.getCategoryName());
+                item.setCategory(category);
                 itemRepository.save(item);
 
                 return ResponseEntity.ok().body(item);
             } else {
-                return ResponseEntity.ok().body("Error: Item not available with the name");
+                return ResponseEntity.unprocessableEntity().body("Error: Item not available with the name");
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
 
-    //update function for web app
-    public Item updateItem(ItemDTO updateItemDTO){
-        Optional<Item> item = itemRepository.findById(updateItemDTO.getItemId());
-        Item updateItem=item.get();
-        updateItem.setItemName(updateItem.getItemName());
-        updateItem.setDes(updateItem.getDes());
-        updateItem.setPrice(updateItem.getPrice());
-        updateItem.setQuantity(updateItem.getQuantity());
-        return itemRepository.save(updateItem);
-    }
 /*
     public List<Item> getAllItemsByCategory(String itemCategoryName){
         List<Item> itemList=itemRepository.findByItemCategoryName(itemCategoryName);

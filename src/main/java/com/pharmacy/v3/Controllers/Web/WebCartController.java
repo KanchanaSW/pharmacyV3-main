@@ -1,6 +1,7 @@
 package com.pharmacy.v3.Controllers.Web;
 
 import com.pharmacy.v3.DTO.CartDTO;
+import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Cart;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Services.CartService;
@@ -27,7 +28,7 @@ public class WebCartController {
     @GetMapping(value = "/Add2CartViewItem/{itemId}")
     public String viewAnItem(@PathVariable(name = "itemId")Integer itemId, Model model){
         try{
-            Item item= itemService.getItemById(itemId);
+            ItemDTO item= itemService.getItemById(itemId);
             model.addAttribute("itemInfo",item);
         }catch (Exception e){
             model.addAttribute("error" ,"empty");

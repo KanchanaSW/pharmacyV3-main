@@ -1,7 +1,10 @@
 package com.pharmacy.v3.Controllers.Web;
 
+import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.DTO.ItemDTO;
+import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.Item;
+import com.pharmacy.v3.Services.CategoryService;
 import com.pharmacy.v3.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +22,24 @@ public class WebItemController {
     private EntityManager entityManager;
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private CategoryService categoryService;
 
+    //redirecting to Add item page.
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/NewItem")
-    public String addNewItem(@ModelAttribute("newItem")ItemDTO itemDTO, Model model){
+    @GetMapping(value = "/NewItemPage")
+    public String newItemPage(Model model){
+        List<Category> catList=categoryService.getAllCategories();
+
+        model.addAttribute("cate",catList);
+        model.addAttribute("AddItem",new ItemDTO());
+        return "AddItem";
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/AddItem")
+    public String addNewItem(@ModelAttribute("AddItem")ItemDTO itemDTO, Model model){
          try{
+            // System.out.println("////////"+itemDTO.getCategoryName());
             ResponseEntity<?> newItem=itemService.addItem(itemDTO);
             if (newItem.getStatusCodeValue()==406){
                 model.addAttribute("error","item already found");
@@ -33,15 +49,15 @@ public class WebItemController {
         }catch(Exception e){
             model.addAttribute("error", "Failed add");
         }
-         return "AddItem";
+         return "redirect:/ViewAllItems";
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/ViewAllItems")
     public String viewAllItems(Model model){
         try {
-            List<Item> allItems = itemService.getAllItems();
-            model.addAttribute("newItem", allItems);
+            List<ItemDTO> allItems = itemService.getAllItems();
+            model.addAttribute("info", allItems);
         }catch (Exception e){
             model.addAttribute("error","empty");
         }
@@ -51,7 +67,7 @@ public class WebItemController {
     @GetMapping(value = "/ViewItem/{itemId}")
     public String viewAnItem(@PathVariable(name = "itemId")Integer itemId, Model model){
         try{
-            Item item= itemService.getItemById(itemId);
+            ItemDTO item= itemService.getItemById(itemId);
             model.addAttribute("itemInfo",item);
         }catch (Exception e){
             model.addAttribute("error" ,"empty");
@@ -73,23 +89,33 @@ public class WebItemController {
     }
     //redirecting to update page.
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping(value = "/UpdateItemPage/{itemId}")
+    @RequestMapping(value = "/UpdateItemPage/{itemId}")
     public String updateItemPage(@PathVariable(name = "itemId")Integer itemId,Model model){
-        Item item= itemService.getItemById(itemId);
+        ItemDTO item= itemService.getItemById(itemId);
+        if (item==null){
+            model.addAttribute("error","empty");
+        }
+        List<Category> catList=categoryService.getAllCategories();
+        model.addAttribute("cate",catList);
+
         model.addAttribute("itemInfo",item);
         model.addAttribute("updateInfo",new ItemDTO());
         return "UpdateItem";
     }
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping(value = "/UpdateItem")
+    @RequestMapping(value = "/UpdateItem")
     public String updateItem(@ModelAttribute("updateInfo")ItemDTO itemDTO,Model model){
         try{
-            itemService.updateItem(itemDTO);
-            model.addAttribute("success", "Successfully Updated The Item");
+           ResponseEntity<?>uI= itemService.updateItemById(itemDTO.getItemId(),itemDTO);
+            if (uI.getStatusCodeValue()==200){
+                model.addAttribute("success", "Successfully Updated The Item");
+            }else {
+                model.addAttribute("success", "failed to edit");
+            }
         }catch(Exception e){
             model.addAttribute("error", "Failed To Update The Item");
         }
-        return "/UpdateItem";
+        return "redirect:/ViewAllItems";
     }
 }
 

@@ -37,13 +37,13 @@ public class ItemController {
 
     //view all items
     @GetMapping(value = "/itemAll")
-    public List<Item> getAllItems() {
+    public List<ItemDTO> getAllItems() {
        return itemService.getAllItems();
     }
 
     @GetMapping(value = "/item/{itemId}")
     public ResponseEntity<?> getProductsById(@PathVariable Integer itemId) {
-        Item item=itemService.getItemById(itemId);
+        ItemDTO item=itemService.getItemById(itemId);
         return ResponseEntity.ok(item);
     }
 

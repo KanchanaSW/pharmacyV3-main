@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Add Item</title>
+    <title>Edit Item</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -43,15 +43,15 @@
         <span aria-hidden="true">&times;</span>
     </button>
 
-    <h4 class="card-title">Add New Item</h4>
-    <form:form action="${pageContext.request.contextPath}/AddItem" method="POST" modelAttribute="AddItem">
+    <h4 class="card-title">Edit Item</h4>
+    <form:form action="/UpdateItem" method="POST" modelAttribute="updateInfo">
 
+        <input id="itemId" name="itemId" value="${itemInfo.itemId}" type = "hidden" />
         <div class="row">
             <div class="col-sm">
                 <label for="itemName">Item Name:</label>
-                <input type="text" class="form-control" id="itemName" placeholder="Panadol" name="itemName"
-                       required>
-                <div class="itemNameError">
+                <input type="text" class="form-control" id="itemName" value="${itemInfo.itemName}" name="itemName"readonly="true" >
+                    <div class="itemNameError">
                     <div>${nError}</div>
                 </div>
             </div>
@@ -60,15 +60,14 @@
         <div class="row">
             <div class="col-sm">
                 <label for="des">Description:</label>
-                <textarea class="form-control z-depth-1" rows="3" cols="47" name="des" id="des"
-                          placeholder="Enter description here..."></textarea>
+                <textarea  class="form-control z-depth-1" rows="3" cols="47" name="des" id="des">${itemInfo.des}</textarea>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm">
                 <label for="quantity">Quantity:</label>
-                <input type="number" class="form-control" id="quantity" placeholder="500" name="quantity"
+                <input type="number" class="form-control" id="quantity" value="${itemInfo.quantity}" name="quantity"
                        required>
                 <div class="quantityError">
                     <div>${qError}</div>
@@ -76,20 +75,21 @@
             </div>
 
             <div class="col-sm">
-               <label>Category:</label><br>
-                <select name="categoryName" id="categoryName">
+                <label>Category:</label><br>
+               <!-- <input type="text" readonly="true" class="form-control" id="categoryName" value="${itemInfo.categoryName}" name="categoryName">-->
+
+                <select name="categoryName" id="categoryName" >
                     <c:forEach var="cate" items="${cate}" varStatus="item">
-                        <option value="${cate.category}">
+                        <option value="${cate.category}" >
                             ${cate.category}
                         </option>
                     </c:forEach>
                 </select>
-
             </div>
 
             <div class="col-sm">
                 <label for="price">Price:</label>
-                <input type="number" class="form-control" id="price" placeholder="35.00" name="price"
+                <input type="number" class="form-control" id="price" value="${itemInfo.price}" name="price"
                        required>
                 <div class="priceError">
                     <div>${pError}</div>
@@ -100,9 +100,7 @@
 
         <br>
         <div class="row">
-            <div class="col-sm">
-                <button style="width: 370px;" type="submit" value="AddItem" class="btn btn-primary">Add
-                    Item</button>
+            <div class="col-sm"><button style="width: 370px;" type="submit" value="AddItem" class="btn btn-primary">Update</button>
                 <div class="Message">
                     <div>${success}${error}</div>
                 </div>

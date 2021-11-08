@@ -4,7 +4,7 @@
 <html xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <title>Register Page</title>
+    <title>Update User</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -30,7 +30,7 @@
 
     <div class="card" style="width:400px">
         <div class="card-body">
-            <h4 class="card-title">Update User Page</h4>
+            <h4 class="card-title">Update User</h4>
             <form:form action="/UpdateMyAcc" method="POST" modelAttribute="UpdateUser">
 
                 <form:input path="userId" value="${UserDetails.userId}" type = "hidden" />

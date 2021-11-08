@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
-    <title>View All Users</title>
+    <title>View All Items</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>All Users</h2>
+    <h2>All Items</h2>
 
     <!--
     //////////////////////////////////////////////////////Search function
@@ -29,28 +29,38 @@
     <table>
         <thead Class = "table-header">
         <tr>
-            <th><span>UserID</span></th>
-            <th><span>UserName</span></th>
-            <th><span>Email</span></th>
-            <th><span>Contact Number</span></th>
+            <th><span>ItemID</span></th>
+            <th><span>ItemName</span></th>
+            <th><span>Description</span></th>
+            <th><span>Price</span></th>
+            <th><span>Quantity</span></th>
+            <th><span>Category name</span></th>
+            <th><span>Update</span></th>
             <th><span>Delete</span></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="users" items="${users}" varStatus="item">
+        <c:forEach var="info" items="${info}" varStatus="item">
             <tr class="lalign">
-                <td Class="col col-1" style="width: 25%">${users.userId}</td>
-                <td Class="col col-2" style="width: 25%">${users.username}</td>
-                <td Class="col col-2" style="width: 25%">${users.email}</td>
-                <td Class="col col-2" style="width: 25%">${users.phone}</td>
+                <td Class="col col-1" style="width: 25%">${info.itemId}</td>
+                <td Class="col col-2" style="width: 25%">${info.itemName}</td>
+                <td Class="col col-3" style="width: 25%">${info.des}</td>
+                <td Class="col col-1" style="width: 25%">${info.price}</td>
+                <td Class="col col-1" style="width: 25%">${info.quantity}</td>
+                <td Class="col col-2" style="width: 25%">${info.categoryName}</td>
 
-                <td Class="col col-2" style="width: 25%"><button type="button" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteUser/${users.userId}">Delete</a></button></td>
+                <td Class="col col-2" style="width: 25%"><button class="btn btn-info" type="button" ><a href="${pageContext.request.contextPath}/UpdateItemPage/${info.itemId}">Edit</a></button></td>
+                <td Class="col col-2" style="width: 25%"><button class="btn btn-danger" type="button" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteItem/${info.itemId}">Delete</a></button></td>
+
+
             </tr>
         </c:forEach>
 
         </tbody>
     </table>
-
+    <div class="Message">
+        <div>${success}${error}</div>
+    </div>
 </div>
 </body>
 <script>
