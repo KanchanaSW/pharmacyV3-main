@@ -1,3 +1,4 @@
+/*
 package com.pharmacy.v3.DTO;
 
 import com.pharmacy.v3.Models.Category;
@@ -40,3 +41,4 @@ public class ItemCategoryDTO {
         this.category = category;
     }
 }
+*/

@@ -2,7 +2,7 @@ package com.pharmacy.v3.Controllers.Web;
 
 import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.Models.Category;
-import com.pharmacy.v3.Models.ItemCategory;
+
 import com.pharmacy.v3.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +64,7 @@ public class WebCategoryController {
         }
         return "CategoryList";
     }
+    /*
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/AllItemCategory")
     public String viewAllItemCatogries(Model model) {
@@ -86,7 +87,7 @@ public class WebCategoryController {
             model.addAttribute("success",list);
         }
         return "ItemCategoryList";
-    }
+    }*/
 
 }
 

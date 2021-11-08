@@ -2,7 +2,7 @@ package com.pharmacy.v3.Controllers;
 
 import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.Models.Category;
-import com.pharmacy.v3.Models.ItemCategory;
+
 import com.pharmacy.v3.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +45,7 @@ public class CategoryController {
         }
     }
 
+/*
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/item-category/all")
     public ResponseEntity<?> getAllItemCatogries() {
@@ -65,5 +66,5 @@ public class CategoryController {
         }else {
             return ResponseEntity.ok().body(list);
         }
-    }
+    }*/
 }

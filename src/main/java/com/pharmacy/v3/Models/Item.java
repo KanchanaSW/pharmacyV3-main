@@ -13,17 +13,18 @@ public class Item {
     private double price;
     private int quantity;
 
-    @Transient
-    String[] categoryList;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "category", referencedColumnName = "categoryId")
+    private Category category;
 
     public Item(){}
 
-    public Item(String itemName, String des, double price, int quantity, String[] categoryList) {
+    public Item(String itemName, String des, double price, int quantity, Category category) {
         this.itemName = itemName;
         this.des = des;
         this.price = price;
         this.quantity = quantity;
-        this.categoryList = categoryList;
+        this.category = category;
     }
 
     public Integer getItemId() {
@@ -66,11 +67,11 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public String[] getCategoryList() {
-        return categoryList;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryList(String[] categoryList) {
-        this.categoryList = categoryList;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

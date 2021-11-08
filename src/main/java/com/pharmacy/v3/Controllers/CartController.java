@@ -52,7 +52,7 @@ public class CartController {
     }
     //*****
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/cartAll")
+    @GetMapping(value = "/viewCartAll")
     public ResponseEntity<?> getAllUnPurchasedCartItems(HttpServletRequest request) {
         List<Cart> list =cartService.getAllPendingCartItems(false, request);
         if (list.isEmpty()){

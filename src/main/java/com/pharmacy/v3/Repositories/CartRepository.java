@@ -24,7 +24,7 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
 
     List<Cart> findByUserAndIsPurchased(User user, boolean isPurchased);
 
-    List<Cart> findByUserAndIsPurchasedOrderByCartIdDesc(User user, boolean isPurchased);
+    //List<Cart> findByUserAndIsPurchasedOrderByCartIdDesc(User user, boolean isPurchased);
 
 
 }

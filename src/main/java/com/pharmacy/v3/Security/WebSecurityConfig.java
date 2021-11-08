@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/items/itemsAll").permitAll()
-                .antMatchers("/api/items/item/**").permitAll()
+                .antMatchers("/api/items/**").permitAll()
                 .antMatchers("/api/category/**").permitAll()
                 .antMatchers("/api/requests/**").permitAll()
                 .antMatchers("/api/inquiry/**").permitAll()

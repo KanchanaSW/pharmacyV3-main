@@ -2,9 +2,9 @@ package com.pharmacy.v3.Services;
 
 import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.Models.Category;
-import com.pharmacy.v3.Models.ItemCategory;
+
 import com.pharmacy.v3.Repositories.CategoryRepository;
-import com.pharmacy.v3.Repositories.ItemCatgRepo;
+
 import com.pharmacy.v3.Response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +16,11 @@ import java.util.List;
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
-    private ItemCatgRepo itemCatgRepo;
+
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository, ItemCatgRepo itemCatgRepo) {
+    public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.itemCatgRepo = itemCatgRepo;
     }
 
     //add new category
@@ -42,14 +41,10 @@ public class CategoryService {
     public ResponseEntity<?> deleteCategory(Integer id) {
         try {
             if (categoryRepository.existsById(id)) {
-                if (!itemCatgRepo.existsByItemCategoryId(id)) {
-                    categoryRepository.deleteById(id);
-                    return ResponseEntity.ok().body(new MessageResponse("Success: Category deleted success."));
-                } else {
-                    return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: Unable to delete category "));
-                }
+                categoryRepository.deleteById(id);
+                return ResponseEntity.ok().body(new MessageResponse("Success: Category deleted success."));
             }
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: No Category found with the name"));
+            return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: No Category found with the name"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
@@ -64,7 +59,19 @@ public class CategoryService {
             return null;
         }
     }
+    public Category getCategory(String categoryName){
+        try{
+            if (categoryRepository.existsByCategory(categoryName)){
+                return categoryRepository.categoryIs(categoryName);
+            }else{
+                return null;
+            }
+        }catch (Exception e){
+            return null;
+        }
+    }
 
+/*
     public List<ItemCategory> getAllItemCategories() {
         try {
             List<ItemCategory> list = itemCatgRepo.findAll();
@@ -81,5 +88,5 @@ public class CategoryService {
         } catch (Exception e) {
             return null;
         }
-    }
+    }*/
 }

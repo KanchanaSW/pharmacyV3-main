@@ -1,5 +1,7 @@
 package com.pharmacy.v3.DTO;
 
+import com.pharmacy.v3.Models.Category;
+
 import javax.persistence.Transient;
 
 public class ItemDTO {
@@ -10,17 +12,16 @@ public class ItemDTO {
     private double price;
     private int quantity;
 
-    @Transient
-    String[] categoryList;
+    private Category category;
 
     public ItemDTO(){}
 
-    public ItemDTO(String itemName, String des, double price, int quantity, String[] categoryList) {
+    public ItemDTO(String itemName, String des, double price, int quantity, Category category) {
         this.itemName = itemName;
         this.des = des;
         this.price = price;
         this.quantity = quantity;
-        this.categoryList = categoryList;
+        this.category = category;
     }
 
     public Integer getItemId() {
@@ -63,11 +64,11 @@ public class ItemDTO {
         this.quantity = quantity;
     }
 
-    public String[] getCategoryList() {
-        return categoryList;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryList(String[] categoryList) {
-        this.categoryList = categoryList;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
