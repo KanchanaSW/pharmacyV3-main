@@ -58,7 +58,20 @@
             </div>
         </div>
         </div>
-
+        <br><br>
+        <div class="card">
+            <div class="Row">
+                <div class="col-sm">
+                    <a href="AddRequestPage" class="btn btn-link btn-block">Add Item Request : UserF</a>
+                </div>
+                <div class="col-sm">
+                    <a href="MyRequests" class="btn btn-link btn-block">View My Requests : UserF</a>
+                </div>
+                <div class="col-sm">
+                    <a href="AllRequests" class="btn btn-link btn-block">View All Requests</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 </body>

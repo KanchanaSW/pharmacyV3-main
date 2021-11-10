@@ -20,20 +20,27 @@ public class WebItemRequestsController {
     @Autowired
     private ItemRequestsService itemRequestsService;
 
+    //redirecting to item request page
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping(value = "/AddRequestPage")
+    public String addRequestPage(Model model){
+        model.addAttribute("AddRequest","addRequest");
+        return "AddRequest";
+    }
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/AddRequest")
-    public String addItemRequest(@ModelAttribute("newRequest")ItemRequestsDTO itemRequestsDTO, HttpServletRequest request, Model model){
+    public String addItemRequest(@ModelAttribute("AddRequest")ItemRequestsDTO itemRequestsDTO, HttpServletRequest request, Model model){
         try{
             ResponseEntity<?> itemRequest=itemRequestsService.addItemRequestsService(itemRequestsDTO,request);
-            if (itemRequest.getStatusCodeValue()==406){
-                model.addAttribute("error","item request already found");
-            }else {
+            if (itemRequest.getStatusCodeValue()==200){
                 model.addAttribute("success", "Successfully Added");
+            }else {
+                model.addAttribute("error","item request already found");
             }
         }catch(Exception e){
             model.addAttribute("error", "Failed add request");
         }
-        return "AddRequest";
+        return "redirect:/MyRequests";
     }
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/DeleteRequest/{newItemRequestsId}")
@@ -46,7 +53,7 @@ public class WebItemRequestsController {
             model.addAttribute("error","Failed To Delete The Item");
 
         }
-        return "redirect:/ViewAllItemsRequests";
+        return "redirect:/AllRequests";
     }
 
     //display all the item requests of a user
@@ -54,19 +61,34 @@ public class WebItemRequestsController {
     @GetMapping(value = "/MyRequests")
     public String viewMyRequests(HttpServletRequest request,Model model){
         try {
-            List<ItemRequests> myList= itemRequestsService.getMyNewItemRequestsService(request);
+            List<ItemRequestsDTO> myList= itemRequestsService.getMyNewItemRequestsService(request);
             model.addAttribute("requests", myList);
         }catch (Exception e){
             model.addAttribute("error","empty");
         }
         return "ViewMyRequests";
     }
+    //delete my request
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @RequestMapping(value = "/DeleteMyRequest/{newItemRequestsId}")
+    public String deleteMyItemRequest(@PathVariable(name = "newItemRequestsId")Integer newItemRequestsId,HttpServletRequest request ,Model model){
+        try{
+            itemRequestsService.deleteMyItemRequestedService(newItemRequestsId,request);
+            model.addAttribute("success","ItemRequest Was Successfully Deleted");
+
+        }catch(Exception e){
+            model.addAttribute("error","Failed To Delete The Item");
+
+        }
+        return "redirect:/MyRequests";
+    }
+
     //view All requests ADMIN function
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/AllRequests")
     public String allRequests(Model model){
         try {
-            List<ItemRequests> allList= itemRequestsService.getAllNewItemRequestsService();
+            List<ItemRequestsDTO> allList= itemRequestsService.getAllNewItemRequestsService();
             if (! allList.isEmpty()) {
                 model.addAttribute("requests", allList);
             }else {
@@ -75,7 +97,7 @@ public class WebItemRequestsController {
         }catch (Exception e){
             model.addAttribute("error","error");
         }
-        return "ViewMyRequests";
+        return "ViewAllRequests";
     }
 
 }

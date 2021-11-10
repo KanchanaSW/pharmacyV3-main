@@ -37,14 +37,14 @@ public class ItemRequestsController {
     //display all the item requests of a user
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/my-requests")
-    public List<ItemRequests> viewMyNewItemRequests(HttpServletRequest request) {
+    public List<ItemRequestsDTO> viewMyNewItemRequests(HttpServletRequest request) {
         return itemRequestsService.getMyNewItemRequestsService(request);
     }
 
     //view All requests ADMIN function
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/all")
-    public List<ItemRequests> viewAllNewItemRequests() {
+    public List<ItemRequestsDTO> viewAllNewItemRequests() {
         return itemRequestsService.getAllNewItemRequestsService();
     }
 

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,8 +35,8 @@ public class ItemRequestsService {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
 
-            if (itemRepository.existsByItemName(newRequestI.getNewItemName()) && itemRequestsRepository.existsByUser(user)) {
-                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new MessageResponse("exists"));
+            if (itemRepository.existsByItemName(newRequestI.getNewItemName()) ) {
+                return ResponseEntity.unprocessableEntity().body(new MessageResponse("exists"));
             } else {
                 ItemRequests ir = new ItemRequests();
                 ir.setNewItemName(newRequestI.getNewItemName());
@@ -43,10 +44,7 @@ public class ItemRequestsService {
                 ir.setUser(user);
                 itemRequestsRepository.save(ir);
                 System.out.println(ResponseEntity.ok().body("Success: request added"));
-                return ResponseEntity.ok().body(new MessageResponse("" +
-                        "Item Name: " + ir.getNewItemName() + " " +
-                        "Item Note: " + ir.getNote() + " " +
-                        "User Id: " + user.getUsername()));
+                return ResponseEntity.ok().body(ir);
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
@@ -66,44 +64,50 @@ public class ItemRequestsService {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
-
-    //view my requests
-    public List<ItemRequests> getMyNewItemRequestsService(HttpServletRequest request) {
-        User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
-        List<ItemRequests> list = itemRequestsRepository.findByUserOrderByItemRequestsIdDesc(user).
-                stream().map(this::mapRequests).collect(Collectors.toList());
-        List<ItemRequests> list2=null;
-        if (! list.isEmpty()){
-            list2=list.stream().map(this::mapRequests).collect(Collectors.toList());
-        }
-        return list2;
-
-       /*
+    //delete my item request
+    public ResponseEntity<?> deleteMyItemRequestedService(Integer newItemId,HttpServletRequest request) {
         try {
-            User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
-
-            List<ItemRequests> list = itemRequestsRepository.findByUserOrderByItemRequestsIdDesc(user).
-                    stream().map(this::mapRequests).collect(Collectors.toList());
-            return list;
+             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+            if (itemRequestsRepository.existsById(newItemId) && itemRequestsRepository.existsByUser(user)) {
+                itemRequestsRepository.deleteById(newItemId);
+                return ResponseEntity.ok().body(new MessageResponse("Success: deleted success"));
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponse("Error: occured"));
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }*/
+        }
+    }
+
+    //view my requests
+    public List<ItemRequestsDTO> getMyNewItemRequestsService(HttpServletRequest request) {
+        User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+        List<ItemRequestsDTO> list = new ArrayList<>();
+        for (ItemRequests itemRequests : itemRequestsRepository.findByUserOrderByItemRequestsIdDesc(user)){
+            ItemRequestsDTO i=new ItemRequestsDTO();
+            i.setItemRequestsId(itemRequests.getItemRequestsId());
+            i.setNewItemName(itemRequests.getNewItemName());
+            i.setNote(itemRequests.getNote());
+            list.add(i);
+        }
+        return list;
     }
 
     //Admin function
-    public List<ItemRequests> getAllNewItemRequestsService() {
-        List<ItemRequests> list = itemRequestsRepository.findAll();
-        List<ItemRequests> list2=null;
-        if (! list.isEmpty()){
-            list2=list;
+    public List<ItemRequestsDTO> getAllNewItemRequestsService() {
+        List<ItemRequestsDTO> list = new ArrayList<>();
+        for (ItemRequests itemRequests : itemRequestsRepository.findAll()){
+            ItemRequestsDTO i=new ItemRequestsDTO();
+            i.setItemRequestsId(itemRequests.getItemRequestsId());
+            i.setNewItemName(itemRequests.getNewItemName());
+            i.setNote(itemRequests.getNote());
+            i.setUserId(itemRequests.getUser().getUserId());
+            i.setUsername(itemRequests.getUser().getUsername());
+            list.add(i);
         }
-        return list2;
-        /* try {
-            List<ItemRequests> list = itemRequestsRepository.findAll();
-            return ResponseEntity.ok().body(list);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }*/
+
+        return list;
+
     }
 
     private ItemRequests mapRequests(ItemRequests ir) {
