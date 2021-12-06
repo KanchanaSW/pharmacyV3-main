@@ -16,6 +16,7 @@ import com.eea.pms.Model.User;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AuthenticationApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.google.android.material.textfield.TextInputLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +35,8 @@ public class LoginActivity extends AppCompatActivity implements ResponseCallback
     TextView forgetPassword,registerButton;
     Button loginButton;
     Intent intent;
+    TextInputLayout nameError,passError;
+    boolean isNameValid,isPasswordValid;
     public AuthenticationService authenticationService;
 
 
@@ -47,6 +50,8 @@ public class LoginActivity extends AppCompatActivity implements ResponseCallback
         loginButton=findViewById(R.id.btnLogin);
         registerButton=findViewById(R.id.btnRegister);
         forgetPassword=findViewById(R.id.btnForgetPassword);
+
+        nameError = findViewById(R.id.nameError);passError = findViewById(R.id.passError);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -82,12 +87,23 @@ public class LoginActivity extends AppCompatActivity implements ResponseCallback
     public void onBtnLogin(){
         String username1 = username.getText().toString();
         String password2 = password.getText().toString();
-        if (username1.isEmpty() || password2.isEmpty()) {
-            FancyToast.makeText(getApplicationContext(), "Fields cannot be empty", FancyToast.LENGTH_SHORT, FancyToast.WARNING, false).show();
+        if (username1.isEmpty()) {
+            nameError.setError(getResources().getString(R.string.name_error));
+            isNameValid = false;
         } else {
+            isNameValid = true;
+            nameError.setErrorEnabled(false);
+        }
+        if (password2.isEmpty()) {
+            passError.setError(getResources().getString(R.string.password_error));
+            isPasswordValid = false;
+        }else {
+            isPasswordValid = true;
+            passError.setErrorEnabled(false);
+        }
+        if(isNameValid && isPasswordValid){
              LoginRequest loginRequest = new LoginRequest(username1, password2);
             authenticationService.login(loginRequest, this);
-            /**/
         }
     }
     public void onBtnRegister(){
