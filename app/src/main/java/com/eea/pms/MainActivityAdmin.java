@@ -11,12 +11,13 @@ import com.eea.pms.Storage.SharedPreferenceManager;
 
 public class MainActivityAdmin extends AppCompatActivity {
 
-   Button btnLogout;
+   Button btnLogout,btnItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin);
         btnLogout=findViewById(R.id.btnLogout);
+        btnItems=findViewById(R.id.btnItemsA);
 
        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,6 +25,12 @@ public class MainActivityAdmin extends AppCompatActivity {
                 onLogout();
             }
         });
+       btnItems.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(getApplicationContext(),ItemViewActivity.class));
+           }
+       });
 
     }
     public void onLogout() {

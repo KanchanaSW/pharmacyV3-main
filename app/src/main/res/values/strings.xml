@@ -15,4 +15,15 @@
     <string name="password_error">Please enter a password</string>
     <string name="password_dont_match_error">Passwords dont match</string>
     <string name="error_invalid_password">Please enter a minimum password of 6 characters</string>
+    
+    <string name="itemName">Item Name</string>
+    <string name="itemName_error">Please enter item name</string>
+    <string name="itemDes">Item Note</string>
+    <string name="itemDes_error">Enter Short Note</string>
+    <string name="itemCategory">Category</string>
+    <string name="itemCategory_error">Select Category</string>
+    <string name="itemQuantity">Quantity</string>
+    <string name="itemQuantity_error">Provide Quantity</string>
+    <string name="itemPrice">Price</string>
+    <string name="itemPrice_error">Provide</string>
 </resources>
