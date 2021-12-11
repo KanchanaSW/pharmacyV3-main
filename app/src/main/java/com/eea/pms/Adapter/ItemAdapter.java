@@ -8,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eea.pms.Interface.ItemClickCallback;
-import com.eea.pms.ItemViewActivity;
 import com.eea.pms.Model.Item;
 import com.eea.pms.R;
 

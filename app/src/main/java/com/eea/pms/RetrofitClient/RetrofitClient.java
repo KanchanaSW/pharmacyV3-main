@@ -13,7 +13,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
 public class RetrofitClient {
-    private static String BASE_URL = "http://192.168.8.186:8080/";
+    //private static String BASE_URL = "http://192.168.8.186:8080/";
+    private static String BASE_URL = "http://192.168.42.72:8080/";
     private static Retrofit retrofit;
 
     public RetrofitClient() {

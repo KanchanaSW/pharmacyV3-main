@@ -1,5 +1,7 @@
 package com.eea.pms;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -104,6 +106,8 @@ public class LoginActivity extends AppCompatActivity implements ResponseCallback
         if(isNameValid && isPasswordValid){
              LoginRequest loginRequest = new LoginRequest(username1, password2);
             authenticationService.login(loginRequest, this);
+        }else{
+            FancyToast.makeText(getApplicationContext(), "Invalid credentials", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
         }
     }
     public void onBtnRegister(){
@@ -111,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseCallback
         startActivity(intent);
     }
     public void onBtnForgotPassword(){
-
+        intent=new Intent(getApplicationContext(),ResetPassword.class);startActivity(intent);
     }
 
     @Override
