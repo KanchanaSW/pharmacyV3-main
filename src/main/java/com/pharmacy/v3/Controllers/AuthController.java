@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
-@Controller
+@RestController
 public class AuthController {
     private AuthService authService;
 

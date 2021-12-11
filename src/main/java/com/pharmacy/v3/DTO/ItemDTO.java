@@ -14,27 +14,27 @@ public class ItemDTO {
     private int quantity;
     private String categoryName;
 
-    private Category category;
+   // private Category category;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     String[] categoryList;
 
     public ItemDTO(){}
 
-    public ItemDTO(String itemName,String des,int quantity,Category category,double price){
+    public ItemDTO(String itemName,String des,int quantity,double price){
         this.itemName = itemName;
         this.des = des;
         this.quantity = quantity;
-        this.category = category;
+       // this.category = category;
         this.price = price;
     }
 
-    public ItemDTO(String itemName, String des, double price, int quantity, Category category) {
+    public ItemDTO(String itemName, String des, double price, int quantity) {
         this.itemName = itemName;
         this.des = des;
         this.price = price;
         this.quantity = quantity;
-        this.category = category;
+       // this.category = category;
     }
 
     public Integer getItemId() {
@@ -77,14 +77,14 @@ public class ItemDTO {
         this.quantity = quantity;
     }
 
-    public Category getCategory() {
+ /*   public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
     }
-
+*/
     public String getCategoryName() {
         return categoryName;
     }

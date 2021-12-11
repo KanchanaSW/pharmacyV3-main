@@ -31,7 +31,7 @@ public class ItemController {
     //add new item
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/admin/new-item")
-    public ResponseEntity<?> addItem(@RequestBody ItemDTO item, HttpServletRequest request) {
+    public ResponseEntity<?> addItem(@RequestBody ItemDTO item) {
         return itemService.addItem(item);
     }
 

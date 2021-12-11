@@ -17,30 +17,32 @@ public class OTPController {
         this.otpService = otpService;
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    /*@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/request-password-change/{userId}")
     public ResponseEntity<?> generateOPTSendEmail(@PathVariable Integer userId, @RequestParam String email) {
         return otpService.generateOPTSendEmail(userId, email);
     }
+*/
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    //step 1
+    @PostMapping(value = "/send-otp-change")
+    public ResponseEntity<?> sendOTPEmail(@RequestParam String email) {
+        System.out.println("***************"+email);
+        return otpService.sendOTPEmail(email);
+
+    }
+
+    //step 2
     @GetMapping(value = "/valid-check")
     public ResponseEntity<?> checkOTPAvailable(@RequestParam Integer otpNumber) {
         return otpService.checkOTPAvailable(otpNumber);
     }
 
-
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PostMapping(value = "/reset/{userId}")
-    public ResponseEntity<?> resetPassword(@PathVariable Integer userId, @RequestParam String newPassword) {
-        return otpService.resetPassword(newPassword, userId);
+    //step 3
+    @PostMapping(value = "/reset")
+    public ResponseEntity<?> resetPassword(@RequestParam Integer otpNumber, @RequestParam String password) {
+        return otpService.resetPasswordWithOTP(password, otpNumber);
+        //return otpService.resetPassword(newPassword, userId);
     }
 
-
-//working
-    @PostMapping(value = "/send-otp-change")
-    public ResponseEntity<?> sendOTPEmail(@RequestParam String email) {
-        return otpService.sendOTPEmail(email);
-
-    }
 }
