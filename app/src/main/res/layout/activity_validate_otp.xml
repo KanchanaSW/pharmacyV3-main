@@ -9,19 +9,32 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:padding="10dp"
         >
         <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:text="Validate the OTP" />
+
+        <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="20dp"
+            android:padding="5dp"
+            android:layout_weight="1"
             android:text="@string/validateOtp" />
 
         <EditText
@@ -31,6 +44,7 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textAlignment="center"
+            android:hint="otp number"
             android:background="@drawable/edit_text_border"
             android:layout_below="@+id/textView5"
             android:layout_weight="1"
