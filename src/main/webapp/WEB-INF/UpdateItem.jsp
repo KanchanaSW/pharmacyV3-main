@@ -89,7 +89,7 @@
 
             <div class="col-sm">
                 <label for="price">Price:</label>
-                <input type="number" class="form-control" id="price" value="${itemInfo.price}" name="price"
+                <input type="number" step="any" class="form-control" id="price" value="${itemInfo.price}" name="price"
                        required>
                 <div class="priceError">
                     <div>${pError}</div>
