@@ -69,7 +69,12 @@ public class WebUserController {
         }
         return "redirect:/ViewAllUsers";
     }
-
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping(value = "/Error404")
+    public String error404(Model model){
+        model.addAttribute("error","error");
+        return "Error";
+    }
 }
 
 

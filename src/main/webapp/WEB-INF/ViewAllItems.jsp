@@ -36,6 +36,7 @@
             <th><span>Quantity</span></th>
             <th><span>Category name</span></th>
             <th><span>Update</span></th>
+            <th><span>Add-to-cart</span></th>
             <th><span>Delete</span></th>
         </tr>
         </thead>
@@ -49,8 +50,9 @@
                 <td Class="col col-1" style="width: 25%">${info.quantity}</td>
                 <td Class="col col-2" style="width: 25%">${info.categoryName}</td>
 
-                <td Class="col col-2" style="width: 25%"><button class="btn btn-info" type="button" ><a href="${pageContext.request.contextPath}/UpdateItemPage/${info.itemId}">Edit</a></button></td>
-                <td Class="col col-2" style="width: 25%"><button class="btn btn-danger" type="button" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteItem/${info.itemId}">Delete</a></button></td>
+                <td Class="col col-2" style="background-color: #ffffff"><button class="btn btn-outline-info" type="button" ><a href="${pageContext.request.contextPath}/UpdateItemPage/${info.itemId}">Edit</a></button></td>
+                <td class="col col-2" style="color: white"><button class="btn btn-outline-primary" type="button"><a href="${pageContext.request.contextPath}/Add2CartViewItem/${info.itemId}">Add</a></button> </td>
+                <td Class="col col-2" style="color: white"><button class="btn btn-outline-danger" type="button" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteItem/${info.itemId}">Delete</a></button></td>
 
 
             </tr>

@@ -22,6 +22,8 @@ public class CartService {
     private CartRepository cartRepository;
     private UserRepository userRepository;
     private ItemRepository itemRepository;
+    @Autowired
+    private ItemService itemService;
 
     @Autowired
     public CartService(CartRepository cartRepository, UserRepository userRepository, ItemRepository itemRepository) {
@@ -35,12 +37,20 @@ public class CartService {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
             Item item = itemRepository.findById(itemId).get();
+            int qI=item.getQuantity();
+            int newQ=newCart.getQuantity();
+            int calc=qI-newQ;
             if (cartRepository.existsByUserAndItemAndIsPurchased(user, item, false)) {
                 Cart cart = cartRepository.findByUserAndItem(user, item);
                 cart.setQuantity(cart.getQuantity() + newCart.getQuantity());
                 double price = item.getPrice() * newCart.getQuantity();
                 cart.setTotal(cart.getTotal() + price);
                 cartRepository.save(cart);
+               //update item
+
+               itemService.updateQuantity(itemId,calc);
+
+
                 return ResponseEntity.ok().body(new MessageResponse("Added to your existing cart"));
             } else {
                 Cart cart = new Cart();
@@ -49,6 +59,9 @@ public class CartService {
                 cart.setQuantity(newCart.getQuantity());
                 cart.setTotal(newCart.getTotal());
                 cartRepository.save(cart);
+                //update item
+                itemService.updateQuantity(itemId,calc);
+
                 return ResponseEntity.ok().body(new MessageResponse("Success: Added to your cart"));
             }
         } catch (Exception e) {
@@ -59,12 +72,20 @@ public class CartService {
     //Update Cart Items
     public ResponseEntity<?> updateCartItem(Integer cartId, CartDTO uCart) {
         try {
+            Item item = itemRepository.findById(uCart.getItem().getItemId()).get();
+            int qI=item.getQuantity();
+            int newQ=uCart.getQuantity();
+
             if (cartRepository.existsById(cartId)) {
                 Cart cart = cartRepository.findById(cartId).get();
-                double price = cart.getItem().getPrice() * uCart.getQuantity();
+                int oldQ=cart.getQuantity();
+                int dif=oldQ-newQ;
+
                 cart.setQuantity(uCart.getQuantity());
-                cart.setTotal(price);
+                cart.setTotal(uCart.getTotal());
                 cartRepository.save(cart);
+
+                itemService.updateQuantity(uCart.getItem().getItemId(),qI-dif);
                 return ResponseEntity.ok().body(new MessageResponse("Success: Updated Success"));
             }
             return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: updated un-successfull"));

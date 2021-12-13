@@ -72,6 +72,15 @@
                 </div>
             </div>
         </div>
+        <br><br>
+        <div class="card">
+            <div class="Row">
+                <div class="col-sm">
+                    <a href="ViewCartItems" class="btn btn-link btn-block">View all cart Items : UserF</a>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 </body>

@@ -88,8 +88,8 @@
             </div>
 
             <div class="col-sm">
-                <label for="price">Price:</label>
-                <input type="number" class="form-control" id="price" placeholder="35.00" name="price"
+                <label for="price">Price: Rs.</label>
+                <input type="number" step="any" class="form-control" id="price" placeholder="35.00" name="price"
                        required>
                 <div class="priceError">
                     <div>${pError}</div>

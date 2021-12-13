@@ -112,6 +112,11 @@ public class ItemService {
         }
         return info;
     }
+    public void updateQuantity(int itemId,int quantity){
+        Item item = itemRepository.findById(itemId).get();
+        item.setQuantity(quantity);
+        itemRepository.save(item);
+    }
 
     //update item details
     public ResponseEntity<?> updateItemById(Integer itemId, ItemDTO updateItem) {
@@ -121,6 +126,7 @@ public class ItemService {
                 item.setItemName(updateItem.getItemName());
                 item.setDes(updateItem.getDes());
                 item.setPrice(updateItem.getPrice());
+                //updateQuantity(itemId,updateItem.getQuantity());
                 item.setQuantity(updateItem.getQuantity());
                 Category category=categoryService.getCategory(updateItem.getCategoryName());
                 item.setCategory(category);
