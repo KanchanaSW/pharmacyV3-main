@@ -42,14 +42,14 @@ public class WebCartController {
     public String addTOCart(@PathVariable(name = "itemId")Integer itemId, @ModelAttribute("cartItem")CartDTO cartDTO, HttpServletRequest request, Model model){
        try {
            ResponseEntity<?> a2c = cartService.addNewCartToItem(itemId, cartDTO, request);
-           if (a2c.getStatusCodeValue() == 200) {
+          if (a2c.getStatusCodeValue() == 200) {
                model.addAttribute("success", "added success");
            } else {
                model.addAttribute("error", "added failed");
            }
            return "redirect:/ViewAllItems";
        }catch (Exception e){
-           model.addAttribute("error", "added failed");
+           model.addAttribute("status", e);
            return "redirect:/Error404";
        }
     }
@@ -66,7 +66,7 @@ public class WebCartController {
         }
         return "ViewCartItems";
     }
-    //delete item from cart
+  /*  //delete item from cart
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/DeleteCartItem/{itemId}")
     public String deleteCartItem(@PathVariable(name = "itemId")Integer itemId,HttpServletRequest request,Model model){
@@ -79,7 +79,7 @@ public class WebCartController {
             model.addAttribute("error","error");
         }
         return "redirect:/ViewCartItems";
-    }
+    }*/
     //redirecting to update cart page
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/UpdateCartPage/{cartId}")
@@ -101,29 +101,22 @@ public class WebCartController {
     public String updateCart(@ModelAttribute("updateInfo")CartDTO cartDTO,Model model){
         try{
             //Cart cart = cartService.getCartFromId(cartDTO.getCartId());
-
             ResponseEntity<?> cart=cartService.updateCartItem(cartDTO.getCartId(),cartDTO);
             if (cart.getStatusCodeValue()==200){
                 model.addAttribute("success","updated success");
                 return "redirect:/ViewCartItems";
             }else if (cart.getStatusCodeValue()==422){
-                System.out.println("////////////////////////////");
-                System.out.println(cart);
                 model.addAttribute("error","unable to update");
                 return "redirect:/Error404";
             }else{
-                System.out.println("////////////////////////////");
-                System.out.println(cart);
                 model.addAttribute("error","error");
                 return "redirect:/Error404";
             }
+
         }catch (Exception e){
-            System.out.println("////////////////////////////");
-            System.out.println(e);
             model.addAttribute("error","error e");
             return "redirect:/Error404";
         }
-
     }
     //display users cart items pending
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -136,10 +129,10 @@ public class WebCartController {
         }else{
             model.addAttribute("list",list);
         }
-        return "ViewCartItems";
+        return "redirect:/ViewCartItems";
     }
 
-    //delete whole cart
+    //delete  cart item
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/DeleteCart/{cartId}")
     public String deleteCart(@PathVariable(name = "cartId")Integer cartId,Model model){
@@ -151,7 +144,7 @@ public class WebCartController {
         }else{
             model.addAttribute("error","error");
         }
-        return "ViewCartItems";
+        return "redirect:/ViewCartItems";
     }
 }
 

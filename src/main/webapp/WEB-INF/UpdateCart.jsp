@@ -47,9 +47,7 @@
     </button>
 
     <h4 class="card-title">Item Details</h4>
-
-
-    <input id="itemId" name="itemId" value="${itemInfo.itemId}" type="hidden"/>
+    <input id="itemId2" name="itemId2" value="${itemInfo.itemId}" type="hidden"/>
     <div class="row">
         <div class="col-sm">
             <label for="itemName">Item Name:</label>
@@ -68,7 +66,7 @@
 
     <div class="row">
         <div class="col-sm">
-            <label >Quantity:</label>
+            <label>Quantity:</label>
             <input type="number" class="form-control" id="quantity2" value="${itemInfo.quantity}"
                    readonly="true">
         </div>
@@ -81,7 +79,7 @@
         </div>
 
         <div class="col-sm">
-            <label >Price: Rs.</label>
+            <label>Price: Rs.</label>
             <input type="number" step="any" class="form-control" id="price2" value="${itemInfo.price}"
                    readonly="true">
         </div>
@@ -90,11 +88,13 @@
     <br>
     <h4 class="card-title">Add to cart</h4>
     <form:form action="/UpdateCart" method="POST" modelAttribute="updateInfo">
+        <input id="itemId" name="itemId" value="${itemInfo.itemId}" type="hidden"/>
         <input id="cartId" name="cartId" value="${cartInfo.cartId}" type="hidden"/>
         <div class="row">
             <div class="col-sm">
                 <label for>Quantity:</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" onchange="calc()" value="${cartInfo.quantity}"
+                <input type="number" min=0 class="form-control" id="quantity" name="quantity" onchange="calc()"
+                       value="${cartInfo.quantity}"
                        c:required>
             </div>
             <div class="col-sm">
@@ -104,32 +104,31 @@
             </div>
 
             <div class="col-sm">
-                <button style="margin-top: 35px"  type="submit" class="btn btn-primary btn-sm">Update cart
+                <button style="margin-top: 35px" type="submit" class="btn btn-primary btn-sm">Update cart
                 </button>
             </div>
         </div>
-        <div class="Message">
-            <div>${success}${error}</div>
-        </div>
+        <p class="Message">${success}${error}</p>
     </form:form>
 
 </div>
 
 </body>
 <script type="text/javascript">
+    console.log(${success});
     function calc() {
-        let q;let p2;let cal;let q2;
-        q2=document.getElementById("quantity2").value;
-        q= document.getElementById("quantity").value;
-        p2=document.getElementById("price2").value;
-        if (q > q2){
-            alert("Inventory ran out.");
-        }else{
-            cal=q*p2;
-            document.getElementById("total").value=cal;
+        //let q;let p2;let cal;let q2;
+        let q2 = document.getElementById("quantity2").value;
+        let q = document.getElementById("quantity").value;
+        let qPrice = document.getElementById("price2").value;
+        if (q === q2) {
+           return alert("Inventory ran out.");
+        } else {
+           return document.getElementById("total").value = (q * qPrice);
         }
 
-        // console.log(cal);
+        //console.log(q * qPrice);
+
     }
 </script>
 </html>

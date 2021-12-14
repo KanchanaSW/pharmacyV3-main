@@ -10,11 +10,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+
+    </style>
 </head>
 <body>
 <div class="container">
     <h2>All Cart Items</h2>
-
+    <p class="Message">${success}${error}</p>
     <!--
     //////////////////////////////////////////////////////Search function
     <div class="searchFunction" style="align-items: center">
@@ -41,7 +45,7 @@
         </thead>
         <tbody>
         <c:forEach var="info" items="${info}">
-            <tr class="lalign">
+            <tr class="align">
                 <td Class="col col-1" style="width: 25%">${info.cartId}</td>
                <td Class="col col-2" style="width: 25%">${info.purchased}</td>
                 <td Class="col col-1" style="width: 25%">${info.quantity}</td>
@@ -50,7 +54,7 @@
                 <td Class="col col-1" style="width: 25%">${info.user.username}</td>
 
                 <td Class="col col-1"><button class="btn btn-outline-info" type="button" ><a href="${pageContext.request.contextPath}/UpdateCartPage/${info.cartId}">Edit</a></button></td>
-                <td Class="col col-1"><button class="btn btn-outline-danger" type="button" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteCartItem/${info.cartId}">Delete</a></button></td>
+                <td Class="col col-1"><button class="btn btn-outline-danger" type="button" onclick="myFunction()" ><a href="${pageContext.request.contextPath}/DeleteCart/${info.cartId}">Delete</a></button></td>
 
 
             </tr>
@@ -59,12 +63,14 @@
         </tbody>
     </table>
 
+
 </div>
-<div class="Message">
-    <div>${success}${error}</div>
-</div>
+
 </body>
 <script>
+
+    console.log(${success});
+
     function myFunction() {
         confirm("Are you sure you want to delete this cart item?");
     }

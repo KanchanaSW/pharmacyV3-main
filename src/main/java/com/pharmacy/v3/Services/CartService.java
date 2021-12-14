@@ -47,10 +47,7 @@ public class CartService {
                 cart.setTotal(cart.getTotal() + price);
                 cartRepository.save(cart);
                //update item
-
                itemService.updateQuantity(itemId,calc);
-
-
                 return ResponseEntity.ok().body(new MessageResponse("Added to your existing cart"));
             } else {
                 Cart cart = new Cart();
@@ -68,27 +65,31 @@ public class CartService {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
-
+     //fix this
     //Update Cart Items
     public ResponseEntity<?> updateCartItem(Integer cartId, CartDTO uCart) {
         try {
-            Item item = itemRepository.findById(uCart.getItem().getItemId()).get();
+            Item item = itemRepository.findById(uCart.getItemId()).get();
             int qI=item.getQuantity();
             int newQ=uCart.getQuantity();
 
             if (cartRepository.existsById(cartId)) {
                 Cart cart = cartRepository.findById(cartId).get();
                 int oldQ=cart.getQuantity();
-                int dif=oldQ-newQ;
+                int dif= (oldQ - newQ);
 
                 cart.setQuantity(uCart.getQuantity());
                 cart.setTotal(uCart.getTotal());
                 cartRepository.save(cart);
+                int newQI= (qI+dif);
+                System.out.println("//////////////////////////////////////////////////");
+                System.out.println(newQI);
 
-                itemService.updateQuantity(uCart.getItem().getItemId(),qI-dif);
+                itemService.updateQuantity(item.getItemId(),newQI);
                 return ResponseEntity.ok().body(new MessageResponse("Success: Updated Success"));
             }
             return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: updated un-successfull"));
+
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
@@ -123,6 +124,12 @@ public class CartService {
         try {
             if (cartRepository.existsById(cartId)) {
                 Cart cart = cartRepository.findById(cartId).get();
+                int quanity=cart.getQuantity();
+                Item item=itemRepository.findById(cart.getItem().getItemId()).get();
+                int oldQuentity=item.getQuantity();
+                item.setQuantity(oldQuentity+quanity);
+                itemRepository.save(item);//updating item quantity
+
                 cartRepository.delete(cart);
                 return ResponseEntity.ok().body(new MessageResponse("Success: Cart deleted."));
             } else {

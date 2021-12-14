@@ -2,9 +2,15 @@ package com.pharmacy.v3.DTO;
 
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Models.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class CartDTO {
     private Integer cartId;
     private User user;
@@ -12,8 +18,9 @@ public class CartDTO {
     private int quantity;
     private double total;
     private boolean isPurchased;
+    private int itemId;
 
-    public CartDTO() {
+   /* public CartDTO() {
     }
     public CartDTO(int quantity,double total){
         this.quantity = quantity;
@@ -74,5 +81,5 @@ public class CartDTO {
 
     public void setPurchased(boolean purchased) {
         isPurchased = purchased;
-    }
+    }*/
 }

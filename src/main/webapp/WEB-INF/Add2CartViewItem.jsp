@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
     <style type="text/css">
         .container {
             border: 1px black solid;
@@ -94,7 +95,7 @@
         <div class="row">
             <div class="col-sm">
                 <label for>Quantity:</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" onchange="calc()" value=""
+                <input type="number" c:min=0 class="form-control" id="quantity" name="quantity" onchange="calc()" value=""
                        c:required>
             </div>
             <div class="col-sm">
@@ -108,21 +109,21 @@
                 </button>
             </div>
         </div>
-        <div class="Message">
-            <div>${success}${error}</div>
-        </div>
+        <p class="Message">${success}${error}</p>
     </form:form>
 
 </div>
 
 </body>
 <script type="text/javascript">
+
+
     function calc() {
         let q;let p2;let cal;let q2;
         q2=document.getElementById("quantity2").value;
         q= document.getElementById("quantity").value;
         p2=document.getElementById("price2").value;
-        if (q > q2){
+        if (q === q2){
             alert("Inventory ran out.");
         }else{
             cal=q*p2;
