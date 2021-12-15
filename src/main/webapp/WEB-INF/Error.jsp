@@ -7,5 +7,8 @@
 <body>
     <h1>Error</h1>
     <p>testin page</p>
+    <div class="Message">
+        <div>${success}${error}</div>
+    </div>
 </body>
 </html>

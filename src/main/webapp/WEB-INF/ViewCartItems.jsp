@@ -18,7 +18,7 @@
 <body>
 <div class="container">
     <h2>All Cart Items</h2>
-    <p class="Message">${success}${error}</p>
+
     <!--
     //////////////////////////////////////////////////////Search function
     <div class="searchFunction" style="align-items: center">
@@ -63,14 +63,13 @@
         </tbody>
     </table>
 
-
+    <div class="Message">
+        <div>${success}${error}</div>
+    </div>
 </div>
 
 </body>
 <script>
-
-    console.log(${success});
-
     function myFunction() {
         confirm("Are you sure you want to delete this cart item?");
     }
