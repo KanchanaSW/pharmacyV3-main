@@ -10,15 +10,27 @@ public class JwtResponse {
     private String username;
     private String email;
     private String roles;
+    private String status;
     private Date tokenExpireTime;
 
-    public JwtResponse(String token, Integer id, String username, String email, String roles, Date tokenExpireTime) {
+    public JwtResponse(String token, Integer id, String username, String email, String roles, Date tokenExpireTime,String status) {
         this.token = token;
         this.id = id;
         this.username = username;
         this.email = email;
         this.roles = roles;
         this.tokenExpireTime = tokenExpireTime;
+        this.status=status;
+    }
+public JwtResponse(){}
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getToken() {

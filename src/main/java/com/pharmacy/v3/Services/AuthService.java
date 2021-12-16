@@ -41,7 +41,7 @@ public class AuthService {
 
     }
 
-    public ResponseEntity<?> registerUserService(UserDTO registerUser) {
+    public ResponseEntity<?> registerUserService(UserDTO registerUser,String roleName) {
         try {
             if (userRepository.existsByUsername(registerUser.getUsername())) {
                 //new MessageResponse("Username already taken!")
@@ -58,10 +58,18 @@ public class AuthService {
                         passwordEncoder.encode(registerUser.getPassword())
                 );
 
-                Role role = roleService.getRoleByName("ROLE_USER");
-                user.setRole(role);
-                userRepository.save(user);
-                return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+                Role role = roleService.getRoleByName(roleName);
+                if (roleName.equals("ROLE_USER")) {
+                    user.setRole(role);
+                    user.setStatus("pending");
+                    userRepository.save(user);
+                }else if (roleName.equals("ROLE_CUSTOMER")){
+                    user.setRole(role);
+                    user.setStatus("verified");
+                    userRepository.save(user);
+                }
+
+                return ResponseEntity.ok(new MessageResponse("Customer registered successfully"));
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
@@ -81,6 +89,9 @@ public class AuthService {
             Date expiretime = jwtUtils.expirationTime();
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
+            if (userDetails.getStatus().equals("pending")){
+                return ResponseEntity.ok("User is not verified");
+            }
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(item -> item.getAuthority())
                     .collect(Collectors.toList());
@@ -88,7 +99,9 @@ public class AuthService {
                     userDetails.getId(),
                     userDetails.getUsername(),
                     userDetails.getEmail(),
-                    roles.get(0), expiretime));
+                    roles.get(0),
+                    expiretime,
+                    userDetails.getStatus()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error")));
         }

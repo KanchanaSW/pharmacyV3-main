@@ -14,6 +14,7 @@ public class User {
     private String email;
     private String phone;
     private String password;
+    private String status;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "role", referencedColumnName = "roleId")
@@ -28,6 +29,14 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getUserId() {

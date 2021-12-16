@@ -41,4 +41,11 @@ public class UserController {
         User user= userService.updateUser(userDTO);
         return ResponseEntity.ok(user);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/update-status/{userId}")
+    public ResponseEntity<?> updateStatus(@PathVariable Integer userId) {
+        User user= userService.updateStatus(userId);
+        return ResponseEntity.ok(user);
+    }
 }

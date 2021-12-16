@@ -38,11 +38,11 @@
             <form class="box" action="${pageContext.request.contextPath}/authenticate" method="post">
 
                 <div class="form-group">
-                    <label for="username">Username:</label>
+                    <label>Username:</label>
                     <input type="text" class="form-control" name="username" placeholder="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password </label>
+                    <label>Password </label>
                     <input type="password" class="form-control" name="password" placeholder="Password" required>
                 </div>
 
@@ -58,7 +58,7 @@
                 <div>${error}</div>
             </div>
 
-            <a class="rg" href="${pageContext.request.contextPath}/RegisterPage">Create Account</a>
+            <a class="rg" href="${pageContext.request.contextPath}/RedirectPage">Create Account</a>
         </div>
     </div>
 </div>

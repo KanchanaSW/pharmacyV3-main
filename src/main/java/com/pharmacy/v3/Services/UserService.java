@@ -43,6 +43,12 @@ public class UserService {
         u.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(u);
     }
+    public User updateStatus(Integer userId){
+        User u=findUser(userId);
+        u.setStatus("verified");
+        u=userRepository.save(u);
+       return u;
+    }
 
     public User getUserByUserName(String username) {
         return userRepository.findByUsername(username).get();

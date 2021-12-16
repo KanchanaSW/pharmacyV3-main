@@ -33,6 +33,8 @@
             <th><span>UserName</span></th>
             <th><span>Email</span></th>
             <th><span>Contact Number</span></th>
+            <th><span>Status</span></th>
+            <th><span>Update status</span></th>
             <th><span>Delete</span></th>
         </tr>
         </thead>
@@ -43,8 +45,11 @@
                 <td Class="col col-2" style="width: 25%">${users.username}</td>
                 <td Class="col col-2" style="width: 25%">${users.email}</td>
                 <td Class="col col-2" style="width: 25%">${users.phone}</td>
+                <td class="col col-2" style="width: 25%">${users.status}</td>
 
-                <td Class="col col-2" style="width: 25%"><button type="button" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteUser/${users.userId}">Delete</a></button></td>
+                <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-primary" onclick="myFunction2()"><a href="${pageContext.request.contextPath}/UpdateStatus/${users.userId}">Update</a></button></td>
+
+                <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-danger" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteUser/${users.userId}">Delete</a></button></td>
             </tr>
         </c:forEach>
 
@@ -56,6 +61,9 @@
 <script>
     function myFunction() {
         confirm("Are you sure you want to delete this user?");
+    }
+    function myFunction2() {
+        confirm("Are you sure you want to update this user status to -verified-?");
     }
 </script>
 </html>

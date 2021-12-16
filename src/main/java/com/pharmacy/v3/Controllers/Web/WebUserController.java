@@ -69,6 +69,20 @@ public class WebUserController {
         }
         return "redirect:/ViewAllUsers";
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping("/UpdateStatus/{userId}")
+    public String updateUserStatus(@PathVariable(name = "userId")Integer userId, Model model){
+        try{
+            userService.updateStatus(userId);
+            model.addAttribute("success","User Was Successfully updated");
+
+        }catch(Exception e){
+            model.addAttribute("error","Failed To update The User");
+
+        }
+        return "redirect:/ViewAllUsers";
+    }
+
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/Error404")
     public String error404(Model model){

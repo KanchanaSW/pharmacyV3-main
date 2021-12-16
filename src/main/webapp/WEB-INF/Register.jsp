@@ -31,7 +31,7 @@
 <body>
 
 <div class="container" style="width: 650px;">
-    <h4 class="card-title">Login Page</h4>
+    <h4 class="card-title">Pharmacist Register Page</h4>
     <form:form action="${pageContext.request.contextPath}/Register" method="POST"
                modelAttribute="Registers">
 
@@ -110,8 +110,6 @@
 </html>
 
 <!--
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html xmlns:form="http://www.w3.org/1999/xhtml">
 <head>

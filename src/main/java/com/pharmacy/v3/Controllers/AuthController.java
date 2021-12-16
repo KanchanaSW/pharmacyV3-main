@@ -26,11 +26,19 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO registerUser) {
-        return authService.registerUserService(registerUser);
+        String roleName="ROLE_USER";
+        return authService.registerUserService(registerUser,roleName);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody AuthRequest authRequest) {
         return authService.loginUserService(authRequest);
+    }
+
+    //Beta
+    @PostMapping("/register/customer")
+    public ResponseEntity<?> registerCustomer(@Valid @RequestBody UserDTO registerCUS) {
+        String roleName="ROLE_CUSTOMER";
+        return authService.registerUserService(registerCUS,roleName);
     }
 }
