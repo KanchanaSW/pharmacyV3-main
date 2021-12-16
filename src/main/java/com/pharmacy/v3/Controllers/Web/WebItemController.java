@@ -52,7 +52,7 @@ public class WebItemController {
          return "redirect:/ViewAllItems";
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")
     @GetMapping(value = "/ViewAllItems")
     public String viewAllItems(Model model){
         try {

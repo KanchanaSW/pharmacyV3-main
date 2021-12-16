@@ -3,7 +3,6 @@ package com.pharmacy.v3.Controllers.Web;
 import com.pharmacy.v3.DTO.CartDTO;
 import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Cart;
-import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Services.CartService;
 import com.pharmacy.v3.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class WebCartController {
-    @Autowired
-    private CartService cartService;
+public class WebCustomerController {
+
     @Autowired
     private ItemService itemService;
-/*
+    @Autowired
+    private CartService cartService;
 
     //redirect to add to cart page
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")
@@ -39,36 +38,41 @@ public class WebCartController {
     //add new item to cart
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")
     @PostMapping(value = "/Add2CartViewItem/{itemId}")
-    public String addTOCart(@PathVariable(name = "itemId")Integer itemId, @ModelAttribute("cartItem")CartDTO cartDTO, HttpServletRequest request, Model model){
-       try {
-           ResponseEntity<?> a2c = cartService.addNewCartToItem(itemId, cartDTO, request);
-          if (a2c.getStatusCodeValue() == 200) {
-               model.addAttribute("success", "added success");
-           } else {
-               model.addAttribute("error", "added failed");
-           }
-           return "redirect:/ViewAllItems";
-       }catch (Exception e){
-           model.addAttribute("status", e);
-           return "redirect:/Error404";
-       }
+    public String addTOCart(@PathVariable(name = "itemId")Integer itemId, @ModelAttribute("cartItem") CartDTO cartDTO, HttpServletRequest request, Model model){
+        try {
+            ResponseEntity<?> a2c = cartService.addNewCartToItem(itemId, cartDTO, request);
+            if (a2c.getStatusCodeValue() == 200) {
+                model.addAttribute("success", "added success");
+            } else {
+                model.addAttribute("error", "added failed");
+            }
+            return "redirect:/CartListAndItems";
+        }catch (Exception e){
+            model.addAttribute("status", e);
+            return "redirect:/Error404";
+        }
     }
 
-    //view items in the cart
+
+    //view items in the cart and all items
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")
-    @GetMapping(value = "/ViewCartItems")
-    public String viewCartItems(HttpServletRequest request,Model model){
+    @GetMapping(value = "/CartListAndItems")
+    public String viewCartAndItems(HttpServletRequest request,Model model){
         try {
+            List<ItemDTO> allItems = itemService.getAllItems();
+            model.addAttribute("info", allItems);
+
             List<Cart> list=cartService.viewCartItems(request);
             model.addAttribute("cItem",list);
         }catch (Exception e){
             model.addAttribute("error","empty");
         }
-        return "ViewCartItems";
+        return "CartView";
     }
 
+
     //redirecting to update cart page
-  @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")
     @RequestMapping(value = "/UpdateCartPage/{cartId}")
     public String updateCartPage(@PathVariable(name = "cartId")Integer cartId,Model model){
         try {
@@ -91,7 +95,7 @@ public class WebCartController {
             ResponseEntity<?> cart=cartService.updateCartItem(cartDTO.getCartId(),cartDTO);
             if (cart.getStatusCodeValue()==200){
                 model.addAttribute("success","updated success");
-                return "redirect:/ViewCartItems";
+                return "redirect:/CartListAndItems";
             }else if (cart.getStatusCodeValue()==422){
                 model.addAttribute("error","unable to update");
                 return "redirect:/Error404";
@@ -104,19 +108,6 @@ public class WebCartController {
             model.addAttribute("error","error e");
             return "redirect:/Error404";
         }
-    }
-    //display users cart items pending
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")
-    @GetMapping(value = "/CartAll")
-    public String viewAllUnPurchsedCartItems(HttpServletRequest request,Model model){
-
-        List<Cart> list =cartService.getAllPendingCartItems(false, request);
-        if (list.isEmpty()){
-            model.addAttribute("error","unable to update");
-        }else{
-            model.addAttribute("list",list);
-        }
-        return "redirect:/ViewCartItems";
     }
 
     //delete  cart item
@@ -131,24 +122,6 @@ public class WebCartController {
         }else{
             model.addAttribute("error","error");
         }
-        return "redirect:/ViewCartItems";
-    }*/
+        return "redirect:/CartListAndItems";
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

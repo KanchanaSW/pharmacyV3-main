@@ -46,6 +46,9 @@ public class WebAuthController {
     @GetMapping("/UserHomePending")
     public String getUserHomePending(){return "AccountPending";}
 
+    @GetMapping("/CustomerHome")
+    public String getCustomerHome(){return "CustomerHome";}
+
     @GetMapping("/AdminHome")
     public String getAdminHome(){return "AdminHome";} //Admin page
 
@@ -60,6 +63,9 @@ public class WebAuthController {
         }
         if (userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("pending")){
             return "redirect:/UserHomePending";
+        }
+        if (userType.getRole().getRoleId().equals(3)){
+            return "redirect:/CustomerHome";
         }
         return "/Home";
     }

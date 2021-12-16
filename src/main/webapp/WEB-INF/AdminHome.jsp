@@ -76,7 +76,7 @@
         <div class="card">
             <div class="Row">
                 <div class="col-sm">
-                    <a href="ViewCartItems" class="btn btn-link btn-block">View all cart Items : UserF</a>
+                    <a href="CartListAndItems" class="btn btn-link btn-block">Cart View</a>
                 </div>
 
             </div>

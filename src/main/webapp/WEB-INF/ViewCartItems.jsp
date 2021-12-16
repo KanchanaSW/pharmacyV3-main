@@ -44,17 +44,17 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="info" items="${info}">
+        <c:forEach var="cItem" items="${cItem}">
             <tr class="align">
-                <td Class="col col-1" style="width: 25%">${info.cartId}</td>
-               <td Class="col col-2" style="width: 25%">${info.purchased}</td>
-                <td Class="col col-1" style="width: 25%">${info.quantity}</td>
-                <td Class="col col-1" style="width: 25%">${info.total}</td>
-                <td Class="col col-1" style="width: 25%">${info.item.itemName}</td>
-                <td Class="col col-1" style="width: 25%">${info.user.username}</td>
+                <td Class="col col-1" style="width: 25%">${cItem.cartId}</td>
+               <td Class="col col-2" style="width: 25%">${cItem.purchased}</td>
+                <td Class="col col-1" style="width: 25%">${cItem.quantity}</td>
+                <td Class="col col-1" style="width: 25%">${cItem.total}</td>
+                <td Class="col col-1" style="width: 25%">${cItem.item.itemName}</td>
+                <td Class="col col-1" style="width: 25%">${cItem.user.username}</td>
 
-                <td Class="col col-1"><button class="btn btn-outline-info" type="button" ><a href="${pageContext.request.contextPath}/UpdateCartPage/${info.cartId}">Edit</a></button></td>
-                <td Class="col col-1"><button class="btn btn-outline-danger" type="button" onclick="myFunction()" ><a href="${pageContext.request.contextPath}/DeleteCart/${info.cartId}">Delete</a></button></td>
+                <td Class="col col-1"><button class="btn btn-outline-info" type="button" ><a href="${pageContext.request.contextPath}/UpdateCartPage/${cItem.cartId}">Edit</a></button></td>
+                <td Class="col col-1"><button class="btn btn-outline-danger" type="button" onclick="myFunction()" ><a href="${pageContext.request.contextPath}/DeleteCart/${cItem.cartId}">Delete</a></button></td>
 
 
             </tr>
