@@ -1,10 +1,7 @@
 package com.pharmacy.v3.Controllers;
 
-import com.pharmacy.v3.DTO.CartOrdersDTO;
-import com.pharmacy.v3.DTO.OrdersDTO;
-import com.pharmacy.v3.Models.CartOrders;
+import com.pharmacy.v3.DTO.CartDTO;
 import com.pharmacy.v3.Models.Orders;
-import com.pharmacy.v3.Response.MessageResponse;
 import com.pharmacy.v3.Services.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,70 +15,55 @@ import java.util.List;
 @RequestMapping("api/orders")
 @RestController
 public class OrdersController {
+    @Autowired
     private OrdersService ordersService;
 
-    @Autowired
-    public OrdersController(OrdersService ordersService) {
-        this.ordersService = ordersService;
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PostMapping(value = "/addNewOrder")
+    public ResponseEntity<?> addNewOrder(@RequestBody Orders orders, HttpServletRequest request) {
+        return ordersService.addOrder(request,orders);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PostMapping(value = "/cart/add-order")
-    public ResponseEntity<MessageResponse> addCartOrders(@RequestBody CartOrdersDTO newOrders, HttpServletRequest request) {
-        return ordersService.addCartOrders(newOrders, request);
+    @PutMapping(value = "/cancelOrder/{ordersId}")
+    public ResponseEntity<?> cancelOrder(@PathVariable int ordersId) {
+        String st=ordersService.cancel(ordersId);
+        return ResponseEntity.ok(st);
     }
-
-    /* add order
-    {"total": 1000,"status": "pending","date": "06/10/2021","city": "Rukmale", "address": "235/10 New Town" }
-    */
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PostMapping(value = "/orders/add-order")
-    public ResponseEntity<?> addOrder(@RequestBody OrdersDTO orders, HttpServletRequest request) {
-        return ordersService.addOrder(orders, request);
+    @DeleteMapping(value = "/deleteOrder/{ordersId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable int ordersId) {
+        String st=ordersService.delete(ordersId);
+        return ResponseEntity.ok(st);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/orders/user-orders")
-    public List<Orders> getAllUserOrdersByStatus(HttpServletRequest request) {
-        return ordersService.getAllUserOrders("pending",request);
+    @GetMapping(value = "/viewAllMyOrders")
+    public ResponseEntity<?> viewAllMyOrders(HttpServletRequest request){
+        List<Orders> list=ordersService.getAllUserOrders(request);
+        if (list.isEmpty()){
+            return ResponseEntity.badRequest().body("Empty");
+        }
+        return ResponseEntity.ok(list);
     }
-
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/cart/{ordersId}")
-    public List<CartOrders> getAllCartByOrdersId(@PathVariable Integer ordersId, HttpServletRequest request) {
-        return ordersService.getAllCartByOrdersId(ordersId);
+    @GetMapping(value = "/viewMyPendingOrders")
+    public ResponseEntity<?> viewMyPendingOrders(HttpServletRequest request){
+        List<Orders> list=ordersService.getByUserAndStatusList(request,"pending");
+        if (list.isEmpty()){
+            return ResponseEntity.badRequest().body("Empty");
+        }
+        return ResponseEntity.ok(list);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PutMapping(value = "/order-update")
-    public ResponseEntity<?> updateOrderStatus( @RequestBody CartOrdersDTO updateCartOrders, HttpServletRequest request) {
-        return ordersService.updateOrderStatus(updateCartOrders.getCartOrdersId(), updateCartOrders);
-    }
-
-    /////////
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PutMapping(value = "/order-status/{ordersId}/{status}")
-    public ResponseEntity<?> updateOrderStatusByOrdersId(@PathVariable Integer ordersId, @PathVariable String status) {
-        return ordersService.updateOrderStatusByOrdersId(ordersId, status);
-    }
-
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping("/cart-orders/{userId}")
-    public List<CartOrders> getAllCartOrdersByUserId(HttpServletRequest request) {
-        return ordersService.getAllCartOrdersByUserId(request);
-    }
-
+    //view all pending orders admin function
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/allOrders")
-    public List<Orders> getAllPendingOrdersByStatus() {
-        return ordersService.getAllPendingOrdersByStatus("pending");
+    @GetMapping(value = "/allOrders")
+    public ResponseEntity<?> allOrders(HttpServletRequest request){
+        List<Orders> list=ordersService.getAllPendingOrdersByStatus("pending");
+        if (list.isEmpty()){
+            return ResponseEntity.badRequest().body("Empty");
+        }
+        return ResponseEntity.ok(list);
     }
-
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping("/order/{orderId}")
-    public Orders getAOrderById(@PathVariable Integer orderId) {
-        return ordersService.getAOrderById(orderId);
-    }
-
-
 }
