@@ -140,7 +140,8 @@ public class ItemService {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
-
+    public Item find(int itemId){return itemRepository.findById(itemId).get();}
+    public Item save(Item item){return itemRepository.save(item);}
 /*
     public List<Item> getAllItemsByCategory(String itemCategoryName){
         List<Item> itemList=itemRepository.findByItemCategoryName(itemCategoryName);
