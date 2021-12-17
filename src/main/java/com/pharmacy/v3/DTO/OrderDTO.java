@@ -20,6 +20,7 @@ public class OrderDTO {
     private String city;
     private String address;
     private double total;
+    private String cusName;
 
     private User user;
     private List<OrderedItems> orderedItems;

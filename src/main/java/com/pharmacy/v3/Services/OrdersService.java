@@ -1,5 +1,6 @@
 package com.pharmacy.v3.Services;
 
+import com.pharmacy.v3.DTO.OrderDTO;
 import com.pharmacy.v3.Models.*;
 import com.pharmacy.v3.Repositories.OrderedItemsRepository;
 import com.pharmacy.v3.Repositories.OrdersRepository;
@@ -84,7 +85,7 @@ public class OrdersService {
        }
     }
 
-    public ResponseEntity<?> addOrder(HttpServletRequest request, Orders newOrder) {
+    public ResponseEntity<?> addOrder(HttpServletRequest request, OrderDTO newOrder) {
         try {
             String userName = request.getUserPrincipal().getName();
             User user = userRepository.findByUsername(userName).get();//get the user
@@ -95,6 +96,7 @@ public class OrdersService {
             Orders orders = new Orders();
             orders.setUser(user);
             orders.setDate(date);
+            orders.setCusName(newOrder.getCusName());
             orders.setTotal(newOrder.getTotal());
             orders.setStatus(newOrder.getStatus());
             orders.setCity(newOrder.getCity());

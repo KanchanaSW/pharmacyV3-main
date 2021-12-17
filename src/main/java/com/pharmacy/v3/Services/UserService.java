@@ -2,6 +2,7 @@ package com.pharmacy.v3.Services;
 
 import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.OTP;
+import com.pharmacy.v3.Models.Role;
 import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Repositories.OTPRepository;
 import com.pharmacy.v3.Repositories.RoleRepository;
@@ -28,6 +29,8 @@ public class UserService {
     private OTPRepository otpRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -71,6 +74,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> getCustomers(){
+        Role cusRole= roleService.getRoleByName("ROLE_CUSTOMER");
+        return userRepository.findByRole(cusRole);
+    }
 
     public void deleteUser(Integer userID) {
        /* if (otpRepository.existsByUserUserId(userID)){

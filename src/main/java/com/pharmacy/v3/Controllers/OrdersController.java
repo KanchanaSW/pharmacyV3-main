@@ -1,8 +1,11 @@
 package com.pharmacy.v3.Controllers;
 
 import com.pharmacy.v3.DTO.CartDTO;
+import com.pharmacy.v3.DTO.OrderDTO;
 import com.pharmacy.v3.Models.Orders;
+import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Services.OrdersService;
+import com.pharmacy.v3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,11 +20,13 @@ import java.util.List;
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
+    @Autowired
+    private UserService userService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/addNewOrder")
-    public ResponseEntity<?> addNewOrder(@RequestBody Orders orders, HttpServletRequest request) {
-        return ordersService.addOrder(request,orders);
+    public ResponseEntity<?> addNewOrder(@RequestBody OrderDTO orders, HttpServletRequest request) {
+         return ordersService.addOrder(request,orders);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -65,5 +70,15 @@ public class OrdersController {
             return ResponseEntity.badRequest().body("Empty");
         }
         return ResponseEntity.ok(list);
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping(value = "/ViewAllCustomers")
+    public ResponseEntity<?> viewAllCustomers(HttpServletRequest request){
+        List<User> cusList=userService.getCustomers();
+        if (cusList.isEmpty()){
+            return ResponseEntity.badRequest().body("Empty");
+        }
+        return ResponseEntity.ok(cusList);
     }
 }

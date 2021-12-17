@@ -22,6 +22,7 @@ public class Orders {
     private String city;
     private String address;
     private double total;
+    private String cusName;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "user", referencedColumnName = "userId")

@@ -205,5 +205,22 @@ public class CartService {
             return null;
         }
     }
-
+    public List<Cart> getUserCart(int userId) {
+        try {
+            User user=userRepository.findById(userId).get();
+            List<Cart> cartList = cartRepository.findByUserAndIsPurchased(user, false);
+            return cartList;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+/*
+    //get cart count for user
+    public List<CartDTO> getCartCountByUser(){
+        List<Cart> cartList=cartRepository.findAll();
+        for (int x=0;x<cartList.size();x++){
+            User user=cartList.get(x).getUser();
+            int cartCount=cartRepository.countCartsByUser(user);
+        }
+    }*/
 }
