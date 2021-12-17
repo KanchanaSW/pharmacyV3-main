@@ -2,8 +2,11 @@ package com.pharmacy.v3.Controllers;
 
 import com.pharmacy.v3.DTO.CartDTO;
 import com.pharmacy.v3.DTO.OrderDTO;
+import com.pharmacy.v3.DTO.OrderedItemsDTO;
+import com.pharmacy.v3.Models.OrderedItems;
 import com.pharmacy.v3.Models.Orders;
 import com.pharmacy.v3.Models.User;
+import com.pharmacy.v3.Services.OrderedItemsService;
 import com.pharmacy.v3.Services.OrdersService;
 import com.pharmacy.v3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +24,13 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersService;
     @Autowired
+    private OrderedItemsService orderedItemsService;
+    @Autowired
     private UserService userService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/addNewOrder")
-    public ResponseEntity<?> addNewOrder(@RequestBody OrderDTO orders, HttpServletRequest request) {
+    public ResponseEntity<?> addNewOrder(@RequestBody Orders orders, HttpServletRequest request) {
          return ordersService.addOrder(request,orders);
     }
 
@@ -60,12 +65,22 @@ public class OrdersController {
         }
         return ResponseEntity.ok(list);
     }
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping(value = "/viewSingleOrder/{ordersDTOId}")
+    public ResponseEntity<?> viewSingleOders(@PathVariable int ordersDTOId){
+        Orders orders=ordersService.get(ordersDTOId);
+        List<OrderedItemsDTO> list=orderedItemsService.getOrderedItemsByOrder(orders);
+        if (list.isEmpty()){
+            return ResponseEntity.badRequest().body("Empty");
+        }
+        return ResponseEntity.ok(list);
+    }
 
     //view all pending orders admin function
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/allOrders")
     public ResponseEntity<?> allOrders(HttpServletRequest request){
-        List<Orders> list=ordersService.getAllPendingOrdersByStatus("pending");
+        List<OrderDTO> list=ordersService.getAll();
         if (list.isEmpty()){
             return ResponseEntity.badRequest().body("Empty");
         }

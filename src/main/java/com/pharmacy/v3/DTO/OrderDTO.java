@@ -23,7 +23,7 @@ public class OrderDTO {
     private String cusName;
 
     private User user;
-    private List<OrderedItems> orderedItems;
+  /*  private List<OrderedItems> orderedItems;
     private List<Item> itemList;
-    private Integer[] list;
+    private Integer[] list;*/
 }

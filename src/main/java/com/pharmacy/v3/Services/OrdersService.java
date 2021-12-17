@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +31,25 @@ public class OrdersService {
     @Autowired
     private OrderedItemsService orderedItemsService;
 
-    public List<Orders> getAll() {
-        return ordersRepository.findAll();
+    public List<OrderDTO> getAll() {
+        SimpleDateFormat ft =
+                new SimpleDateFormat ("yyyy.MM.dd");
+        List<OrderDTO> alt=new ArrayList<>();
+        for (Orders orders: ordersRepository.findAll()){
+            OrderDTO od=new OrderDTO();
+            java.util.Date date=orders.getDate();
+
+            od.setOrdersDTOId(orders.getOrdersId());
+            od.setCusName(orders.getCusName());
+            od.setCity(orders.getCity());
+            od.setAddress(orders.getAddress());
+            od.setDate(ft.format(date));
+            od.setTotal(orders.getTotal());
+            od.setStatus(orders.getStatus());
+            od.setUser(orders.getUser());
+            alt.add(od);
+        }
+        return alt;
     }
 
     public Orders get(int orderId) {
@@ -85,7 +104,7 @@ public class OrdersService {
        }
     }
 
-    public ResponseEntity<?> addOrder(HttpServletRequest request, OrderDTO newOrder) {
+    public ResponseEntity<?> addOrder(HttpServletRequest request, Orders newOrder) {
         try {
             String userName = request.getUserPrincipal().getName();
             User user = userRepository.findByUsername(userName).get();//get the user

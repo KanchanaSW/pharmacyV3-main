@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>Place Order</title>
+    <title>Ordered Items</title>
 
     <style type="text/css">
         .container {
@@ -36,37 +36,33 @@
     </style>
 </head>
 <body>
-<h2>Cart list</h2>
-<table>
-    <thead Class="table-header">
-    <tr>
-        <th Class="col col-1"><span>Item</span></th>
-        <th Class="col col-1"><span>CartId</span></th>
-         <th Class="col col-2"><span>Is-Purchased</span></th>
-        <th Class="col col-1"><span>Quantity</span></th>
-        <th Class="col col-1"><span>Total</span></th>
-         <th Class="col col-1"><span>User</span></th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="cItem" items="${cItem}">
-        <tr class="align">
-            <td Class="col col-1" style="width: 25%">${cItem.item.itemName}</td>
-                  <td Class="col col-1" style="width: 25%">${cItem.cartId}</td>
-                   <td Class="col col-2" style="width: 25%">${cItem.purchased}</td>
-            <td Class="col col-1" style="width: 25%">${cItem.quantity}</td>
-            <td Class="col col-1" style="width: 25%">${cItem.total}</td>
-
-            <td Class="col col-1" style="width: 25%">${cItem.user.username}</td>
-
-
-
+<div class="container">
+    <h2>Ordered Items</h2>
+    <table>
+        <thead Class="table-header">
+        <tr>
+            <th Class="col col-1"><span>Id</span></th>
+            <th Class="col col-1"><span>Date</span></th>
+            <th Class="col col-1"><span>ItemName</span></th>
+            <th Class="col col-1"><span>Quantity</span></th>
+            <th Class="col col-1"><span>Total</span></th>
 
         </tr>
-    </c:forEach>
+        </thead>
+        <tbody>
+        <c:forEach var="oItem" items="${oItem}">
+            <tr class="align">
+                <td Class="col col-1" style="width: 25%">${oItem.orderedItemDTOId}</td>
+                <td Class="col col-1" style="width: 25%">${oItem.date}</td>
+                <td Class="col col-1" style="width: 25%">${oItem.itemName}</td>
+                <td Class="col col-1" style="width: 25%">${oItem.quantity}</td>
+                <td Class="col col-1" style="width: 25%">${oItem.total}</td>
 
-    </tbody>
-</table>
+            </tr>
+        </c:forEach>
+
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -13,10 +13,8 @@ import java.util.Date;
 @Data
 public class OrderedItemsDTO {
     private int orderedItemDTOId;
-    private Item item;
-    private Orders order;
-
+    private String itemName;
     private int quantity;
     private double total;
-    private Date date;
+    private String  date;
 }
