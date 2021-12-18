@@ -82,6 +82,12 @@ public class OrdersService {
         save(orders);
         return "cancelled";
     }
+    public String pay(int orderId){
+        Orders orders=get(orderId);
+        orders.setStatus("paid");
+        save(orders);
+        return "paid";
+    }
     public String delete(int orderId){
        try {
            Orders orders=get(orderId);
