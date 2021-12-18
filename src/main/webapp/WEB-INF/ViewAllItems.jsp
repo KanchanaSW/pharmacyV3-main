@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -10,6 +11,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!--Admin Navigation Bar-->
+    <jsp:include page="Utills/AdminNavbar.jsp" >
+        <jsp:param name="page" value="home" />
+    </jsp:include>
 </head>
 <body>
 <div class="container">
@@ -27,7 +33,7 @@
     </div>
     -->
     <table>
-        <thead Class = "table-header">
+        <thead Class="table-header">
         <tr>
             <th><span>ItemID</span></th>
             <th><span>ItemName</span></th>
@@ -35,9 +41,11 @@
             <th><span>Price</span></th>
             <th><span>Quantity</span></th>
             <th><span>Category name</span></th>
+            <sec:authorize access="hasRole('ADMIN')">
             <th><span>Update</span></th>
-            <th><span>Add-to-cart</span></th>
             <th><span>Delete</span></th>
+            </sec:authorize>
+            <th><span>Add-to-cart</span></th>
         </tr>
         </thead>
         <tbody>
@@ -49,10 +57,21 @@
                 <td Class="col col-1" style="width: 25%">${info.price}</td>
                 <td Class="col col-1" style="width: 25%">${info.quantity}</td>
                 <td Class="col col-2" style="width: 25%">${info.categoryName}</td>
-
-                <td Class="col col-2" style="background-color: #ffffff"><button class="btn btn-outline-info" type="button" ><a href="${pageContext.request.contextPath}/UpdateItemPage/${info.itemId}">Edit</a></button></td>
-                <td class="col col-2" style="color: white"><button class="btn btn-outline-primary" type="button"><a href="${pageContext.request.contextPath}/Add2CartViewItem/${info.itemId}">Add</a></button> </td>
-                <td Class="col col-2" style="color: white"><button class="btn btn-outline-danger" type="button" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteItem/${info.itemId}">Delete</a></button></td>
+                <sec:authorize access="hasRole('ADMIN')">
+                    <td Class="col col-2" style="background-color: #ffffff">
+                        <button class="btn btn-outline-info" type="button"><a
+                                href="${pageContext.request.contextPath}/UpdateItemPage/${info.itemId}">Edit</a>
+                        </button>
+                    </td>
+                    <td Class="col col-2" style="color: white">
+                        <button class="btn btn-outline-danger" type="button" onclick="myFunction()"><a
+                                href="${pageContext.request.contextPath}/DeleteItem/${info.itemId}">Delete</a></button>
+                    </td>
+                </sec:authorize>
+                <td class="col col-2" style="color: white">
+                    <button class="btn btn-outline-primary" type="button"><a
+                            href="${pageContext.request.contextPath}/Add2CartViewItem/${info.itemId}">Add</a></button>
+                </td>
 
 
             </tr>

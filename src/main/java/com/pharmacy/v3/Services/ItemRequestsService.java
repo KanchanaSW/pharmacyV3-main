@@ -109,6 +109,13 @@ public class ItemRequestsService {
         return list;
 
     }
+    public ItemRequests get(int itemId){
+        return itemRequestsRepository.findById(itemId).get();
+    }
+    //manage request
+    public ResponseEntity<?> manageRequest(int newItemId){
+        return null;
+    }
 
     private ItemRequests mapRequests(ItemRequests ir) {
         return new ItemRequests(ir.getItemRequestsId(), ir.getNewItemName(), ir.getNote());

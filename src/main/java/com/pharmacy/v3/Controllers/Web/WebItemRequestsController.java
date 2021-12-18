@@ -1,8 +1,11 @@
 package com.pharmacy.v3.Controllers.Web;
 
+import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.DTO.ItemRequestsDTO;
+import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Models.ItemRequests;
+import com.pharmacy.v3.Services.CategoryService;
 import com.pharmacy.v3.Services.ItemRequestsService;
 import com.pharmacy.v3.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,10 @@ import java.util.List;
 public class WebItemRequestsController {
     @Autowired
     private ItemRequestsService itemRequestsService;
+    @Autowired
+    private ItemService itemService;
+    @Autowired
+    private CategoryService categoryService;
 
     //redirecting to item request page
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
@@ -98,6 +105,37 @@ public class WebItemRequestsController {
             model.addAttribute("error","error");
         }
         return "ViewAllRequests";
+    }
+
+    //redirecting to manage Request page.
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/ManageRequestPage/{newItemRequestsId}")
+    public String manageRP(@PathVariable(name = "newItemRequestsId")Integer newItemRequestsId,Model model){
+
+        ItemRequests ir= itemRequestsService.get(newItemRequestsId);
+        List<Category> catList=categoryService.getAllCategories();
+        model.addAttribute("cate",catList);
+        model.addAttribute("ir",ir);
+        model.addAttribute("ManageRequest",new ItemDTO());
+        return "ManageRequest";
+    }
+    //manage request
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/ManageRequest")
+    public String manageItemRequest(@ModelAttribute("ManageRequest")ItemDTO itemDTO,HttpServletRequest request ,Model model){
+        try{
+             System.out.println("////////"+itemDTO.getItemId());
+            ResponseEntity<?> newItem=itemService.addItem(itemDTO);
+            if (newItem.getStatusCodeValue()==406){
+                model.addAttribute("error","item already found");
+            }else {
+                itemRequestsService.deleteMyItemRequestedService(itemDTO.getItemId(), request);
+                model.addAttribute("success", "Successfully Added");
+            }
+        }catch(Exception e){
+            model.addAttribute("error", "Failed add");
+        }
+        return "redirect:/AllRequests";
     }
 
 }

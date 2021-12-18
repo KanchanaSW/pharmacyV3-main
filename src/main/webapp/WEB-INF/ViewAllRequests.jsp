@@ -31,25 +31,29 @@
     <table>
         <thead Class="table-header">
         <tr>
-            <th><span>RequestID</span></th>
-            <th><span>Item Name</span></th>
-            <th><span>Note</span></th>
-            <th><span>UserId</span></th>
-            <th><span>User Name</span></th>
-
-            <th><span>Delete</span></th>
+            <th Class="col col-1" ><span>RequestID</span></th>
+            <th Class="col col-2"><span>Item Name</span></th>
+            <th Class="col col-3"><span>Note</span></th>
+            <th Class="col col-1"><span>UserId</span></th>
+           <%-- <th Class="col col-1"><span>User Name</span></th>--%>
+            <th Class="col col-1"><span>Manage</span></th>
+            <th Class="col col-1"><span>Delete</span></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="requests" items="${requests}" varStatus="item">
-            <tr class="lalign">
+        <c:forEach var="requests" items="${requests}" >
+            <tr class="align">
                 <td Class="col col-1" style="width: 25%">${requests.itemRequestsId}</td>
                 <td Class="col col-2" style="width: 25%">${requests.newItemName}</td>
                 <td Class="col col-3" style="width: 25%">${requests.note}</td>
                 <td Class="col col-1" style="width: 25%">${requests.userId}</td>
-                <td Class="col col-1" style="width: 25%">${requests.username}</td>
+       <%--         <td Class="col col-1" style="width: 25%">${requests.username}</td>--%>
 
-                <td Class="col col-2" style="width: 25%"><button class="btn btn-danger"
+                <td Class="col col-1" style="width: 25%"><button class="btn btn-outline-primary"
+                                                                 type="button"><a
+                        href="${pageContext.request.contextPath}/ManageRequestPage/${requests.itemRequestsId}">Manage</a></button>
+                </td>
+                <td Class="col col-1" style="width: 25%"><button class="btn btn-outline-danger"
                                                                  type="button" onclick="myFunction()"><a
                         href="${pageContext.request.contextPath}/DeleteRequest/${requests.itemRequestsId}">Delete</a></button>
                 </td>

@@ -12,6 +12,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!--Admin Navigation Bar-->
+    <jsp:include page="Utills/AdminNavbar.jsp" >
+        <jsp:param name="page" value="home" />
+    </jsp:include>
+
     <style type="text/css">
   .container{
    display: flex;
