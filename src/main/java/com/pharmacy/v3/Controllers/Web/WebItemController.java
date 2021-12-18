@@ -49,7 +49,7 @@ public class WebItemController {
         }catch(Exception e){
             model.addAttribute("error", "Failed add");
         }
-         return "redirect:/ViewAllItems";
+         return "/AddItem";
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('CUSTOMER')")

@@ -11,6 +11,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Ordered Items</title>
 
+    <!--nav Bar-->
+    <jsp:include page="Utills/Navbar.jsp" >
+        <jsp:param name="page" value="home" />
+    </jsp:include>
+
     <style type="text/css">
         .container {
             width: auto;

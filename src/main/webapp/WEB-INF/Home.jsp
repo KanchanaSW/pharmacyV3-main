@@ -58,7 +58,7 @@
                 <div>${error}</div>
             </div>
 
-            <a class="rg" href="${pageContext.request.contextPath}/RedirectPage">Create Account</a>
+            <a class="rg" href="${pageContext.request.contextPath}/RegisterPage">Create Account</a>
         </div>
     </div>
 </div>

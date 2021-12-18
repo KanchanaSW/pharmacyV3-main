@@ -11,37 +11,48 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <!--nav Bar-->
+    <jsp:include page="Utills/Navbar.jsp">
+        <jsp:param name="page" value="home"/>
+    </jsp:include>
     <style type="text/css">
-                .container {
-                    border: 1px black solid;
-                    width: auto;
-                    justify-content: center;
-                    align-items: center;
-                    margin-top: 3%;
-                    padding: 1%;
-                }
-                .fp {
-                    margin-left: 45%;
-                }
-                .row {
-                    padding-bottom: 5px;
-                }
-                select {
-                    border: 1px solid silver;
-                    padding: 6px;
-                    border-radius: 4px;
-                }
-            </style>
+        .container {
+            border: 1px black solid;
+            width: auto;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3%;
+            padding: 1%;
+        }
+
+        .fp {
+            margin-left: 45%;
+        }
+
+        .row {
+            padding-bottom: 5px;
+        }
+
+        select {
+            border: 1px solid silver;
+            padding: 6px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 
 <body>
-
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <span> ${success}${error}</span>
+</div>
 <div class="container" style="width: 400px;">
 
     <button style="color: red;" type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
+
+
 
     <h4 class="card-title">Add New Item</h4>
     <form:form action="${pageContext.request.contextPath}/AddItem" method="POST" modelAttribute="AddItem">
@@ -76,7 +87,7 @@
             </div>
 
             <div class="col-sm">
-               <label>Category:</label><br>
+                <label>Category:</label><br>
                 <select name="categoryName" id="categoryName">
                     <c:forEach var="cate" items="${cate}" varStatus="item">
                         <option value="${cate.category}">
@@ -102,10 +113,10 @@
         <div class="row">
             <div class="col-sm">
                 <button style="width: 370px;" type="submit" value="AddItem" class="btn btn-primary">Add
-                    Item</button>
-                <div class="Message">
-                    <div>${success}${error}</div>
-                </div>
+                    Item
+                </button>
+
+
             </div>
         </div>
     </form:form>

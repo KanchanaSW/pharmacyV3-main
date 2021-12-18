@@ -11,7 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <!--nav Bar-->
+    <jsp:include page="Utills/Navbar.jsp" >
+        <jsp:param name="page" value="home" />
+    </jsp:include>
 
     <style type="text/css">
         .container {

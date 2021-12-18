@@ -36,12 +36,12 @@ public class WebOrdersController {
     @PostMapping(value = "/PlaceNewOrder")
     public String addNewOrder(@ModelAttribute("newOrder") Orders orders, HttpServletRequest request, Model model) {
 
-    /*    ResponseEntity<?> nOrder = ordersService.addOrder(request, orders);
+        ResponseEntity<?> nOrder = ordersService.addOrder(request, orders);
         if (nOrder.getStatusCodeValue() == 200) {
             model.addAttribute("success", "Order added success");
         } else {
             model.addAttribute("error", "cannont add order");
-        }*/
+        }
         return "redirect:/OrdersView";
     }
 

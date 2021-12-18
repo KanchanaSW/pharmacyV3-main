@@ -63,13 +63,8 @@ public class AuthService {
                     user.setRole(role);
                     user.setStatus("pending");
                     userRepository.save(user);
-                }else if (roleName.equals("ROLE_CUSTOMER")){
-                    user.setRole(role);
-                    user.setStatus("verified");
-                    userRepository.save(user);
                 }
-
-                return ResponseEntity.ok(new MessageResponse("Customer registered successfully"));
+                return ResponseEntity.ok(new MessageResponse("Pharmacist registered successfully"));
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);

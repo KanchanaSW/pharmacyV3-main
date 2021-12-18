@@ -74,10 +74,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> getCustomers(){
-        Role cusRole= roleService.getRoleByName("ROLE_CUSTOMER");
-        return userRepository.findByRole(cusRole);
-    }
+
 
     public void deleteUser(Integer userID) {
        /* if (otpRepository.existsByUserUserId(userID)){

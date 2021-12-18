@@ -13,7 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!--Admin Navigation Bar-->
-    <jsp:include page="Utills/AdminNavbar.jsp" >
+    <jsp:include page="Utills/Navbar.jsp" >
         <jsp:param name="page" value="home" />
     </jsp:include>
 </head>
@@ -69,8 +69,8 @@
                     </td>
                 </sec:authorize>
                 <td class="col col-2" style="color: white">
-                    <button class="btn btn-outline-primary" type="button"><a
-                            href="${pageContext.request.contextPath}/Add2CartViewItem/${info.itemId}">Add</a></button>
+                    <button class="btn btn-outline-primary" type="button">
+                        <a href="${pageContext.request.contextPath}/Add2CartViewItem/${info.itemId}">Add</a></button>
                 </td>
 
 
@@ -79,9 +79,11 @@
 
         </tbody>
     </table>
-    <div class="Message">
-        <div>${success}${error}</div>
-    </div>
+<%--    <div class="alert alert-success" role="alert">
+        <strong>${success}${error}</strong> <a href="ViewAllItems" class="alert-close">x</a>
+    </div>--%>
+
+
 </div>
 </body>
 <script>

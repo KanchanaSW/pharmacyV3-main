@@ -35,10 +35,10 @@ public class AuthController {
         return authService.loginUserService(authRequest);
     }
 
-    //Beta
+/*    //Beta
     @PostMapping("/register/customer")
     public ResponseEntity<?> registerCustomer(@Valid @RequestBody UserDTO registerCUS) {
         String roleName="ROLE_CUSTOMER";
         return authService.registerUserService(registerCUS,roleName);
-    }
+    }*/
 }

@@ -87,13 +87,4 @@ public class OrdersController {
         return ResponseEntity.ok(list);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @GetMapping(value = "/ViewAllCustomers")
-    public ResponseEntity<?> viewAllCustomers(HttpServletRequest request){
-        List<User> cusList=userService.getCustomers();
-        if (cusList.isEmpty()){
-            return ResponseEntity.badRequest().body("Empty");
-        }
-        return ResponseEntity.ok(cusList);
-    }
 }

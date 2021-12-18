@@ -10,7 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
+    <!--nav Bar-->
+    <jsp:include page="Utills/Navbar.jsp" >
+        <jsp:param name="page" value="home" />
+    </jsp:include>
     <style type="text/css">
         .container {
             width: auto;
@@ -41,39 +44,5 @@
     <h1>Pharmacist Home</h1>
 
 
-    <div class="container">
-        <div class="card">
-            <div class="Row">
-
-                <div class="col-sm">
-                    <a href="UpdateAUser" class="btn btn-link btn-block">Update my account</a>
-                </div>
-             <%--   <div class="col-sm">
-                    <a href="chooseCustomerPage" class="btn btn-link btn-block">Select Customer place order</a>
-                </div>--%>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="Row">
-
-            <div class="col-sm">
-                <a href="CartListAndItems" class="btn btn-link btn-block">Cart View</a>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="Row">
-            <div class="col-sm">
-                <a href="AddRequestPage" class="btn btn-link btn-block">Add Item Request : UserF</a>
-            </div>
-            <div class="col-sm">
-                <a href="MyRequests" class="btn btn-link btn-block">View My Requests : UserF</a>
-            </div>
-            <div class="col-sm">
-                <a href="AllRequests" class="btn btn-link btn-block">View All Requests</a>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

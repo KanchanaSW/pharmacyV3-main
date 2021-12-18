@@ -46,9 +46,6 @@ public class WebAuthController {
     @GetMapping("/UserHomePending")
     public String getUserHomePending(){return "AccountPending";}
 
-    @GetMapping("/CustomerHome")
-    public String getCustomerHome(){return "CustomerHome";}
-
     @GetMapping("/AdminHome")
     public String getAdminHome(){return "AdminHome";} //Admin page
 
@@ -64,20 +61,8 @@ public class WebAuthController {
         if (userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("pending")){
             return "redirect:/UserHomePending";
         }
-        if (userType.getRole().getRoleId().equals(3)){
-            return "redirect:/CustomerHome";
-        }
         return "/Home";
     }
-
-    //redirect page
-    @GetMapping("/RedirectPage")
-    public String redirectPage(Model model){
-       // model.addAttribute("Register", new UserDTO());
-        //Binding the form fields of JSP to Object
-        return "/RedirectRegister";
-    }
-
 
     @GetMapping("/RegisterPage")
     public String registerPage(Model model){
@@ -110,36 +95,6 @@ public class WebAuthController {
         return "Register";
     }
 
-    //customer Regestration
-    @GetMapping("/RegisterPage/Customer")
-    public String registerPageCustomer(Model model){
-        model.addAttribute("Register", new UserDTO());
-        //Binding the form fields of JSP to Object
-        return "/RegisterCustomer";
-    }
-    @PostMapping("/RegisterCustomer")
-    public String registerCustomer(@ModelAttribute("Registers") UserDTO userDTO,Model model){
-        try{
-            String roleName="ROLE_CUSTOMER";
-            ResponseEntity<?> user = authService.registerUserService(userDTO,roleName);
-            //Takes in the bound data from the JSP
-            //System.out.println("/////////////////"+user.toString());
-            if(user.getStatusCode()== HttpStatus.BAD_REQUEST){
-                model.addAttribute("uError","Username already taken!");
-                //Binding error message
-            }else if (user.getStatusCode()==HttpStatus.NOT_ACCEPTABLE){
-                model.addAttribute("eError","Email already taken!");
-            }
-            else{
-                model.addAttribute("success","User Added Successfully");
-                //Binding success message
-            }
-        }catch (Exception e){
-            model.addAttribute("error","Failed To Add User");
-            //Binding error message for exceptions
-        }
-        return "Register";
-    }
 
     @GetMapping("/ForgotPasswordPage")
     public String forward2ForgotPassword(Model model){

@@ -54,7 +54,7 @@ public class WebUserController {
         }catch(Exception e){
             model.addAttribute("error", "Failed To Update The User");
         }
-        return "/UpdateUser";
+        return "/Home";
     }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping("/DeleteUser/{userId}")
