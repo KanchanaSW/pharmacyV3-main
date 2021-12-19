@@ -53,6 +53,24 @@
                 </li>
             </ul>
 
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarInquiry" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Inquires
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <sec:authorize access="hasRole('USER')">
+                            <a class="dropdown-item" href="AddInquiryPage">Add-Inquiry</a>
+                            <a class="dropdown-item" href="ViewMyInquiry">View-My-Inquiry</a>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <a class="dropdown-item" href="ViewAllInquires">All-Inquiry</a>
+                        </sec:authorize>
+                    </div>
+                </li>
+            </ul>
+
         </div>
     </div>
     <a class="nav-item" href="/logout">Logout</a>

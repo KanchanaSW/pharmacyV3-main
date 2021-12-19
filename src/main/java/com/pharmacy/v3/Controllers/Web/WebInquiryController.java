@@ -1,8 +1,11 @@
 package com.pharmacy.v3.Controllers.Web;
 
 import com.pharmacy.v3.DTO.InquiryDTO;
+import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Inquiry;
+import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Services.InquiryService;
+import com.pharmacy.v3.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,25 +21,29 @@ import java.util.List;
 public class WebInquiryController {
     @Autowired
     private InquiryService inquiryService;
+    @Autowired
+    private ItemService itemService;
 
     //redirect to add inquiry page
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PostMapping("/AddInquiryPage")
+    @GetMapping("/AddInquiryPage")
     public String addInquiryPage(Model model){
-        model.addAttribute("details","details");
+        List<ItemDTO> list=itemService.getAllItems();
+        model.addAttribute("list",list);
+        model.addAttribute("AddInquiry",new InquiryDTO());
         return "AddInquiry";
     }
     //add Inquiry
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PostMapping("/AddInquiry/{itemId}")
-    public String addInquiry(@PathVariable(name = "itemId")Integer itemId, InquiryDTO inquiryDTO, HttpServletRequest request, Model model){
-       ResponseEntity<?> inquiry= inquiryService.addInquiryByItemId(itemId,inquiryDTO,request);
+    @RequestMapping("/AddInquiry")
+    public String addInquiry(@ModelAttribute("AddInquiry")InquiryDTO inquiryDTO, HttpServletRequest request, Model model){
+       ResponseEntity<?> inquiry= inquiryService.addInquiryByItemId(inquiryDTO.getItemId(), inquiryDTO,request);
        if (inquiry.getStatusCodeValue()==200) {
            model.addAttribute("success", "inquiry added");
        }else{
            model.addAttribute("error","error occured");
        }
-       return "ViewMyInquiries";
+       return "/AddInquiry";
     }
 
     //redirecting to add inquiry page
