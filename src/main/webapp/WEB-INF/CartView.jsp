@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Cart View</title>
     <!--nav Bar-->
     <jsp:include page="Utills/Navbar.jsp" >
@@ -70,8 +71,8 @@
                                         <td Class="col col-2" style="width: 25%">${info.categoryName}</td>--%>
 
                         <td class="col col-1" style="color: white">
-                            <button class="btn btn-outline-primary" type="button"><a
-                                    href="${pageContext.request.contextPath}/Add2CartViewItem/${info.itemId}">Add</a>
+                            <button class="btn btn-outline-primary" type="button" onclick="add2Cart(${info.itemId})"><a
+                                    >➕</a>
                             </button>
                         </td>
 
@@ -117,8 +118,8 @@
                             </button>
                         </td>
                         <td Class="col col-1">
-                            <button class="btn btn-outline-danger" type="button" onclick="myFunction()"><a
-                                    href="${pageContext.request.contextPath}/DeleteCart/${cItem.cartId}">Delete</a>
+                            <button class="btn btn-outline-danger" type="button" onclick="myFunction(${cItem.cartId})"><a
+                                    >❌</a>
                             </button>
                         </td>
                     </tr>
@@ -176,12 +177,21 @@
     }
 
 
-    function myFunction() {
-        confirm("Are you sure you want to delete this cart item?");
-    }
-
-    function calcTotal(amount) {
-
+    function myFunction(id) {
+      //  confirm("Are you sure you want to delete this cart item?");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/DeleteCart/" + id;
+            }
+        })
     }
 
     function copy() {
@@ -190,6 +200,23 @@
 
     function copy1() {
         console.log(document.getElementById("list").value)
+    }
+
+    function add2Cart(id){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can add this item to your cart!",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Add it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/Add2CartViewItem/" + id;
+                //  window.location = "ViewAllItems";
+            }
+        })
     }
 
 

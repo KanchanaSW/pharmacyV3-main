@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--nav Bar-->
     <jsp:include page="Utills/Navbar.jsp">
         <jsp:param name="page" value="home"/>
@@ -42,16 +43,12 @@
 </head>
 
 <body>
-<div class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <span> ${success}${error}</span>
-</div>
+
 <div class="container" style="width: 400px;">
 
-    <button style="color: red;" type="button" class="close" aria-label="Close">
+    <button style="color: red;" type="button" class="close" aria-label="Close" onclick="funClose();">
         <span aria-hidden="true">&times;</span>
     </button>
-
 
 
     <h4 class="card-title">Add New Item</h4>
@@ -115,14 +112,67 @@
                 <button style="width: 370px;" type="submit" value="AddItem" class="btn btn-primary">Add
                     Item
                 </button>
-
-
             </div>
+        </div>
+        <%-- <div class="alert alert-success alert-dismissible">
+             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             <span> ${success}${error}</span>
+         </div>--%>
+        <div class="msg" id="success">
+            ${success}${error}
         </div>
     </form:form>
 
 </div>
+<script>
+    var x = document.getElementById("success");
+    if (x.innerText === "Successfully Added") {
+        swal.fire({
+            title: "Added Success!",
+            text: "Check the Product List!",
+            type: "success",
+            icon: 'success',
+        }).then(function () {
+            window.location = "ViewAllItems";
+        });
+    } else if (x.innerText === "item already found") {
+        swal.fire({
+            title: "Item Already found!",
+            text: "Added Failed!",
+            type: "error",
+            icon: 'warning',
+        }).then(function () {
+            window.location = "NewItemPage";
+        });
+    }else if (x.innerText === "Failed add"){
+        swal.fire({
+            title: "Error!",
+            text: "Try Again ",
+            type: "error",
+            icon: 'warning',
+        }).then(function () {
+            window.location = "NewItemPage";
+        });
+    }
+    function funClose() {
+      //  window.location.href = "/ViewAllItems";
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/ViewAllItems" ;
+                //  window.location = "ViewAllItems";
+            }
+        })
+    }
 
+</script>
 </body>
 
 </html>

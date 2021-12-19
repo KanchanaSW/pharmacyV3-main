@@ -110,12 +110,12 @@ public class WebItemController {
             if (uI.getStatusCodeValue()==200){
                 model.addAttribute("success", "Successfully Updated The Item");
             }else {
-                model.addAttribute("success", "failed to edit");
+                model.addAttribute("error", "Failed");
             }
         }catch(Exception e){
-            model.addAttribute("error", "Failed To Update The Item");
+            model.addAttribute("error", "Failed");
         }
-        return "redirect:/ViewAllItems";
+        return "UpdateItem";
     }
 }
 

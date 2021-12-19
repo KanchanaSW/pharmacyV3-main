@@ -11,10 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--Admin Navigation Bar-->
-    <jsp:include page="Utills/Navbar.jsp" >
-        <jsp:param name="page" value="home" />
+    <jsp:include page="Utills/Navbar.jsp">
+        <jsp:param name="page" value="home"/>
     </jsp:include>
 </head>
 <body>
@@ -42,15 +42,15 @@
             <th><span>Quantity</span></th>
             <th><span>Category name</span></th>
             <sec:authorize access="hasRole('ADMIN')">
-            <th><span>Update</span></th>
-            <th><span>Delete</span></th>
+                <th><span>Update</span></th>
+                <th><span>Delete</span></th>
             </sec:authorize>
-            <th><span>Add-to-cart</span></th>
+
         </tr>
         </thead>
         <tbody>
         <c:forEach var="info" items="${info}" varStatus="item">
-            <tr class="lalign">
+            <tr class="align">
                 <td Class="col col-1" style="width: 25%">${info.itemId}</td>
                 <td Class="col col-2" style="width: 25%">${info.itemName}</td>
                 <td Class="col col-3" style="width: 25%">${info.des}</td>
@@ -58,20 +58,17 @@
                 <td Class="col col-1" style="width: 25%">${info.quantity}</td>
                 <td Class="col col-2" style="width: 25%">${info.categoryName}</td>
                 <sec:authorize access="hasRole('ADMIN')">
-                    <td Class="col col-2" style="background-color: #ffffff">
+                    <td Class="col col-1" style="background-color: #ffffff">
                         <button class="btn btn-outline-info" type="button"><a
                                 href="${pageContext.request.contextPath}/UpdateItemPage/${info.itemId}">Edit</a>
                         </button>
                     </td>
-                    <td Class="col col-2" style="color: white">
-                        <button class="btn btn-outline-danger" type="button" onclick="myFunction()"><a
-                                href="${pageContext.request.contextPath}/DeleteItem/${info.itemId}">Delete</a></button>
+                    <td Class="col col-1" style="color: white">
+                        <button class="btn btn-outline-danger" type="button" onclick="myFunction(${info.itemId})"><a
+                        >❌</a></button>
                     </td>
                 </sec:authorize>
-                <td class="col col-2" style="color: white">
-                    <button class="btn btn-outline-primary" type="button">
-                        <a href="${pageContext.request.contextPath}/Add2CartViewItem/${info.itemId}">Add</a></button>
-                </td>
+
 
 
             </tr>
@@ -79,16 +76,32 @@
 
         </tbody>
     </table>
-<%--    <div class="alert alert-success" role="alert">
-        <strong>${success}${error}</strong> <a href="ViewAllItems" class="alert-close">x</a>
-    </div>--%>
+    <%--    <div class="alert alert-success" role="alert">
+            <strong>${success}${error}</strong> <a href="ViewAllItems" class="alert-close">x</a>
+        </div>--%>
 
 
 </div>
 </body>
 <script>
-    function myFunction() {
-        confirm("Are you sure you want to delete this user?");
+    function myFunction(id) {
+        //  confirm("Are you sure you want to delete this user?");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/DeleteItem/" + id;
+                //  window.location = "ViewAllItems";
+            }
+        })
     }
+
+
 </script>
 </html>
