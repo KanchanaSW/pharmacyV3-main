@@ -11,6 +11,7 @@ public class ItemRequests {
 
     private String newItemName;
     private String note;
+    private String status;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user")
@@ -27,12 +28,20 @@ public class ItemRequests {
 
     }
 
-    public ItemRequests(Integer itemRequestsId, String newItemName, String note) {
+    public ItemRequests(Integer itemRequestsId, String newItemName, String note,String status) {
         this.itemRequestsId=itemRequestsId;
         this.newItemName = newItemName;
         this.note = note;
+        this.status=status;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Integer getItemRequestsId() {
         return itemRequestsId;

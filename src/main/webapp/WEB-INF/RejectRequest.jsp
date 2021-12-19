@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Request Item</title>
+    <title>Reject Requested Item </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,29 +17,29 @@
         <jsp:param name="page" value="home" />
     </jsp:include>
     <style type="text/css">
-                .container {
-                    border: 1px black solid;
-                    width: auto;
-                    justify-content: center;
-                    align-items: center;
-                    margin-top: 3%;
-                    padding: 1%;
-                }
+        .container {
+            border: 1px black solid;
+            width: auto;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3%;
+            padding: 1%;
+        }
 
-                .fp {
-                    margin-left: 45%;
-                }
+        .fp {
+            margin-left: 45%;
+        }
 
-                .row {
-                    padding-bottom: 5px;
-                }
+        .row {
+            padding-bottom: 5px;
+        }
 
-                select {
-                    border: 1px solid silver;
-                    padding: 6px;
-                    border-radius: 4px;
-                }
-            </style>
+        select {
+            border: 1px solid silver;
+            padding: 6px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,19 +50,15 @@
         <span aria-hidden="true">&times;</span>
     </button>
 
-    <h4 class="card-title">Request New Item</h4>
-    <form:form action="${pageContext.request.contextPath}/AddRequest" method="POST" modelAttribute="AddRequest">
-
+    <h4 class="card-title">Reject Requested Item</h4>
+    <form:form action="${pageContext.request.contextPath}/RejectRequest" method="POST" modelAttribute="RejectRequest">
+        <input id="itemRequestsId" name="itemRequestsId" value="${ir.itemRequestsId}" type="hidden"/>
         <div class="row">
             <div class="col-sm">
                 <label for="newItemName">Requested Item Name:</label>
-                <input type="text" class="form-control" id="newItemName" placeholder="Amoxicillin" name="newItemName"
-                       required>
-                <div class="newItemNameError">
-                    <div>${nIError}</div>
+                <input type="text" class="form-control" id="newItemName"  name="newItemName" value="${ir.newItemName}"
+                       disabled>
                 </div>
-
-            </div>
 
         </div>
 
@@ -70,7 +66,7 @@
             <div class="col-sm">
                 <label for="note">Brief Note:</label>
                 <textarea class="form-control z-depth-1" rows="4" cols="47" name="note" id="note"
-                          placeholder="Enter brief note about the item here..."></textarea>
+                          placeholder="Enter brief note for rejecting..."></textarea>
             </div>
 
         </div>
@@ -79,11 +75,11 @@
         <br>
         <div class="row">
             <div class="col-sm">
-                <button style="width: 370px;" type="submit" value="RequestNewItem" class="btn btn-primary">Confirm</button>
-          </div>
+                <button style="width: 370px;" type="submit" value="RejectRequest" class="btn btn-primary">Confirm</button>
+            </div>
         </div>
         <div class="msg" id="status">
-            ${success}${error}
+                ${success}${error}
         </div>
     </form:form>
 
@@ -101,40 +97,32 @@
             confirmButtonText: 'Yes, cancel it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                location.href = "/UserHome" ;
+                location.href = "/AllRequests" ;
                 //  window.location = "ViewAllItems";
             }
         })
     }
     //return feedback data
     var x = document.getElementById("status");
-    if (x.innerText === "Successfully Added") {
+    if (x.innerText === "ItemRequest Was Successfully rejected") {
         swal.fire({
-            title: "Added Success!",
+            title: "Rejected Success!",
             text: "Check your request List!",
             type: "success",
             icon: 'success',
         }).then(function () {
-            window.location = "MyRequests";
+            window.location = "AllRequests";
         });
-    } else if (x.innerText === "item request already found") {
-        swal.fire({
-            title: "Request Already found!",
-            text: "Added Failed!",
-            type: "error",
-            icon: 'warning',
-        }).then(function () {
-            window.location = "MyRequests";
-        });
-    }else if (x.innerText === "Failed add request"){
+    } else if (x.innerText === "Failed To reject Item request") {
         swal.fire({
             title: "Error!",
             text: "Try Again ",
             type: "error",
             icon: 'warning',
         }).then(function () {
-            window.location = "MyRequests";
+            window.location = "AllRequests";
         });
+
     }
 </script>
 </body>

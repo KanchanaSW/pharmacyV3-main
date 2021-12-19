@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+
 public class ItemRequestsDTO {
     private Integer itemRequestsId;
 
@@ -15,7 +16,7 @@ public class ItemRequestsDTO {
     private User user;
     private Integer userId;
     private String username;
-
+    private String status;
 
     public ItemRequestsDTO() {
     }
@@ -27,12 +28,20 @@ public class ItemRequestsDTO {
 
     }
 
-    public ItemRequestsDTO(Integer itemRequestsId, String newItemName, String note) {
+    public ItemRequestsDTO(Integer itemRequestsId, String newItemName, String note,String status) {
         this.itemRequestsId=itemRequestsId;
         this.newItemName = newItemName;
         this.note = note;
+        this.status=status;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Integer getItemRequestsId() {
         return itemRequestsId;

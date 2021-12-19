@@ -47,7 +47,7 @@ public class WebItemRequestsController {
         }catch(Exception e){
             model.addAttribute("error", "Failed add request");
         }
-        return "redirect:/MyRequests";
+        return "AddRequest";
     }
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping(value = "/DeleteRequest/{newItemRequestsId}")
@@ -90,6 +90,7 @@ public class WebItemRequestsController {
         return "redirect:/MyRequests";
     }
 
+
     //view All requests ADMIN function
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/AllRequests")
@@ -129,15 +130,41 @@ public class WebItemRequestsController {
             if (newItem.getStatusCodeValue()==406){
                 model.addAttribute("error","item already found");
             }else {
-                itemRequestsService.deleteMyItemRequestedService(itemDTO.getItemId(), request);
+                itemRequestsService.manageRequest(itemDTO.getItemId());
+                //itemRequestsService.deleteMyItemRequestedService(itemDTO.getItemId(), request);
                 model.addAttribute("success", "Successfully Added");
             }
         }catch(Exception e){
             model.addAttribute("error", "Failed add");
         }
-        return "redirect:/AllRequests";
+        return "ManageRequest";
+    }
+    //redirecting to reject Request page.
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/RejectRequestPage/{newItemRequestsId}")
+    public String rejectRP(@PathVariable(name = "newItemRequestsId")Integer newItemRequestsId,Model model){
+
+        ItemRequests ir= itemRequestsService.get(newItemRequestsId);
+
+        model.addAttribute("ir",ir);
+        model.addAttribute("ManageRequest",new ItemRequests());
+        return "RejectRequest";
     }
 
+    //reject request
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/RejectRequest")
+    public String rejectRequest(@ModelAttribute("RejectRequest")ItemRequests itemRequests ,Model model){
+        try{
+            itemRequestsService.rejectRequestService(itemRequests);
+            model.addAttribute("success","ItemRequest Was Successfully rejected");
+
+        }catch(Exception e){
+            model.addAttribute("error","Failed To reject Item request");
+
+        }
+        return "RejectRequest";
+    }
 }
 
 

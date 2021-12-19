@@ -11,10 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--nav Bar-->
-    <jsp:include page="Utills/Navbar.jsp" >
-        <jsp:param name="page" value="home" />
+    <jsp:include page="Utills/Navbar.jsp">
+        <jsp:param name="page" value="home"/>
     </jsp:include>
 
 </head>
@@ -40,21 +40,23 @@
             <th><span>RequestID</span></th>
             <th><span>Item Name</span></th>
             <th><span>Note</span></th>
-
+            <th><span>Status</span></th>
             <th><span>Delete</span></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="requests" items="${requests}" varStatus="item">
-            <tr class="lalign">
+            <tr class="align">
                 <td Class="col col-1" style="width: 25%">${requests.itemRequestsId}</td>
                 <td Class="col col-2" style="width: 25%">${requests.newItemName}</td>
                 <td Class="col col-3" style="width: 25%">${requests.note}</td>
+                <td Class="col col-1" style="width: 25%">${requests.status}</td>
 
-
-                <td Class="col col-2" style="width: 25%"><button class="btn btn-danger"
-                                                                 type="button" onclick="myFunction()"><a
-                        href="${pageContext.request.contextPath}/DeleteMyRequest/${requests.itemRequestsId}">Delete</a></button>
+                <td Class="col col-2" style="width: 25%">
+                    <button class="btn btn-outline-danger"
+                            type="button" onclick="myFunction(${requests.itemRequestsId})"><a
+                    >❌</a>
+                    </button>
                 </td>
 
 
@@ -69,9 +71,23 @@
 </div>
 </body>
 <script>
-                function myFunction() {
-                    confirm("Are you sure you want to delete this item Request?");
-                }
-            </script>
+    function myFunction(id) {
+        // confirm("Are you sure you want to delete this item Request?");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/DeleteMyRequest/" + id;
+                //  window.location = "ViewAllItems";
+            }
+        })
+    }
+</script>
 
 </html>

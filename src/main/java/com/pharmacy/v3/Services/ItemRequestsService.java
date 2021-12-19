@@ -42,6 +42,7 @@ public class ItemRequestsService {
                 ir.setNewItemName(newRequestI.getNewItemName());
                 ir.setNote(newRequestI.getNote());
                 ir.setUser(user);
+                ir.setStatus("pending");
                 itemRequestsRepository.save(ir);
                 System.out.println(ResponseEntity.ok().body("Success: request added"));
                 return ResponseEntity.ok().body(ir);
@@ -88,6 +89,7 @@ public class ItemRequestsService {
             i.setItemRequestsId(itemRequests.getItemRequestsId());
             i.setNewItemName(itemRequests.getNewItemName());
             i.setNote(itemRequests.getNote());
+            i.setStatus(itemRequests.getStatus());
             list.add(i);
         }
         return list;
@@ -103,6 +105,7 @@ public class ItemRequestsService {
             i.setNote(itemRequests.getNote());
             i.setUserId(itemRequests.getUser().getUserId());
             i.setUsername(itemRequests.getUser().getUsername());
+            i.setStatus(itemRequests.getStatus());
             list.add(i);
         }
 
@@ -114,11 +117,32 @@ public class ItemRequestsService {
     }
     //manage request
     public ResponseEntity<?> manageRequest(int newItemId){
-        return null;
+        ItemRequests ir=itemRequestsRepository.findById(newItemId).get();
+        ir.setStatus("Completed");
+        ir=itemRequestsRepository.save(ir);
+        return ResponseEntity.ok(ir);
+    }
+    //reject request
+    public ResponseEntity<?> rejectRequest(int newItemId){
+        ItemRequests ir=itemRequestsRepository.findById(newItemId).get();
+        ir.setStatus("Rejected");
+        ir=itemRequestsRepository.save(ir);
+        return ResponseEntity.ok(ir);
     }
 
     private ItemRequests mapRequests(ItemRequests ir) {
-        return new ItemRequests(ir.getItemRequestsId(), ir.getNewItemName(), ir.getNote());
+        return new ItemRequests(ir.getItemRequestsId(), ir.getNewItemName(), ir.getNote(),ir.getStatus());
+    }
+    public ResponseEntity<?> rejectRequestService(ItemRequests requestI) {
+        try {
+          ItemRequests itemRequests=get(requestI.getItemRequestsId());
+          itemRequests.setNote(requestI.getNote());
+          itemRequests.setStatus("Rejected");
+          itemRequests=itemRequestsRepository.save(itemRequests);
+          return ResponseEntity.ok(itemRequests);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
     }
     /*
      //Admin function
