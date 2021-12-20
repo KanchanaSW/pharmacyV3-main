@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Add Inquiry</title>
+    <title>Reply Inquiry</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -51,28 +51,33 @@
     </button>
 
 
-    <h4 class="card-title">Add Inquiry</h4>
-    <form:form action="${pageContext.request.contextPath}/AddInquiry" method="POST" modelAttribute="AddInquiry">
+    <h4 class="card-title">Reply Inquiry</h4>
+    <form:form action="${pageContext.request.contextPath}/InquiryReply" method="POST" modelAttribute="InquiryReply">
+
+        <input id="inquiryId" name="inquiryId" value="${inquiry.inquiryId}" type="hidden"/>
 
         <div class="row">
             <div class="col-sm">
                 <label>Item Name:</label>
-                <select name="itemId" id="itemId" class="form-control">
-                    <c:forEach var="list" items="${list}" >
-                        <option value="${list.itemId}">
-                            ${list.itemName}
-                        </option>
-                    </c:forEach>
-                </select>
-
+                <input type="text" class="form-control" id="itemName" name="itemName" value="${inquiry.item.itemName}"
+                       readonly>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm">
-                <label>Question:</label>
-                <textarea class="form-control z-depth-1" rows="3" cols="47" name="question" id="question"
-                          placeholder="Enter the inquiry here..."></textarea>
+                <label>Question:</label><%----%>
+                <input value="${inquiry.question}" class="form-control z-depth-1" rows="2" cols="47"
+                       name="question" id="question"
+                           readonly >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <label>Answer:</label>
+                <textarea class="form-control z-depth-1" rows="3" cols="47" name="answer" id="answer"
+                          placeholder="Enter the reply here..."></textarea>
             </div>
         </div>
 
@@ -80,8 +85,8 @@
         <br>
         <div class="row">
             <div class="col-sm">
-                <button style="width: 370px;" type="submit" value="AddInquiry" class="btn btn-primary">Add
-                    Inquiry
+                <button style="width: 370px;" type="submit" value="InquiryReply" class="btn btn-primary">Add
+                    Reply
                 </button>
             </div>
         </div>
@@ -95,26 +100,27 @@
     </form:form>
 
 </div>
+
 <script>
     var x = document.getElementById("success");
-    if (x.innerText === "inquiry added") {
+    if (x.innerText === "reply added success") {
         swal.fire({
             title: "Added Success!",
-            text: "Check the Product List!",
+            text: "Check the inquiry List!",
             type: "success",
             icon: 'success',
         }).then(function () {
-            window.location = "ViewMyInquiry";
+            window.location = "ViewAllInquires";
         });
 
-    }else if (x.innerText === "error occured"){
+    }else if (x.innerText === "error happen"){
         swal.fire({
             title: "Error!",
             text: "Try Again ",
             type: "error",
             icon: 'warning',
         }).then(function () {
-            window.location = "ViewMyInquiry";
+            window.location = "ViewAllInquires";
         });
     }
     function funClose() {
@@ -129,7 +135,7 @@
             confirmButtonText: 'Yes, cancel it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                location.href = "/ViewMyInquiry" ;
+                location.href = "/ViewAllInquires" ;
                 //  window.location = "ViewAllItems";
             }
         })

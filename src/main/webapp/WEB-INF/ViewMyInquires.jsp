@@ -37,12 +37,11 @@
     <table>
         <thead Class="table-header">
         <tr>
-            <th><span>InquiryId</span></th>
+            <th><span>Id</span></th>
             <th><span>Item Name</span></th>
             <th><span>Question</span></th>
             <th><span>Answer</span></th>
             <th><span>Date</span></th>
-            <th><span>Is-Replied</span></th>
         </tr>
         </thead>
         <tbody>
@@ -51,9 +50,16 @@
                 <td Class="col col-1" style="width: 25%">${list.inquiryId}</td>
                 <td Class="col col-2" style="width: 25%">${list.item.itemName}</td>
                 <td Class="col col-3" style="width: 25%">${list.question}</td>
-                <td Class="col col-3" style="width: 25%">${list.answer}</td>
+                <td Class="col col-3" style="width: 25%">
+                    <c:if test="${list.replied == false}">
+                        <a style="color: cornflowerblue;">--PENDING--</a>
+                    </c:if>
+                    <c:if test="${list.replied == true}">
+                        ${list.answer}
+                    </c:if>
+                </td>
                 <td Class="col col-2" style="width: 25%">${list.date}</td>
-                <td Class="col col-1" style="width: 25%">${list.replied}</td>
+              <%--  <td Class="col col-1" style="width: 25%">${list.replied}</td>--%>
 
                 <td Class="col col-1" style="width: 25%">
                     <button class="btn btn-outline-danger"

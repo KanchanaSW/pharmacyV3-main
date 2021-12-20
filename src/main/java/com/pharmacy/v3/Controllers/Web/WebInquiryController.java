@@ -48,12 +48,12 @@ public class WebInquiryController {
 
     //redirecting to add inquiry page
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/InquiryReplyPage/{inquiryId}")
+    @GetMapping("/InquiryReplyPage/{inquiryId}")
     public String inquiryAnswerPage(@PathVariable(name = "inquiryId")Integer inquiryId,Model model){
         Inquiry inquiry=inquiryService.getInquiryById(inquiryId);
         if (inquiry != null) {
             model.addAttribute("inquiry", inquiry);
-            model.addAttribute("updateInfo", new InquiryDTO());
+            model.addAttribute("InquiryReply", new InquiryDTO());
         }else{
             model.addAttribute("error","empty");
         }
@@ -61,19 +61,19 @@ public class WebInquiryController {
     }
     //add reply
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/InquiryReply")
-    public String replyInquiry(@ModelAttribute("inquiryReply")InquiryDTO inquiryDTO,Model model){
+    @RequestMapping("/InquiryReply")
+    public String replyInquiry(@ModelAttribute("InquiryReply")InquiryDTO inquiryDTO,Model model){
         try {
             ResponseEntity<?> reply = inquiryService.addReplyByInquiryId(inquiryDTO.getInquiryId(), inquiryDTO);
             if (reply.getStatusCodeValue() == 200) {
                 model.addAttribute("success", "reply added success");
             } else {
-                model.addAttribute("error", "inquiry is not present");
+                model.addAttribute("error", "error happen");
             }
         }catch (Exception e){
             model.addAttribute("error","error happen");
         }
-        return "ViewAllInquiries";
+        return "/InquiryReply";
     }
 
     //View all inquiries about an item

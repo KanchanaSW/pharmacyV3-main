@@ -43,7 +43,8 @@
             <th><span>Question</span></th>
             <th><span>Answer</span></th>
             <th><span>Date</span></th>
-            <th><span>Replied</span></th>
+            <%--         <th><span>Replied</span></th>--%>
+            <th><span>Reply</span></th>
         </tr>
         </thead>
         <tbody>
@@ -53,16 +54,35 @@
                 <td Class="col col-1" style="width: 25%">${list.user.username}</td>
                 <td Class="col col-2" style="width: 25%">${list.item.itemName}</td>
                 <td Class="col col-3" style="width: 25%">${list.question}</td>
-                <td Class="col col-3" style="width: 25%">${list.answer}</td>
+                <td Class="col col-3" style="width: 25%">
+                    <c:if test="${list.replied == false}">
+                        <a style="color: cornflowerblue;">--PENDING--</a>
+                    </c:if>
+                    <c:if test="${list.replied == true}">
+                        ${list.answer}
+                    </c:if>
+                </td>
                 <td Class="col col-2" style="width: 25%">${list.date}</td>
-                <td Class="col col-1" style="width: 25%">${list.replied}</td>
+                    <%--  <td Class="col col-1" style="width: 25%">${list.replied}</td>--%>
 
                 <td Class="col col-1" style="width: 25%">
-                    <button class="btn btn-outline-danger"
-                            type="button" onclick="myFunction(${list.inquiryId})"><a
-                    >❌</a>
-                    </button>
+                    <c:if test="${list.replied == true}">
+                        <a style="padding: 10px;">✔</a>
+                    </c:if>
+                    <c:if test="${list.replied == false}">
+                        <button class="btn btn-outline-primary btn-sm"
+                                type="button">
+                            <a href="${pageContext.request.contextPath}/InquiryReplyPage/${list.inquiryId}">Reply</a>
+                        </button>
+                    </c:if>
                 </td>
+
+                    <%--    <td Class="col col-1" style="width: 25%">
+                            <button class="btn btn-outline-danger"
+                                    type="button" onclick="myFunction(${list.inquiryId})"><a
+                            >❌</a>
+                            </button>
+                        </td>--%>
 
 
             </tr>
