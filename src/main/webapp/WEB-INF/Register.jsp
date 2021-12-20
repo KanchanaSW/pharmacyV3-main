@@ -13,19 +13,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style type="text/css">
-                .container {
-                    border: 1px black solid;
-                    width: auto;
-                    justify-content: center;
-                    align-items: center;
-                    margin-top: 10%;
-                    padding: 1%;
-                }
+        .container {
+            border: 1px black solid;
+            width: auto;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10%;
+            padding: 1%;
+        }
 
-                .fp {
-                    margin-left: 45%;
-                }
-            </style>
+        .fp {
+            margin-left: 45%;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,9 +43,11 @@
             <div class="col-sm">
                 <h6>Personal Information</h6>
                 <label for="username">Username:</label>
-                <input type="username" class="form-control" id="username" placeholder="SamanKumara"
+                <input type="username" class="form-control" id="username" onkeydown="validateU();"
+                       placeholder="SamanKumara"
                        name="username" required>
-                <div id="usernameError">
+                <span><small id="textU"></small></span>
+                <div class="msg" id="usernameError">
                     <div>${uError}</div>
                 </div>
 
@@ -55,7 +57,7 @@
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" placeholder="abcde@gamil.com"
                        name="email" required>
-                <div id="emailError">
+                <div class="msg" id="emailError">
                     <div>${eError}</div>
                 </div>
 
@@ -68,6 +70,7 @@
                 <label for="password">Password: </label>
                 <input type="password" name="password" class="form-control" id="password" value=""
                        placeholder="saman123&*%" required>
+                <span><small id="dm"></small></span>
             </div>
             <div class="col-sm">
                 <label for="phone">Phone No:</label>
@@ -80,8 +83,9 @@
             <div class="col-sm">
 
                 <label for="re-password">Repeat Password: </label>
-                <input type="password" onkeypress="validatePassword();" name="re-password" class="form-control" id="re-password" value=""
+                <input type="password" name="re-password" class="form-control" id="re-password" value=""
                        placeholder="saman123&*%" required>
+                <span><small id="dm2"></small></span>
             </div>
             <div class="col-sm">
 
@@ -92,7 +96,7 @@
         <div class="row">
             <div class="col-sm">
                 <button type="submit" value="Create" class="btn btn-primary">Register</button>
-                    </div>
+            </div>
         </div>
         <div class="msg" id="status">
             ${success}${error}
@@ -109,22 +113,60 @@
 
 </div>
 <script>
-    //password similarity check
-    var password = document.getElementById("password")
-        , confirm_password = document.getElementById("re-password");
+    function validateU() {
+        var patternU = /^[a-z0-9]{5,15}$/;
+        var username = document.getElementById('username').value;
 
-    function validatePassword(){
-        if(password.value !== confirm_password.value) {
-            //confirm_password.setCustomValidity("Passwords Don't Match");
-            confirm_password.innerText="dont match";
+        var textU = document.getElementById('textU');
+        if (username.match(patternU)) {
+
+            textU.innerHTML = "";
+            textU.style.color = "";
         } else {
-            //confirm_password.setCustomValidity('');
-            confirm_password.innerText="";
+
+            textU.innerHTML = "please enter valid username";
+            textU.style.color = "#ff0000";
+        }
+        if (username === "") {
+
+            textU.innerHTML = "";
+            textU.style.color = "";
         }
     }
 
-    //password.onchange = validatePassword;
-    //confirm_password.onkeyup = validatePassword;
+    //password similarity check
+    var pattern = /^(?=.*\d)(?=.*[a-z]).{3,10}$/;
+
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("re-password");
+    var valid = document.getElementById("dm");
+    var dontMatch2 = document.getElementById("dm2");
+
+    function validatePassword() {
+        if (password.value.match(pattern)) {
+            valid.innerText = "";//valid.style.color = "#00ff00";
+
+        } else {
+            valid.innerText = "Invalid: Provide at least 3-letter and no.";
+            valid.style.color = "#ff0000";
+
+        }
+
+        if (password.value !== confirm_password.value) {
+
+            dontMatch2.innerText = "Dont match";
+            confirm_password.style.borderColor = "#ff0000";
+            console.log("dont-match")
+        } else {
+
+            dontMatch2.innerText = "";
+            confirm_password.style.borderColor = "";
+            console.log("match")
+        }
+    }
+
+    password.onkeyup = validatePassword;
+    confirm_password.onkeyup = validatePassword;
 
     //close btn
     function funClose() {
@@ -139,6 +181,7 @@
             confirmButtonText: 'Yes, cancel it!'
         }).then((result) => {
             if (result.isConfirmed) {
+                //window.location.preventDefault();
                 location.href = "/Home";
                 //  window.location = "ViewAllItems";
             }
@@ -163,29 +206,35 @@
             type: "error",
             icon: 'warning',
         }).then(function () {
-            window.location = "Register";
+            window.location.preventDefault();
+           // window.location = "Register";
         });
     }
-    var uEr=document.getElementById("usernameError");
-    if (x.innerText === "Username already taken!") {
+    var uEr = document.getElementById("usernameError");
+    var uNam=document.getElementById("username");
+    if (uEr.innerText === "Username already taken!") {
         swal.fire({
             title: "UserName already taken!",
             text: "Use a different username ",
             type: "error",
             icon: 'warning',
         }).then(function () {
-            window.location = "Register";
+            window.history.back();
+            // window.location = "Register";
         });
+
+
     }
-    var eEr=document.getElementById("emailError")
-    if (x.innerText === "Email already taken!") {
+    var eEr = document.getElementById("emailError")
+    if (eEr.innerText === "Email already taken!") {
         swal.fire({
             title: "Account found under this email!",
             text: "Use a different email address ",
             type: "error",
             icon: 'warning',
         }).then(function () {
-            window.location = "Register";
+            window.history.back();
+           // window.location = "Register";
         });
     }
 </script>
