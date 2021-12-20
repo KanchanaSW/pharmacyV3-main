@@ -21,7 +21,7 @@
 
 <body>
 <div class="container">
-    <h2>My Requests</h2>
+    <h3 class="text-center p-2">MY-REQUESTS</h3>
 
     <!--
 //////////////////////////////////////////////////////Search function
@@ -34,9 +34,9 @@
 </form:form>
 </div>
 -->
-    <table>
+    <table class="table table-bordered">
         <thead Class="table-header">
-        <tr>
+        <tr class="table-primary">
             <th><span>RequestID</span></th>
             <th><span>Item Name</span></th>
             <th><span>Note</span></th>
@@ -47,15 +47,15 @@
         <tbody>
         <c:forEach var="requests" items="${requests}" varStatus="item">
             <tr class="align">
-                <td Class="col col-1" style="width: 25%">${requests.itemRequestsId}</td>
-                <td Class="col col-2" style="width: 25%">${requests.newItemName}</td>
-                <td Class="col col-3" style="width: 25%">${requests.note}</td>
-                <td Class="col col-1" style="width: 25%">${requests.status}</td>
+                <td Class="col col-1" >${requests.itemRequestsId}</td>
+                <td Class="col col-2" >${requests.newItemName}</td>
+                <td Class="col col-3" >${requests.note}</td>
+                <td Class="col col-1" >${requests.status}</td>
 
-                <td Class="col col-2" style="width: 25%">
+                <td Class="col col-1">
                     <button class="btn btn-outline-danger"
                             type="button" onclick="myFunction(${requests.itemRequestsId})"><a
-                    >❌</a>
+                    >X</a>
                     </button>
                 </td>
 

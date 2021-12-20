@@ -21,7 +21,7 @@
 
 <body>
 <div class="container">
-    <h2>My Inquires</h2>
+    <h3 class="text-center p-2">MY-INQUIRIES</h3>
 
     <!--
 //////////////////////////////////////////////////////Search function
@@ -34,14 +34,15 @@
 </form:form>
 </div>
 -->
-    <table>
+    <table class="table table-bordered">
         <thead Class="table-header">
-        <tr>
+        <tr class="table-primary">
             <th><span>Id</span></th>
             <th><span>Item Name</span></th>
             <th><span>Question</span></th>
             <th><span>Answer</span></th>
             <th><span>Date</span></th>
+            <th><span></span></th>
         </tr>
         </thead>
         <tbody>
@@ -64,7 +65,7 @@
                 <td Class="col col-1" style="width: 25%">
                     <button class="btn btn-outline-danger"
                             type="button" onclick="myFunction(${list.inquiryId})"><a
-                    >❌</a>
+                    >x</a>
                     </button>
                 </td>
 

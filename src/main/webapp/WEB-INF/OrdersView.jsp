@@ -20,19 +20,16 @@
             width: auto;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
             padding: 1%;
         }
-
-
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Orders</h2>
-    <table>
+    <h2 class="text-center p-2">ALL-USER-ORDERS</h2>
+    <table class="table table-bordered">
         <thead Class="table-header">
-        <tr>
+        <tr class="table-primary">
             <th Class="col col-1"><span>OrderId</span></th>
             <th Class="col col-1"><span>CustomerName</span></th>
             <th Class="col col-1"><span>City</span></th>

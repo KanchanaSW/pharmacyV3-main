@@ -20,7 +20,6 @@
             width: auto;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
             padding: 1%;
         }
 
@@ -45,11 +44,11 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col" style=" border: black 1px solid; margin-right: 10px; padding: 1%;">
-            <h2>All Items</h2>
-            <table>
+        <div class="col" style=" border:#7a7a7a 1pt solid; margin-right: 10px; padding: 1%;">
+            <h3 class="text-center">PRODUCT-LIST</h3>
+            <table class="table table-bordered">
                 <thead Class="table-header">
-                <tr>
+                <tr class="table-primary">
                     <%-- <th><span>ItemID</span></th>--%>
                     <th class="col col-1"><span>ItemName</span></th>
                     <%--  <th><span>Description</span></th>--%>
@@ -84,12 +83,12 @@
             </table>
 
         </div>
-        <div class="col" style=" border: black 1px solid; margin-right: 10px; padding: 1%;">
+        <div class="col" style=" border:#7a7a7a 1pt solid; margin-right: 10px; padding: 1%;">
 
-            <h2>Cart list</h2>
-            <table>
+            <h3 class="pl-5">CART</h3>
+            <table class="table table-bordered">
                 <thead Class="table-header">
-                <tr>
+                <tr class="table-primary">
                     <th class="col col-1"><span></span></th>
                     <th Class="col col-1"><span>Item</span></th>
                     <%-- <th Class="col col-1"><span>CartId</span></th>
@@ -127,7 +126,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="col" style=" border: black 1px solid; padding: 1%;">
+        <div class="col" style=" border:#7a7a7a 1pt solid; padding: 1%;">
+            <h3 class="text-center">USER-INFO</h3>
             <form:form action="${pageContext.request.contextPath}/PlaceNewOrder" method="POST"
                        modelAttribute="newOrder">
                 <label>Customer Name:</label>

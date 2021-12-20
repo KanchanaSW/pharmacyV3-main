@@ -19,8 +19,7 @@
 </head>
 <body>
 <div class="container">
-    <br>
-    <h3>All Users</h3>
+    <h3 class="text-center p-2">USER-DETAILS</h3>
 
     <!--
     //////////////////////////////////////////////////////Search function
@@ -33,9 +32,9 @@
         </form:form>
     </div>
     -->
-    <table>
-        <thead Class = "table-header">
-        <tr>
+    <table class="table table-bordered">
+        <thead Class="table-header">
+        <tr class="table-primary">
             <th><span>UserID</span></th>
             <th><span>UserName</span></th>
             <th><span>Email</span></th>
@@ -47,7 +46,7 @@
         </thead>
         <tbody>
         <c:forEach var="users" items="${users}" varStatus="item">
-            <tr class="lalign">
+            <tr class="align">
                 <td Class="col col-1" style="width: 25%">${users.userId}</td>
                 <td Class="col col-2" style="width: 25%">${users.username}</td>
                 <td Class="col col-2" style="width: 25%">${users.email}</td>

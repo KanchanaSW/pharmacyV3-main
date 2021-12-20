@@ -21,7 +21,7 @@
 
 <body>
 <div class="container">
-    <h2>All Inquires</h2>
+    <h3 class="text-center p-2">All Inquires</h3>
 
     <!--
 //////////////////////////////////////////////////////Search function
@@ -34,9 +34,9 @@
 </form:form>
 </div>
 -->
-    <table>
+    <table class="table table-bordered">
         <thead Class="table-header">
-        <tr>
+        <tr class="table-primary">
             <th><span>Id</span></th>
             <th><span>Pharmacist</span></th>
             <th><span>Item Name</span></th>

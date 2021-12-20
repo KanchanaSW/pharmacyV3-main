@@ -21,7 +21,7 @@
 
 <body>
 <div class="container">
-    <h2>All Requests</h2>
+    <h3 class="text-center p-2">PRODUCT-REQUESTS</h3>
 
     <!--
 //////////////////////////////////////////////////////Search function
@@ -34,9 +34,9 @@
 </form:form>
 </div>
 -->
-    <table>
+    <table class="table table-bordered">
         <thead Class="table-header">
-        <tr>
+        <tr class="table-primary">
             <th Class="col col-1"><span>RequestID</span></th>
             <th Class="col col-2"><span>Item Name</span></th>
             <th Class="col col-3"><span>Note</span></th>

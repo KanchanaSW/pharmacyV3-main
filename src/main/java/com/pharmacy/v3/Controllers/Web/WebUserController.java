@@ -54,7 +54,7 @@ public class WebUserController {
         }catch(Exception e){
             model.addAttribute("error", "Failed To Update The User");
         }
-        return "/Home";
+        return "/UpdateUser";
     }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping("/DeleteUser/{userId}")
@@ -87,6 +87,13 @@ public class WebUserController {
     @GetMapping(value = "/Error404")
     public String error404(Model model){
         model.addAttribute("error","error");
+        return "Error";
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping(value = "/error")
+    public String error(Model model){
+        model.addAttribute("error","error error");
         return "Error";
     }
 }

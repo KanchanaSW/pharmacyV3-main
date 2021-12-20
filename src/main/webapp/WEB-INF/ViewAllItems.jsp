@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>All Items</h2>
+    <h2 class="text-center p-2">ALL-PHARMACY-PRODUCTS</h2>
 
     <!--
     //////////////////////////////////////////////////////Search function
@@ -32,9 +32,9 @@
         </form:form>
     </div>
     -->
-    <table>
+    <table class="table table-bordered">
         <thead Class="table-header">
-        <tr>
+        <tr class="table-primary">
             <th><span>ItemID</span></th>
             <th><span>ItemName</span></th>
             <th><span>Description</span></th>
