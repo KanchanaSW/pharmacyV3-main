@@ -56,6 +56,12 @@
             android:layout_height="100dp"
             android:text="Items" />
 
+        <Button
+            android:id="@+id/btnDrawer"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="Drawer" />
+
     </LinearLayout>
 
 </RelativeLayout>

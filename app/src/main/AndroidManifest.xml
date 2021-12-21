@@ -14,6 +14,12 @@
         android:theme="@style/Theme.PMS"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AboutUs"
+            android:exported="false" />
+        <activity
+            android:name=".AdminDash"
+            android:exported="false" />
+        <activity
             android:name=".NewPassword"
             android:exported="false" />
         <activity
