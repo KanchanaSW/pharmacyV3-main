@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.eea.pms.DTO.Responses.MessageResponse;
 import com.eea.pms.RetrofitClient.RetrofitClient;
@@ -24,11 +25,14 @@ public class NewPassword extends AppCompatActivity {
     TextInputLayout passError, passError2;
     boolean isPasswordValid;
     Integer otpNumber;
+    private ProgressBar pgsBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_password);
 
+        pgsBar = (ProgressBar) findViewById(R.id.pBarCN);
         btnResetPassword=findViewById(R.id.btnResetPassword);
         etPassN1=findViewById(R.id.etPassN1);
         etPassN2=findViewById(R.id.etPassN2);
@@ -44,6 +48,7 @@ public class NewPassword extends AppCompatActivity {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pgsBar.setVisibility(v.VISIBLE);
                 resetNewPassword(otpNumber);
             }
         });
@@ -76,6 +81,7 @@ public class NewPassword extends AppCompatActivity {
             newPassword.enqueue(new Callback<MessageResponse>() {
                 @Override
                 public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
+                    pgsBar.setVisibility(View.GONE);
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     FancyToast.makeText(getApplicationContext(), "Success", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
 
@@ -83,6 +89,7 @@ public class NewPassword extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<MessageResponse> call, Throwable t) {
+                    pgsBar.setVisibility(View.GONE);
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     FancyToast.makeText(getApplicationContext(), "Error Happened.", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
 

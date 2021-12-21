@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.eea.pms.DTO.Responses.LoginResponse;
@@ -25,12 +26,14 @@ public class ResetPassword extends AppCompatActivity {
 
     EditText etEmailResetPassword;
     Button btnSendEmail;
+    private ProgressBar pgsBar;
     private LoginResponse loginResponse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
+        pgsBar = (ProgressBar) findViewById(R.id.pBarRP);
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
 
         etEmailResetPassword=findViewById(R.id.etEmailResetP);
@@ -39,6 +42,7 @@ public class ResetPassword extends AppCompatActivity {
         btnSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pgsBar.setVisibility(v.VISIBLE);
                 sendEmail();
             }
         });
@@ -56,11 +60,13 @@ public class ResetPassword extends AppCompatActivity {
                 public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
                     if (response.isSuccessful()){
                         //start the fragment
+                        pgsBar.setVisibility(View.GONE);
                         startActivity(new Intent(getApplicationContext(), ValidateOTP.class));
                         FancyToast.makeText(getApplicationContext(), " Success", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
 
                     }else{
                         //start the error fragment
+                        pgsBar.setVisibility(View.GONE);
                         FancyToast.makeText(getApplicationContext(), " error", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
 
                     }
@@ -68,6 +74,7 @@ public class ResetPassword extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<MessageResponse> call, Throwable t) {
+                    pgsBar.setVisibility(View.GONE);
                     FancyToast.makeText(getApplicationContext(), "Invalid", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                 }
             });
