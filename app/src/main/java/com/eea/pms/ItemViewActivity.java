@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +43,7 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
     TextInputLayout itemName_error,itemDes_error,itemCategory_error,itemQuantity_error,itemPrice_error;
     boolean isitemNameValid,isitemDesValid,isitemCategoryValid,isitemQuantityValid,isitemPriceValid;
     Button btnAddItem;
+    Intent intent;
     RecyclerView recyclerViewAI;
     private List<Item> itemList = new ArrayList<>();
     private LoginResponse loginResponse;
@@ -144,6 +146,8 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     if (response.isSuccessful()){
                         FancyToast.makeText(getApplicationContext(), " Success", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+                        finish();
+                        startActivity(getIntent());
                     }else {
                         FancyToast.makeText(getApplicationContext(), " Error", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                     }
