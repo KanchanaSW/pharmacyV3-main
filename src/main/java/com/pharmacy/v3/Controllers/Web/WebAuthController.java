@@ -80,9 +80,17 @@ public class WebAuthController {
             //System.out.println("/////////////////"+user.toString());
             if(user.getStatusCode()== HttpStatus.BAD_REQUEST){
                 model.addAttribute("uError","Username already taken!");
+                //return vals
+                model.addAttribute("uName",userDTO.getUsername());
+                model.addAttribute("rEmail",userDTO.getEmail());
+                model.addAttribute("rPhone",userDTO.getPhone());
                 //Binding error message
             }else if (user.getStatusCode()==HttpStatus.NOT_ACCEPTABLE){
                 model.addAttribute("eError","Email already taken!");
+                //return vals
+                model.addAttribute("uName",userDTO.getUsername());
+                model.addAttribute("rEmail",userDTO.getEmail());
+                model.addAttribute("rPhone",userDTO.getPhone());
             }
             else{
                 model.addAttribute("success","User Added Successfully");

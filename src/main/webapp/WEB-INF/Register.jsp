@@ -21,9 +21,10 @@
             margin-top: 10%;
             padding: 1%;
         }
-
-        .fp {
-            margin-left: 45%;
+        .msg {
+            font-size: small;
+            color: #d33;
+            font-style: italic;
         }
     </style>
 </head>
@@ -43,9 +44,16 @@
             <div class="col-sm">
                 <h6>Personal Information</h6>
                 <label for="username">Username:</label>
-                <input type="username" class="form-control" id="username" onkeydown="validateU();"
-                       placeholder="SamanKumara"
-                       name="username" required>
+                <c:if test="${uName == null}">
+                    <input type="text" class="form-control" id="username" onkeydown="validateU();"
+                           placeholder="SamanKumara"
+                           name="username" required>
+                </c:if>
+                <c:if test="${uName != null}">
+                    <input type="text" class="form-control" id="username" onkeydown="validateU();"
+                           value="${uName}"
+                           name="username" required>
+                </c:if>
                 <span><small id="textU"></small></span>
                 <div class="msg" id="usernameError">
                     <div>${uError}</div>
@@ -55,8 +63,15 @@
             <div class="col-sm">
                 <h6>Contact Information</h6>
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="abcde@gamil.com"
-                       name="email" required>
+                <c:if test="${rEmail == null}">
+                    <input type="email" class="form-control" id="email" placeholder="abcde@gamil.com"
+                           onkeydown="checkEmail();"
+                           name="email" required>
+                </c:if>
+                <c:if test="${rEmail != null}">
+                    <input type="email" class="form-control" id="email" value="${rEmail}" onkeydown="checkEmail();"
+                           name="email" required>
+                </c:if>
                 <div class="msg" id="emailError">
                     <div>${eError}</div>
                 </div>
@@ -74,8 +89,14 @@
             </div>
             <div class="col-sm">
                 <label for="phone">Phone No:</label>
-                <input type="phone" class="form-control" id="phone" placeholder="0773556712" name="phone"
-                       required>
+                <c:if test="${rPhone == null}">
+                    <input type="phone" class="form-control" id="phone" placeholder="0773556712" name="phone"
+                           required>
+                </c:if>
+                <c:if test="${rPhone != null}">
+                    <input type="phone" class="form-control" id="phone" value="${rPhone}" name="phone"
+                           required>
+                </c:if>
             </div>
         </div>
 
@@ -116,21 +137,31 @@
     function validateU() {
         var patternU = /^[a-z0-9]{5,15}$/;
         var username = document.getElementById('username').value;
-
+        var uEE = document.getElementById("usernameError");
         var textU = document.getElementById('textU');
         if (username.match(patternU)) {
 
             textU.innerHTML = "";
             textU.style.color = "";
         } else {
-
-            textU.innerHTML = "please enter valid username";
+            uEE.innerHTML = "",
+                textU.innerHTML = "please enter valid username";
             textU.style.color = "#ff0000";
         }
         if (username === "") {
-
-            textU.innerHTML = "";
+            uEE.innerHTML = "",
+                textU.innerHTML = "";
             textU.style.color = "";
+        }
+    }
+
+    function checkEmail() {
+        var eEE = document.getElementById("emailError");
+        var email = document.getElementById('email').value;
+        if (email === null) {
+            eEE.innerText = ""
+        } else {
+            eEE.innerText = ""
         }
     }
 
@@ -145,26 +176,21 @@
     function validatePassword() {
         if (password.value.match(pattern)) {
             valid.innerText = "";//valid.style.color = "#00ff00";
-
         } else {
             valid.innerText = "Invalid: Provide at least 3-letter and no.";
             valid.style.color = "#ff0000";
-
         }
-
         if (password.value !== confirm_password.value) {
-
             dontMatch2.innerText = "Dont match";
+            dontMatch2.style.color = "#ff0000";
             confirm_password.style.borderColor = "#ff0000";
             console.log("dont-match")
         } else {
-
             dontMatch2.innerText = "";
             confirm_password.style.borderColor = "";
             console.log("match")
         }
     }
-
     password.onkeyup = validatePassword;
     confirm_password.onkeyup = validatePassword;
 
@@ -207,11 +233,11 @@
             icon: 'warning',
         }).then(function () {
             window.location.preventDefault();
-           // window.location = "Register";
+            // window.location = "Register";
         });
     }
     var uEr = document.getElementById("usernameError");
-    var uNam=document.getElementById("username");
+    var uNam = document.getElementById("username");
     if (uEr.innerText === "Username already taken!") {
         swal.fire({
             title: "UserName already taken!",
@@ -219,8 +245,8 @@
             type: "error",
             icon: 'warning',
         }).then(function () {
-            window.history.back();
-            // window.location = "Register";
+            //window.history.back();
+            window.location.preventDefault();
         });
 
 
@@ -233,8 +259,8 @@
             type: "error",
             icon: 'warning',
         }).then(function () {
-            window.history.back();
-           // window.location = "Register";
+            window.location.preventDefault();
+            // window.location = "Register";
         });
     }
 </script>
