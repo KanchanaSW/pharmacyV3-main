@@ -89,13 +89,13 @@ public class WebUserController {
         model.addAttribute("error","error");
         return "Error";
     }
-
+/*
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/error")
     public String error(Model model){
         model.addAttribute("error","error error");
         return "Error";
-    }
+    }*/
 }
 
 

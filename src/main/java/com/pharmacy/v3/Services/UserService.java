@@ -67,7 +67,7 @@ public class UserService {
     }
 
     public User directUserType(String username){
-        return userRepository.findUserByUsername(username);
+        return userRepository.findByUsername(username).get();
     }
 
     public List<User> getAllUsers() {

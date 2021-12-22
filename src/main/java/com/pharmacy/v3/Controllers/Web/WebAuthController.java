@@ -52,16 +52,16 @@ public class WebAuthController {
     @GetMapping("/SuccessLogin")
     public String successLogin(Authentication authentication){
         User userType = userService.directUserType(authentication.getName());
+        System.out.println("//////"+userType.getStatus());
         if(userType.getRole().getRoleId().equals(1)){
             return "redirect:/AdminHome";
-        }
-        if(userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("verified")){
+        }else if(userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("verified")){
             return "redirect:/UserHome";
-        }
-        if (userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("pending")){
+        }else if (userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("pending")){
             return "redirect:/UserHomePending";
+        }else {
+            return "/Home";
         }
-        return "/Home";
     }
 
     @GetMapping("/RegisterPage")

@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     boolean existsByEmail(String email);
 
-    @Query("SELECT u FROM User u WHERE u.username like ?1%")
+   // @Query("SELECT u FROM User u WHERE u.username like ?1%")
     User findUserByUsername(String username);
 
 }
