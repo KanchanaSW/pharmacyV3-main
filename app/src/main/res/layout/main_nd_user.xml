@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_margin="16dp"
-        android:onClick="ClickLogo"
+        android:onClick="ClickLogoUser"
         android:src="@drawable/flower"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -18,24 +17,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="P-M-S"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:textAlignment="center"
-        android:textColor="#636363"/>
-    
+        android:textColor="#636363"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="#636363"/>
+        android:background="#636363" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:minHeight="48dp"
-        android:onClick="ClickHome"
+        android:onClick="ClickHomeUser"
         android:orientation="horizontal">
 
         <TextView
@@ -44,7 +43,7 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:padding="12dp"
-            android:text="Admin-Home" />
+            android:text="Home" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -57,8 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:minHeight="48dp"
-        android:onClick="ClickUsers"
+        android:onClick="ClickMyAccountUser"
         android:orientation="horizontal">
 
         <TextView
@@ -67,79 +65,37 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:padding="12dp"
-            android:text="Users" />
+            android:text="My-Account" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="48dp"
-            android:src="@drawable/ic_users" />
+            android:src="@drawable/ic_dash" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:onClick="ClickAccount">
+        android:minHeight="48dp"
+        android:onClick="ClickProducts"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_weight="1"
-            android:text="My-Account"
             android:padding="12dp"
-            android:layout_marginStart="16dp"/>
+            android:text="Products" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="48dp"
-            android:src="@drawable/ic_dash"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:onClick="ClickProductsAdmin">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Products"
-            android:padding="12dp"
-            android:layout_marginStart="16dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:src="@drawable/ic_products"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:onClick="ClickRequestsAdmin">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Requests"
-            android:padding="12dp"
-            android:layout_marginStart="16dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:src="@drawable/ic_request"/>
+            android:src="@drawable/ic_item" />
     </LinearLayout>
 
     <LinearLayout
@@ -147,7 +103,53 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:minHeight="48dp"
-        android:onClick="ClickInquiresAdmin"
+        android:onClick="ClickOrders"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:text="Orders" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
+            android:src="@drawable/ic_orders" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="48dp"
+        android:onClick="ClickRequests"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:text="Requests" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
+            android:src="@drawable/ic_request" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="48dp"
+        android:onClick="ClickInquires"
         android:orientation="horizontal">
 
         <TextView
@@ -170,7 +172,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:minHeight="48dp"
-        android:onClick="ClickLogOut"
+        android:onClick="ClickLogOutUser"
         android:orientation="horizontal">
 
         <TextView

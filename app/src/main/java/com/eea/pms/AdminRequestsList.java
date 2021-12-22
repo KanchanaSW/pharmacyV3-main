@@ -1,7 +1,6 @@
 package com.eea.pms;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
@@ -13,60 +12,43 @@ import android.view.View;
 
 import com.eea.pms.Storage.SharedPreferenceManager;
 
-public class AdminDash extends AppCompatActivity {
-    //Initialize variables
+public class AdminRequestsList extends AppCompatActivity {
+
     DrawerLayout drawerLayoutAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_dash);
-
-        //Assign variables
+        setContentView(R.layout.activity_admin_requests_list);
         drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
-
     }
 
     public void ClickMenu(View view){
-        //open drawer
-        openDrawer(drawerLayoutAdmin);
-    }
-
-    public static void openDrawer(DrawerLayout drawerLayoutAdmin) {
-        //open drawer layout
-        drawerLayoutAdmin.openDrawer(GravityCompat.START);
+        AdminDash.openDrawer(drawerLayoutAdmin);
     }
 
     public void ClickLogo(View view){
-        closeDrawer(drawerLayoutAdmin);
-    }
-
-    public static void closeDrawer(DrawerLayout drawerLayoutAdmin) {
-        //close drawer layout
-        //check
-        if (drawerLayoutAdmin.isDrawerOpen(GravityCompat.START)){
-            //close
-            drawerLayoutAdmin.closeDrawer(GravityCompat.START);
-        }
+        AdminDash.closeDrawer(drawerLayoutAdmin);
     }
 
     public void ClickHome(View view){
-        recreate();
+        AdminDash.redirectActivity(this,AdminDash.class);
     }
 
     public void ClickUsers(View view){
-        redirectActivity(this,AdminUsersList.class);
+        AdminDash.redirectActivity(this,AdminUsersList.class);
     }
     public void ClickAccount(View view){
-        redirectActivity(this,UpdateAccount.class);
+        AdminDash.redirectActivity(this,UpdateAccount.class);
     }
     public void ClickProductsAdmin(View view){
-        redirectActivity(this,ItemViewActivity.class);
+        AdminDash.redirectActivity(this,ItemViewActivity.class);
     }
     public void ClickRequestsAdmin(View view){
-        redirectActivity(this,AdminRequestsList.class);
+      recreate();
     }
+
     public void ClickInquiresAdmin(View view){
-        redirectActivity(this, Inquires.class);
+        AdminDash.redirectActivity(this,Inquires.class);
     }
 
     public void ClickLogOut(View view){
@@ -80,8 +62,8 @@ public class AdminDash extends AppCompatActivity {
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               //activity.finishAffinity();
-               //System.exit(0);
+                //activity.finishAffinity();
+                //System.exit(0);
                 SharedPreferenceManager.getSharedPreferenceInstance(getApplicationContext()).clear();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
@@ -97,20 +79,9 @@ public class AdminDash extends AppCompatActivity {
         builder.show();
     }
 
-
-    public static void redirectActivity(Activity activity,Class aClass) {
-        //inizate intent
-        Intent intent=new Intent(activity,aClass);
-        //set flags
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //start activity
-        activity.startActivity(intent);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
-        closeDrawer(drawerLayoutAdmin);
+        AdminDash.closeDrawer(drawerLayoutAdmin);
     }
-
 }

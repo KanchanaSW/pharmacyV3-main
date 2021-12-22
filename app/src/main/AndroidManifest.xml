@@ -14,7 +14,16 @@
         android:theme="@style/Theme.PMS"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AboutUs"
+            android:name=".AdminRequestsList"
+            android:exported="false" />
+        <activity
+            android:name=".AdminUsersList"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateAccount"
+            android:exported="false" />
+        <activity
+            android:name=".Inquires"
             android:exported="false" />
         <activity
             android:name=".AdminDash"

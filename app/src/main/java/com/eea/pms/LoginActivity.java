@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseCallback
 
             if (loginResponse.getRoles().equals("ROLE_ADMIN")) {
                 System.out.println("It is admin here");
-                intent = new Intent(this, MainActivityAdmin.class);
+                intent = new Intent(this, AdminDash.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
@@ -141,6 +141,8 @@ public class LoginActivity extends AppCompatActivity implements ResponseCallback
             FancyToast.makeText(getApplicationContext(), "Successfully Logged In", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
         }else{
             System.out.println("//////onSuccess//// loginResponse null");
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
     }
 
