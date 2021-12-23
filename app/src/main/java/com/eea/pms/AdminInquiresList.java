@@ -12,13 +12,13 @@ import android.view.View;
 
 import com.eea.pms.Storage.SharedPreferenceManager;
 
-public class Inquires extends AppCompatActivity {
+public class AdminInquiresList extends AppCompatActivity {
 
     DrawerLayout drawerLayoutAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inquires);
+        setContentView(R.layout.activity_admin_inquires_list);
 
         drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
     }
@@ -42,7 +42,7 @@ public class Inquires extends AppCompatActivity {
         AdminDash.redirectActivity(this,UpdateAccount.class);
     }
     public void ClickProductsAdmin(View view){
-        AdminDash.redirectActivity(this,ItemViewActivity.class);
+        AdminDash.redirectActivity(this,ItemList.class);
     }
     public void ClickRequestsAdmin(View view){
         AdminDash.redirectActivity(this,AdminRequestsList.class);
@@ -63,9 +63,8 @@ public class Inquires extends AppCompatActivity {
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //activity.finishAffinity();
-                //System.exit(0);
                 SharedPreferenceManager.getSharedPreferenceInstance(getApplicationContext()).clear();
+                activity.finishAffinity();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }

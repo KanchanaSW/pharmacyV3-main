@@ -41,14 +41,14 @@ public class AdminRequestsList extends AppCompatActivity {
         AdminDash.redirectActivity(this,UpdateAccount.class);
     }
     public void ClickProductsAdmin(View view){
-        AdminDash.redirectActivity(this,ItemViewActivity.class);
+        AdminDash.redirectActivity(this,ItemList.class);
     }
     public void ClickRequestsAdmin(View view){
       recreate();
     }
 
     public void ClickInquiresAdmin(View view){
-        AdminDash.redirectActivity(this,Inquires.class);
+        AdminDash.redirectActivity(this, AdminInquiresList.class);
     }
 
     public void ClickLogOut(View view){
@@ -62,9 +62,8 @@ public class AdminRequestsList extends AppCompatActivity {
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //activity.finishAffinity();
-                //System.exit(0);
                 SharedPreferenceManager.getSharedPreferenceInstance(getApplicationContext()).clear();
+                activity.finishAffinity();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
