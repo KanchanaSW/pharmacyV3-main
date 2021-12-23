@@ -30,7 +30,7 @@ public class MainActivityAdmin extends AppCompatActivity {
        btnItems.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               startActivity(new Intent(getApplicationContext(),ItemViewActivity.class));
+               startActivity(new Intent(getApplicationContext(),ItemList.class));
            }
        });
         btnDrawer.setOnClickListener(new View.OnClickListener() {

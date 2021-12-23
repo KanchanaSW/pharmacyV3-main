@@ -9,20 +9,57 @@ android:id="@+id/drawer_layout_admin"
 tools:context=".ItemList">
 
 <LinearLayout
+    android:id="@+id/aaIid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/main_toolbar_admin"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView
+        <include
+            layout="@layout/main_toolbar_admin"
+            android:id="@+id/mta"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvL"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Product-List"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id = "@+id/addNewItem"
+            android:layout_toEndOf="@+id/tvL"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/ic_add_w"
+            android:padding="10dp"
+            android:clickable="true"
+            android:background = "@drawable/round_btn"
+            android:layout_width = "40dp"
+            android:textColor = "@color/white"
+            android:layout_height = "40dp" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAI"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Product-List"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:gravity="center"/>
+        android:padding="10dp"
+        tools:listitem="@layout/item_view" />
+
 
 </LinearLayout>
 

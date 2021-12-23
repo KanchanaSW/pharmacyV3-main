@@ -2,10 +2,6 @@ package com.eea.pms;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,13 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.eea.pms.Adapter.ItemAdapter;
 import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.DTO.Responses.MessageResponse;
 import com.eea.pms.Model.Category;
 import com.eea.pms.Model.Item;
 import com.eea.pms.RetrofitClient.RetrofitClient;
@@ -39,31 +32,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemViewActivity extends AppCompatActivity implements View.OnClickListener {
-    //Initialize variables
-   // DrawerLayout drawerLayoutAdmin;
+public class AdminAddItemAc extends AppCompatActivity {
+
+    DrawerLayout drawerLayoutAdmin;
     EditText etItemName, etDes, etQuantity, etPrice;
     Spinner spinnerCategory;
     String selectedCategory="";
     TextInputLayout itemName_error,itemDes_error,itemCategory_error,itemQuantity_error,itemPrice_error;
     boolean isitemNameValid,isitemDesValid,isitemCategoryValid,isitemQuantityValid,isitemPriceValid;
     Button btnAddItem;
-    Intent intent;
-    RecyclerView recyclerViewAI;
-    private List<Item> itemList = new ArrayList<>();
-    private LoginResponse loginResponse;
-    private ItemAdapter itemAdapter;
-
-    public ItemViewActivity() {
-    }
-
+    LoginResponse loginResponse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_view);
-
-       // drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
-        //assigne variables
+        setContentView(R.layout.activity_admin_add_item);
+        drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
         itemName_error=findViewById(R.id.itemName_error);
         itemDes_error=findViewById(R.id.itemDes_error);
         itemCategory_error=findViewById(R.id.itemCategory_error);
@@ -72,29 +55,20 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
 
         etItemName=findViewById(R.id.etItemName);
         etDes=findViewById(R.id.etDes);
-       // etCategory=findViewById(R.id.etCategory);
         etQuantity=findViewById(R.id.etQuantity);
         etPrice=findViewById(R.id.etPrice);
         btnAddItem=findViewById(R.id.btnAddItem);
-        recyclerViewAI = findViewById(R.id.recyclerViewAI);
-
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
-
         spinnerCategory=findViewById(R.id.spinnerCategory);
-        getItemL();
-        getCatgList();
-        //String[] items = new String[]{"1", "2", "three"};
-        //List<Category> test=new ArrayList<>();
 
+        getCatgList();
 
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBtnAddItem();
-
             }
         });
-
     }
 
     private void onBtnAddItem() {
@@ -146,14 +120,16 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
             String jwtToken="Bearer "+loginResponse.getToken();
             Item newItem=new Item(iName,iDes,iCatName,Integer.parseInt(iQuant),Double.parseDouble(iPrice));
 
-            Call<Item> addItem=RetrofitClient.getRetrofitClientInstance().create(ItemApi.class).addItem(newItem,jwtToken);
+            Call<Item> addItem= RetrofitClient.getRetrofitClientInstance().create(ItemApi.class).addItem(newItem,jwtToken);
             addItem.enqueue(new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     if (response.isSuccessful()){
                         FancyToast.makeText(getApplicationContext(), " Success", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
-                        finish();
-                        startActivity(getIntent());
+                        startActivity(new Intent(getApplicationContext(),ItemList.class));
+                        //finish();
+                        //startActivity(getIntent());
+
                     }else {
                         FancyToast.makeText(getApplicationContext(), " Error", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                     }
@@ -180,7 +156,7 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
 
                 if (catList != null) {
                     for (int k=0;k<catList.size();k++){
-                       catName.add(catList.get(k).getCategory());
+                        catName.add(catList.get(k).getCategory());
                     }
                 }
 
@@ -211,47 +187,17 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    public void getItemL(){
 
-
-        Call<List<Item>> getItemsList= RetrofitClient.getRetrofitClientInstance().create(ItemApi.class).getAllItems(loginResponse.getToken());
-        getItemsList.enqueue(new Callback<List<Item>>() {
-            @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                List<Item> list=response.body();
-                ItemAdapter adapter=new ItemAdapter(list,getApplicationContext());
-                recyclerViewAI.setAdapter(adapter);
-                recyclerViewAI.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
-                recyclerViewAI.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
-                recyclerViewAI.setItemAnimator(new DefaultItemAnimator());
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-                FancyToast.makeText(getApplicationContext(), "Please try again later", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
-            }
-        });
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-/*
-    //drawer options;
+    /// nav drawer functions//////////////////////////////////////////////////////////////////////////////////
     public void ClickMenu(View view){
         AdminDash.openDrawer(drawerLayoutAdmin);
     }
-
     public void ClickLogo(View view){
         AdminDash.closeDrawer(drawerLayoutAdmin);
     }
-
     public void ClickHome(View view){
         AdminDash.redirectActivity(this,AdminDash.class);
     }
-
     public void ClickUsers(View view){
         AdminDash.redirectActivity(this,AdminUsersList.class);
     }
@@ -259,20 +205,17 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
         AdminDash.redirectActivity(this,UpdateAccount.class);
     }
     public void ClickProductsAdmin(View view){
-        recreate();
+        AdminDash.redirectActivity(this,ItemList.class);
     }
     public void ClickRequestsAdmin(View view){
         AdminDash.redirectActivity(this,AdminRequestsList.class);
     }
-
     public void ClickInquiresAdmin(View view){
-        AdminDash.redirectActivity(this,Inquires.class);
+        AdminDash.redirectActivity(this,AdminInquiresList.class);
     }
-
     public void ClickLogOut(View view){
         logOut(this);
     }
-
     public void logOut(Activity activity) {
         AlertDialog.Builder builder=new AlertDialog.Builder(activity);
         builder.setTitle("Logout");
@@ -280,9 +223,8 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               // activity.finishAffinity();
-               // System.exit(0);
                 SharedPreferenceManager.getSharedPreferenceInstance(getApplicationContext()).clear();
+                activity.finishAffinity();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
@@ -296,10 +238,10 @@ public class ItemViewActivity extends AppCompatActivity implements View.OnClickL
         //show dialog
         builder.show();
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         AdminDash.closeDrawer(drawerLayoutAdmin);
-    }*/
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

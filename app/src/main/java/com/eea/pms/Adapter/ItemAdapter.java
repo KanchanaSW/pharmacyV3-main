@@ -1,12 +1,13 @@
 package com.eea.pms.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.ItemViewActivity;
+import com.eea.pms.ItemList;
 import com.eea.pms.Model.Item;
 import com.eea.pms.R;
 import com.eea.pms.RetrofitClient.RetrofitClient;
@@ -66,22 +67,38 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 System.out.println("clicked =>>"+item.getItemId());
-                Call<Void> deleteItem= RetrofitClient.getRetrofitClientInstance().create(ItemApi.class).deleteItem(item.getItemId(),jwtToken);
-                deleteItem.enqueue(new Callback<Void>() {
+                AlertDialog.Builder builder=new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Logout");
+                builder.setMessage("Are you sure you want to delete item "+item.getItemId()+" ?");
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()){
-                            FancyToast.makeText(v.getContext(), " Success Item deleted", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
-                            intent=new Intent(v.getContext(), ItemViewActivity.class);
-                            context.startActivity(intent);
-                        }
-                    }
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<Void> deleteItem= RetrofitClient.getRetrofitClientInstance().create(ItemApi.class).deleteItem(item.getItemId(), jwtToken);
+                        deleteItem.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()){
+                                    FancyToast.makeText(v.getContext(), " Success Item deleted", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+                                    intent=new Intent(v.getContext(), ItemList.class);
+                                    context.startActivity(intent);
+                                }
+                            }
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        FancyToast.makeText(v.getContext(), " Failed Error", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                FancyToast.makeText(v.getContext(), " Failed Error", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                            }
+                        });
                     }
                 });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                //show dialog
+                builder.show();
             }
         });
 
@@ -92,8 +109,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             }
         });
 
-
     }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemId;
         TextView itemName;
