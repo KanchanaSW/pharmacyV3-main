@@ -18,12 +18,18 @@ tools:context=".AdminUsersList">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Users-list"
-        android:textSize="50sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:gravity="center"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUserList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        tools:listitem="@layout/users_list" />
 </LinearLayout>
 
 <RelativeLayout
