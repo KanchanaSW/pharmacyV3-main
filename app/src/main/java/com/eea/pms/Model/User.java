@@ -25,4 +25,10 @@ public class User {
         this.status=status;
         this.role=role;
     }
+
+    public User(Integer userId,String phone, String password) {
+        this.userId = userId;
+        this.phone = phone;
+        this.password = password;
+    }
 }
