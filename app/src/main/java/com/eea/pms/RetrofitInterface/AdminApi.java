@@ -1,6 +1,7 @@
 package com.eea.pms.RetrofitInterface;
 
 import com.eea.pms.Model.Item;
+import com.eea.pms.Model.ItemRequests;
 import com.eea.pms.Model.User;
 
 import java.util.List;
@@ -25,4 +26,8 @@ public interface AdminApi {
     //update user account details
     @POST("api/users/update-user")
     Call<String> updateMyAcc(@Body User user, @Header("Authorization") String token);
+
+    //get all item requests
+    @GET("api/requests/all")
+    Call<List<ItemRequests>> requestsList(@Header("Authorization") String token);
 }

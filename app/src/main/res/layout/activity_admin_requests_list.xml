@@ -16,13 +16,12 @@ tools:context=".AdminRequestsList">
     <include
         layout="@layout/main_toolbar_admin"/>
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRequestsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Requests-List"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:gravity="center"/>
+        android:padding="10dp"
+        tools:listitem="@layout/requests_list" />
 
 </LinearLayout>
 

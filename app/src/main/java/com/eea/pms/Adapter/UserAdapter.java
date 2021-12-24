@@ -68,7 +68,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         TextView phone;
         TextView status;
         TextView role;
-        TextView btnDeleteUser;
+        //TextView btnDeleteUser;
 
         public ViewHolder(@NonNull View userView) {
             super(userView);
@@ -78,7 +78,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             phone=itemView.findViewById(R.id.user_phone);
             status=itemView.findViewById(R.id.user_status);
             role=itemView.findViewById(R.id.user_role);
-            btnDeleteUser=itemView.findViewById(R.id.ibtnToDeleteUser);
+            //btnDeleteUser=itemView.findViewById(R.id.ibtnToDeleteUser);
         }
     }
 }
