@@ -1,5 +1,6 @@
 package com.eea.pms;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -8,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import com.eea.pms.Model.Item;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.ItemApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -62,6 +65,22 @@ public class AdminAddItemAc extends AppCompatActivity {
         spinnerCategory=findViewById(R.id.spinnerCategory);
 
         getCatgList();
+
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav_item);
+        bottomNavigationView.setSelectedItemId(R.id.add_item);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.view_item_list:
+                        startActivity(new Intent(getApplicationContext(),ItemList.class));
+                        overridePendingTransition(0,0);
+                    case R.id.add_item:
+                       return true;
+                }
+                return false;
+            }
+        });
 
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override

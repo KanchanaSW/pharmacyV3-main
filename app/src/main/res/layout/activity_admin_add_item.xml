@@ -143,17 +143,32 @@ tools:context=".AdminAddItemAc">
         </com.google.android.material.textfield.TextInputLayout>
 
     </RelativeLayout>
-
     <Button
         android:id="@+id/btnAddItem"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_margin="20dp"
-        android:backgroundTint="#0070ff"
+        android:backgroundTint="@color/azure"
         android:textColor="@color/white"
         android:textSize="19sp"
         app:cornerRadius="20dp"
         android:text="Add Item" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottom_nav_item"
+            app:backgroundTint="@color/lightskyblue"
+            app:itemBackground="@color/lightskyblue"
+            app:itemTextColor="@drawable/selector"
+            app:itemIconTint="@drawable/selector"
+            app:menu="@menu/menu_nav_items"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
 
 </LinearLayout>
 

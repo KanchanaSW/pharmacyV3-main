@@ -1,5 +1,6 @@
 package com.eea.pms;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,6 +15,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,6 +27,7 @@ import com.eea.pms.Model.Item;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.ItemApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
@@ -40,6 +43,7 @@ public class ItemList extends AppCompatActivity {
     RecyclerView recyclerViewAI;
     ImageButton btnAddNewItem;
 
+
     public ItemList() {
     }
     @Override
@@ -51,13 +55,30 @@ public class ItemList extends AppCompatActivity {
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
         //Initiate items list
         getItemL();
-        btnAddNewItem=findViewById(R.id.addNewItem);
+
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav_item);
+        bottomNavigationView.setSelectedItemId(R.id.view_item_list);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.view_item_list:
+                        return true;
+                    case R.id.add_item:
+                        startActivity(new Intent(getApplicationContext(),AdminAddItemAc.class));
+                        overridePendingTransition(0,0);
+                }
+                return false;
+            }
+        });
+
+       /* btnAddNewItem=findViewById(R.id.addNewItem);
         btnAddNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addNewItem();
             }
-        });
+        });*/
     }
 
     //drawer functions  ===/////==
