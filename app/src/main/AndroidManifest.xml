@@ -44,9 +44,6 @@
             android:name=".ResetPassword"
             android:exported="false" />
         <activity
-            android:name=".MainActivityAdmin"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

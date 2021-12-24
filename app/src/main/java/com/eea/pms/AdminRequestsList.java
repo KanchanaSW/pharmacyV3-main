@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.eea.pms.Storage.SharedPreferenceManager;
 
@@ -20,6 +21,8 @@ public class AdminRequestsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_requests_list);
         drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
+        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        mtaHeading.setText("Item Requests List");
     }
 
     public void ClickMenu(View view){

@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.eea.pms.Storage.SharedPreferenceManager;
 
@@ -23,7 +24,8 @@ public class AdminDash extends AppCompatActivity {
 
         //Assign variables
         drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
-
+        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        mtaHeading.setText("Home");
     }
 
     public void ClickMenu(View view){

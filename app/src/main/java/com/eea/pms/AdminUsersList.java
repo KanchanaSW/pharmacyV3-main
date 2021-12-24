@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eea.pms.Adapter.UserAdapter;
@@ -44,6 +45,8 @@ public class AdminUsersList extends AppCompatActivity {
         recyclerViewUserList=findViewById(R.id.recyclerViewUserList);
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
         getAllUsers();
+        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        mtaHeading.setText("Users-List");
     }
 
     private void getAllUsers() {

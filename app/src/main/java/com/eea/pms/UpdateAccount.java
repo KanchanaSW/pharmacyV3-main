@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eea.pms.DTO.Responses.LoginResponse;
@@ -30,6 +31,7 @@ public class UpdateAccount extends AppCompatActivity {
     DrawerLayout drawerLayoutAdmin;
     EditText etEmailUpdate,etUsernameUpdate,etNoUpdate,etPasswordUpdate,etPassword2Update,etUserId;
     TextInputLayout emailError,nameError,phoneError,passError,passError2;
+
     boolean isPass1Valid,isPass2Valid,isPhoneValid;
     Button btnUpdateAccount;
     LoginResponse loginResponse;
@@ -53,6 +55,8 @@ public class UpdateAccount extends AppCompatActivity {
         passError=findViewById(R.id.passError);
         passError2=findViewById(R.id.passError2);
 
+        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        mtaHeading.setText("Update Account");
         //get user details function initiate
         getUserDetails();
 

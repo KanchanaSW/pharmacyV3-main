@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eea.pms.DTO.Responses.LoginResponse;
@@ -63,7 +64,8 @@ public class AdminAddItemAc extends AppCompatActivity {
         btnAddItem=findViewById(R.id.btnAddItem);
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
         spinnerCategory=findViewById(R.id.spinnerCategory);
-
+        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        mtaHeading.setText("Add new item");
         getCatgList();
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav_item);

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eea.pms.Adapter.ItemAdapter;
@@ -55,6 +56,8 @@ public class ItemList extends AppCompatActivity {
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
         //Initiate items list
         getItemL();
+        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        mtaHeading.setText("Item List");
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav_item);
         bottomNavigationView.setSelectedItemId(R.id.view_item_list);

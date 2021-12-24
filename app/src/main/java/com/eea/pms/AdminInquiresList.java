@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.eea.pms.Storage.SharedPreferenceManager;
 
@@ -21,6 +22,8 @@ public class AdminInquiresList extends AppCompatActivity {
         setContentView(R.layout.activity_admin_inquires_list);
 
         drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
+        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        mtaHeading.setText("Inquires List");
     }
 
     public void ClickMenu(View view){

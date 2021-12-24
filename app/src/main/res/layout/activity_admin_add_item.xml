@@ -16,21 +16,12 @@ tools:context=".AdminAddItemAc">
     <include
         layout="@layout/main_toolbar_admin"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add New Product"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:gravity="center"/>
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itemName_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:layout_marginTop="7dp">
+        android:layout_marginTop="17dp">
 
         <EditText
             android:id="@+id/etItemName"
