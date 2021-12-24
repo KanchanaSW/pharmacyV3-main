@@ -7,8 +7,10 @@ import com.pharmacy.v3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -24,22 +26,42 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<UserDTO> getAllUsers() {
+        List<UserDTO> list=new ArrayList<>();
+        for (User user:userService.getAllUsers()){
+            UserDTO u=new UserDTO();
+            u.setUserId(user.getUserId());
+            u.setUsername(user.getUsername());
+            u.setEmail(user.getEmail());
+            u.setPhone(user.getPhone());
+            u.setStatus(user.getStatus());
+            u.setRole(user.getRole().getRole());
+            list.add(u);
+        }
+        return list;
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @RequestMapping(value = "/user/{userId}")
-    public ResponseEntity<?> getAUser(@PathVariable Integer userId) {
-        User user= userService.findUser(userId);
-        return ResponseEntity.ok(user);
+    @RequestMapping(value = "/user")
+    public ResponseEntity<?> getAUser(Authentication authentication) {
+        User userType = userService.directUserType(authentication.getName());
+        User u=userService.findUser(userType.getUserId());
+        User user= userService.findUser(u.getUserId());
+        UserDTO u1=new UserDTO();
+        if (user != null){
+            u1.setUserId(user.getUserId());
+            u1.setUsername(user.getUsername());
+            u1.setEmail(user.getEmail());
+            u1.setPhone(user.getPhone());
+        }
+        return ResponseEntity.ok(u1);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PutMapping(value = "/update-user/{userId}")
-    public ResponseEntity<?> updateUser(@PathVariable Integer userId, @RequestBody UserDTO userDTO) {
+    @PostMapping(value = "/update-user")
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
         User user= userService.updateUser(userDTO);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok("Success");
     }
 
     @PreAuthorize("hasRole('ADMIN')")

@@ -16,10 +16,19 @@ public class UserDTO {
     private String password;
     private String status;
 
-    private Role role;
+    private String role;
 
     public UserDTO(){
 
+    }
+
+    public UserDTO(Integer userId, String username, String email, String phone, String status, String role) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.status = status;
+        this.role = role;
     }
 
     public UserDTO(String username, String email, String phone, String password) {
@@ -27,6 +36,14 @@ public class UserDTO {
         this.email = email;
         this.phone = phone;
         this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getUserId() {
@@ -69,11 +86,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

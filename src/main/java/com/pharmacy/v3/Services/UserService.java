@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +41,7 @@ public class UserService {
     public User updateUser(UserDTO userDTO){
         Optional<User> user = userRepository.findById(userDTO.getUserId());
         User u=user.get();
-
-        u.setEmail(userDTO.getEmail());
+        //u.setEmail(userDTO.getEmail());
         u.setPhone(userDTO.getPhone());
         u.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(u);
@@ -73,8 +73,6 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
-
 
     public void deleteUser(Integer userID) {
        /* if (otpRepository.existsByUserUserId(userID)){

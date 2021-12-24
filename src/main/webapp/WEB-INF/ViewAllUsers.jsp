@@ -52,10 +52,16 @@
                 <td Class="col col-2" style="width: 25%">${users.email}</td>
                 <td Class="col col-2" style="width: 25%">${users.phone}</td>
                 <td class="col col-2" style="width: 25%">${users.status}</td>
+                <c:if test="${users.username == 'admin'}">
+                    <td Class="col col-2" style="width: 25%"><button disabled type="button" class="btn btn-outline-primary">Update</button></td>
+                    <td Class="col col-2" style="width: 25%"><button disabled type="button" class="btn btn-outline-danger" >Delete</button></td>
 
-                <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-primary" onclick="myFunction2()"><a href="${pageContext.request.contextPath}/UpdateStatus/${users.userId}">Update</a></button></td>
+                </c:if>
+                <c:if test="${users.username != 'admin'}">
+                    <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-primary" onclick="myFunction2()"><a href="${pageContext.request.contextPath}/UpdateStatus/${users.userId}">Update</a></button></td>
+                    <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-danger" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteUser/${users.userId}">Delete</a></button></td>
 
-                <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-danger" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteUser/${users.userId}">Delete</a></button></td>
+                </c:if>
             </tr>
         </c:forEach>
 
