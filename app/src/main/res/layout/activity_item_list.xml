@@ -32,6 +32,7 @@ tools:context=".ItemList">
             android:id="@+id/recyclerViewAI"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="55dp"
             android:padding="10dp"
             tools:listitem="@layout/item_view" />
 
