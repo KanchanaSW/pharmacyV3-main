@@ -23,4 +23,13 @@ public class Item {
         this.quantity=iq;
         this.price=ip;
     }
+
+    public Item(Integer itemId, String itemName, String des, String categoryName, int quantity, double price) {
+        this.itemId=itemId;
+        this.itemName=itemName;
+        this.des=des;
+        this.categoryName=categoryName;
+        this.quantity=quantity;
+        this.price=price;
+    }
 }

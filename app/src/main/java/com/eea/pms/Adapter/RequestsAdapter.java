@@ -1,6 +1,7 @@
 package com.eea.pms.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -11,7 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eea.pms.AdminDash;
 import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.LoginActivity;
+import com.eea.pms.ManageItemRequest;
 import com.eea.pms.Model.ItemRequests;
 import com.eea.pms.R;
 import com.eea.pms.Storage.SharedPreferenceManager;
@@ -57,12 +61,14 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return requestList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView requestId;
         TextView itemName;
         TextView note;
@@ -72,6 +78,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             requestId=itemView.findViewById(R.id.request_id);
             itemName=itemView.findViewById(R.id.request_item_name);
             note=itemView.findViewById(R.id.request_note);
@@ -79,6 +86,14 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             userName=itemView.findViewById(R.id.request_user_name);
             requestStatus=itemView.findViewById(R.id.request_status);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            int po=getAdapterPosition();
+            ItemRequests ir=requestList.get(po);
+            System.out.println(ir.getItemRequestsId());
+            context.startActivity(new Intent(v.getContext(), ManageItemRequest.class).putExtra("requestId",ir.getItemRequestsId()));
         }
     }
 }

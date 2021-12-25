@@ -30,4 +30,10 @@ public interface AdminApi {
     //get all item requests
     @GET("api/requests/all")
     Call<List<ItemRequests>> requestsList(@Header("Authorization") String token);
+    //get request by id
+    @GET("api/requests/getMI/{itemRequestsId}")
+    Call<ItemRequests> getMI(@Path("itemRequestsId") Integer itemRequestsId, @Header("Authorization") String token);
+    //add manage Request
+    @POST("api/requests/ManageRequestAdd")
+    Call<Item> manageRequest(@Body Item item, @Header("Authorization") String token);
 }
