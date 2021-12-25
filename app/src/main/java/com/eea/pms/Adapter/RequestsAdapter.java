@@ -18,6 +18,7 @@ import com.eea.pms.LoginActivity;
 import com.eea.pms.ManageItemRequest;
 import com.eea.pms.Model.ItemRequests;
 import com.eea.pms.R;
+import com.eea.pms.RejectRequest;
 import com.eea.pms.Storage.SharedPreferenceManager;
 
 import java.util.List;
@@ -58,7 +59,17 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             holder.requestStatus.setText(String.valueOf(itemRequests.getStatus()));
         }
 
-
+        if (itemRequests.getStatus().equals("pending")){
+            holder.btnRejectReq.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(v.getContext(), RejectRequest.class).
+                            putExtra("requestId", itemRequests.getItemRequestsId()));
+                }
+            });
+        }else {
+            holder.btnRejectReq.setVisibility(View.GONE);
+        }
     }
 
 
@@ -75,6 +86,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         TextView userId;
         TextView userName;
         TextView requestStatus;
+        TextView btnRejectReq;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,15 +97,19 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             userId=itemView.findViewById(R.id.request_user_id);
             userName=itemView.findViewById(R.id.request_user_name);
             requestStatus=itemView.findViewById(R.id.request_status);
-
+            btnRejectReq=itemView.findViewById(R.id.btnRejectReq);
         }
 
         @Override
         public void onClick(View v) {
             int po=getAdapterPosition();
             ItemRequests ir=requestList.get(po);
-            System.out.println(ir.getItemRequestsId());
-            context.startActivity(new Intent(v.getContext(), ManageItemRequest.class).putExtra("requestId",ir.getItemRequestsId()));
+            if (ir.getStatus().equals("pending")){
+                context.startActivity(new Intent(v.getContext(), ManageItemRequest.class).putExtra("requestId",ir.getItemRequestsId()));
+            }else {
+
+            }
+
         }
     }
 }

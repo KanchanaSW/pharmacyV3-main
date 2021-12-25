@@ -36,4 +36,7 @@ public interface AdminApi {
     //add manage Request
     @POST("api/requests/ManageRequestAdd")
     Call<Item> manageRequest(@Body Item item, @Header("Authorization") String token);
+    //reject item request with a note
+    @POST("api/requests/RejectItemRequest")
+    Call<ItemRequests> rejectReq(@Body ItemRequests itemRequests, @Header("Authorization") String token);
 }

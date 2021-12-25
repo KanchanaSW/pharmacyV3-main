@@ -23,6 +23,7 @@
     <string name="itemName">Item Name</string>
     <string name="itemName_error">Please enter item name</string>
     <string name="itemDes">Item Note</string>
+    <string name="rejDes">Reason for rejecting</string>
     <string name="itemDes_error">Enter Short Note</string>
     <string name="itemCategory">Category</string>
     <string name="itemCategory_error">Select Category</string>

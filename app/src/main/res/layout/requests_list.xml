@@ -35,15 +35,15 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!--       <TextView
-                       android:id="@+id/ibtnToDeleteUser"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_toRightOf="@+id/user_name"
-                       android:text="X"
-                       android:textColor="@color/design_default_color_error"
-                       android:textSize="20sp"
-                       android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/btnRejectReq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/request_item_name"
+                android:text="X"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <TextView

@@ -14,4 +14,9 @@ public class ItemRequests {
     private Integer userId;
     private String username;
     private String status;
+
+    public ItemRequests(Integer itemRequestsId, String note) {
+        this.itemRequestsId = itemRequestsId;
+        this.note = note;
+    }
 }
