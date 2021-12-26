@@ -25,6 +25,7 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_main_admin.xml" value="0.19021739130434784" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_manage_item_request.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_new_password.xml" value="0.19746376811594202" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_ordered_items_list.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_register.xml" value="0.2056159420289855" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_reject_request.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_reset_password.xml" value="0.19746376811594202" />
@@ -42,6 +43,7 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_nd_user.xml" value="0.1" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_toolbar_admin.xml" value="0.192481884057971" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_toolbar_user.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/ordered_item_list.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/orders_list.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/requests_list.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/users_list.xml" value="0.18840579710144928" />

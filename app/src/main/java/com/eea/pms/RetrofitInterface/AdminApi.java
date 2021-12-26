@@ -4,6 +4,7 @@ import com.eea.pms.Model.Inquiry;
 import com.eea.pms.Model.Item;
 import com.eea.pms.Model.ItemRequests;
 import com.eea.pms.Model.Order;
+import com.eea.pms.Model.OrderedItems;
 import com.eea.pms.Model.User;
 
 import java.util.List;
@@ -49,4 +50,7 @@ public interface AdminApi {
     //view all orders
     @GET("api/orders/allOrders")
     Call<List<Order>> getAllOrders(@Header("Authorization") String token);
+    //view ordered items of a order
+    @GET("api/orders/viewSingleOrder/{orderedItemDTOId}")
+    Call<List<OrderedItems>> getOrderedItems(@Path("orderedItemDTOId") Integer orderedItemDTOId, @Header("Authorization") String token);
 }

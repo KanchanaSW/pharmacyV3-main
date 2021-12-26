@@ -1,6 +1,7 @@
 package com.eea.pms.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.ManageItemRequest;
 import com.eea.pms.Model.Inquiry;
+import com.eea.pms.Model.ItemRequests;
 import com.eea.pms.Model.Order;
+import com.eea.pms.OrderedItemsList;
 import com.eea.pms.R;
 import com.eea.pms.Storage.SharedPreferenceManager;
 
@@ -57,7 +61,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         return orderList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView order_id;
         TextView cus_name;
         TextView order_status;
@@ -69,6 +73,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+
             order_id=itemView.findViewById(R.id.order_id);
             cus_name=itemView.findViewById(R.id.cus_name);
             order_status=itemView.findViewById(R.id.order_status);
@@ -78,6 +84,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             total=itemView.findViewById(R.id.total);
             pharmacy_name=itemView.findViewById(R.id.pharmacy_name);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            int po=getAdapterPosition();
+            System.out.println(po);
+            Order order= orderList.get(po);
+            context.startActivity(new Intent(v.getContext(), OrderedItemsList.class).putExtra("orderedItemDTOId",order.getOrdersDTOId()));
         }
     }
 }
