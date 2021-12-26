@@ -16,13 +16,12 @@
         <include
             layout="@layout/main_toolbar_admin"/>
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewInquiryList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Inquires"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:padding="10dp"
+            tools:listitem="@layout/inquiry_list" />
 
     </LinearLayout>
 

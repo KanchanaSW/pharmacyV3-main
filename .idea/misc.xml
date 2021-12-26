@@ -13,7 +13,7 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_about_us.xml" value="0.13496376811594202" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_add_item.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_dash.xml" value="0.192481884057971" />
-        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_inquires_list.xml" value="0.11413043478260869" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_inquires_list.xml" value="0.22" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_nd.xml" value="0.192481884057971" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_requests_list.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_users_list.xml" value="0.18840579710144928" />
@@ -36,7 +36,8 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/fragment_email_success.xml" value="0.19746376811594202" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/fragment_home.xml" value="0.192481884057971" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/fragment_reset_password.xml" value="0.19746376811594202" />
-        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/item_view.xml" value="0.25" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/inquiry_list.xml" value="0.1838768115942029" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/item_view.xml" value="0.11231884057971014" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_nd_admin.xml" value="0.22" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_nd_user.xml" value="0.1" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_toolbar_admin.xml" value="0.192481884057971" />

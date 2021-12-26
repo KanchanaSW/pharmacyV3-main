@@ -1,5 +1,6 @@
 package com.eea.pms.RetrofitInterface;
 
+import com.eea.pms.Model.Inquiry;
 import com.eea.pms.Model.Item;
 import com.eea.pms.Model.ItemRequests;
 import com.eea.pms.Model.User;
@@ -39,4 +40,8 @@ public interface AdminApi {
     //reject item request with a note
     @POST("api/requests/RejectItemRequest")
     Call<ItemRequests> rejectReq(@Body ItemRequests itemRequests, @Header("Authorization") String token);
+
+    //view all inquires
+    @GET("api/inquiry/ViewAllInquires")
+    Call<List<Inquiry>> getAllInquires(@Header("Authorization") String token);
 }
