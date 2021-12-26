@@ -3,6 +3,7 @@ package com.eea.pms.RetrofitInterface;
 import com.eea.pms.Model.Inquiry;
 import com.eea.pms.Model.Item;
 import com.eea.pms.Model.ItemRequests;
+import com.eea.pms.Model.Order;
 import com.eea.pms.Model.User;
 
 import java.util.List;
@@ -44,4 +45,8 @@ public interface AdminApi {
     //view all inquires
     @GET("api/inquiry/ViewAllInquires")
     Call<List<Inquiry>> getAllInquires(@Header("Authorization") String token);
+
+    //view all orders
+    @GET("api/orders/allOrders")
+    Call<List<Order>> getAllOrders(@Header("Authorization") String token);
 }
