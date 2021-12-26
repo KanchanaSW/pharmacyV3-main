@@ -5,8 +5,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightskyblue"
+    >
     <ImageView
+        android:id="@+id/imageAD"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_margin="16dp"
@@ -17,18 +22,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageAD"
         android:text="P-M-S"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textAlignment="center"
+        android:layout_marginStart="30dp"
         android:textColor="#636363"/>
-    
+
+</RelativeLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="2dp"
         android:layout_marginBottom="16dp"
-        android:background="#636363"/>
+        android:background="@color/azure"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
