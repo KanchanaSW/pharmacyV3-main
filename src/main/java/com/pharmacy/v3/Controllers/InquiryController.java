@@ -1,7 +1,9 @@
 package com.pharmacy.v3.Controllers;
 
 import com.pharmacy.v3.DTO.InquiryDTO;
+import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.Inquiry;
+import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Services.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -79,8 +82,21 @@ public class InquiryController {
     //view all inquires
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping("/ViewAllInquires")
-    public List<Inquiry> viewAllInquires(){
-        return inquiryService.allInquires();
+    public List<InquiryDTO> viewAllInquires(){
+        List<InquiryDTO> list=new ArrayList<>();
+        for (Inquiry inquiry:inquiryService.allInquires()){
+            InquiryDTO i=new InquiryDTO();
+            i.setInquiryId(inquiry.getInquiryId());
+            i.setUsername(inquiry.getUser().getUsername());
+            i.setItemName(inquiry.getItem().getItemName());
+            i.setQuestion(inquiry.getQuestion());
+            i.setAnswer(inquiry.getAnswer());
+            i.setDate(inquiry.getDate());
+            i.setRep(String.valueOf(inquiry.isReplied()));
+            list.add(i);
+        }
+        System.out.println(list);
+        return list;
     }
 
     //view my inquires

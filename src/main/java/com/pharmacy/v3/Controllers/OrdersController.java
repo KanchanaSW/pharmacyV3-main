@@ -1,8 +1,10 @@
 package com.pharmacy.v3.Controllers;
 
 import com.pharmacy.v3.DTO.CartDTO;
+import com.pharmacy.v3.DTO.InquiryDTO;
 import com.pharmacy.v3.DTO.OrderDTO;
 import com.pharmacy.v3.DTO.OrderedItemsDTO;
+import com.pharmacy.v3.Models.Inquiry;
 import com.pharmacy.v3.Models.OrderedItems;
 import com.pharmacy.v3.Models.Orders;
 import com.pharmacy.v3.Models.User;
@@ -15,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -80,11 +83,21 @@ public class OrdersController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/allOrders")
     public ResponseEntity<?> allOrders(HttpServletRequest request){
-        List<OrderDTO> list=ordersService.getAll();
-        if (list.isEmpty()){
-            return ResponseEntity.badRequest().body("Empty");
+        List<OrderDTO> alt=new ArrayList<>();
+        for (OrderDTO orders: ordersService.getAll()){
+            OrderDTO od=new OrderDTO();
+            od.setOrdersDTOId(orders.getOrdersDTOId());
+            od.setCusName(orders.getCusName());
+            od.setCity(orders.getCity());
+            od.setAddress(orders.getAddress());
+            od.setDate(orders.getDate());
+            od.setTotal(orders.getTotal());
+            od.setStatus(orders.getStatus());
+            od.setUsername(orders.getUser().getUsername());
+            alt.add(od);
         }
-        return ResponseEntity.ok(list);
+        System.out.println(alt);
+        return ResponseEntity.ok(alt);
     }
 
 }

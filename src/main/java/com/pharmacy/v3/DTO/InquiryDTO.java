@@ -25,4 +25,8 @@ public class InquiryDTO {
     private String date;
     private boolean isReplied;
     private int itemId;
+
+    private String username;
+    private String itemName;
+    private String rep;
 }
