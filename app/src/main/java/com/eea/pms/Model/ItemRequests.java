@@ -19,4 +19,9 @@ public class ItemRequests {
         this.itemRequestsId = itemRequestsId;
         this.note = note;
     }
+
+    public ItemRequests(String newItemName, String note) {
+        this.newItemName = newItemName;
+        this.note = note;
+    }
 }

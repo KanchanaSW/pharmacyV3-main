@@ -32,6 +32,7 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_update_account.xml" value="0.13513513513513514" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_update_account_user.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_add_inquiry.xml" value="0.17980072463768115" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_add_request.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_inquiry_list.xml" value="0.2" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_item_list.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_order_list.xml" value="0.17980072463768115" />
@@ -59,6 +60,7 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/admin_n_d.xml" value="0.209375" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/menu_nav_inquiry.xml" value="0.209375" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/menu_nav_items.xml" value="0.209375" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/menu_nav_request.xml" value="0.209375" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/menu_nav_users.xml" value="0.209375" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16018518518518518" />
         <entry key="..\:/Users/KanchanaSW/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/btn_dropdown.xml" value="0.22552083333333334" />

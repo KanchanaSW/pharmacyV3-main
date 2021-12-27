@@ -2,6 +2,7 @@
     <string name="app_name">PMS</string>
     <string name="prompt_email">Email</string>
     <string name="inquiry">Enter the inquiry here..</string>
+    <string name="request">Enter brief note..</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="login">Login</string>

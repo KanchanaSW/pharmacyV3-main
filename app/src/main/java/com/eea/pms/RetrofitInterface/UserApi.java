@@ -25,4 +25,7 @@ public interface UserApi {
     //get user's requests
     @GET("api/requests/my-requests")
     Call<List<ItemRequests>> getMyRequests(@Header("Authorization") String token);
+    //add user request about new item
+    @POST("api/requests/add-request")
+    Call<ItemRequests> addNewRequest(@Body ItemRequests itemRequests,@Header("Authorization") String token);
 }

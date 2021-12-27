@@ -2,6 +2,7 @@ package com.eea.pms.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,14 @@ public class UserRequestAdapter extends RecyclerView.Adapter<UserRequestAdapter.
 
         holder.user_request_id.setText("ID: "+String.valueOf(itemRequests.getItemRequestsId()));
         holder.user_request_item_name.setText(itemRequests.getNewItemName());
-        holder.user_request_status.setText(String.valueOf(itemRequests.getStatus()));
+        if (itemRequests.getStatus().equals("pending")){
+            holder.user_request_status.setText("---"+String.valueOf(itemRequests.getStatus())+"---");
+            holder.user_request_status.setTextColor(Color.BLUE);
+        }else{
+            holder.user_request_status.setText(String.valueOf(itemRequests.getStatus()));
+        }
         holder.user_request_note.setText(itemRequests.getNote());
+
     }
 
     @Override

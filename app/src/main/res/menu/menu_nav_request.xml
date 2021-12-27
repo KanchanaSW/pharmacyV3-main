@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/view_inquiry_list"
-        android:title="Inquiry-List"
+        android:id="@+id/view_request_list"
+        android:title="Request-List"
         android:icon="@drawable/ic_item_list"/>
     <item
-        android:id="@+id/add_inquiry"
-        android:title="Add-Inquiry"
+        android:id="@+id/add_request"
+        android:title="Add-Request"
         android:icon="@drawable/ic_add"/>
 </menu>
