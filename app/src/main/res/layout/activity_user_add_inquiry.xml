@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/drawer_layout_user"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".UserAddInquiry">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/main_toolbar_user" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itemName_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:hint="@string/itemName"
+        android:layout_marginTop="17dp">
+
+        <EditText
+            android:id="@+id/etItemNameInquiry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"
+            android:gravity="center"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inquiry_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:hint="@string/inquiry"
+        android:layout_marginTop="17dp">
+
+        <EditText
+            android:id="@+id/etInquiry"
+            android:background="@android:drawable/editbox_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:textSize="19sp"
+            android:maxLines="10"
+            android:minLines="6"
+            android:scrollbars="vertical" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/btnAddInquiry"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/azure"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:cornerRadius="20dp"
+        android:text="Add Inquiry" />
+
+<!--    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_user_inquires"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:backgroundTint="@color/lightskyblue"
+            app:itemBackground="@color/lightskyblue"
+            app:itemIconTint="@drawable/selector"
+            app:itemTextColor="@drawable/selector"
+            app:menu="@menu/menu_nav_inquiry" />
+    </RelativeLayout>-->
+
+</LinearLayout>
+
+<RelativeLayout
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@android:color/white">
+
+    <include layout="@layout/main_nd_user" />
+
+</RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -14,13 +14,22 @@ tools:context=".UserInquiryList">
 
     <include layout="@layout/main_toolbar_user" />
 
-    <TextView
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="User-Inquiry-list"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewInquiryListUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            tools:listitem="@layout/inquiry_list" />
+
+
+    </RelativeLayout>
+
 </LinearLayout>
 
 <RelativeLayout

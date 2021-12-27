@@ -17,5 +17,9 @@ public class Inquiry {
     private String answer;
     private String date;
     private String rep;
-   // private int itemId;
+
+    public Inquiry(String question) {
+        this.question=question;
+    }
+    // private int itemId;
 }

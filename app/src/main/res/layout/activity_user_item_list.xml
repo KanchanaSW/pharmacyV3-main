@@ -14,13 +14,12 @@ tools:context=".UserItemList">
 
     <include layout="@layout/main_toolbar_user" />
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUI"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="User-Item-list"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:padding="10dp"
+        tools:listitem="@layout/item_view" />
 </LinearLayout>
 
 <RelativeLayout

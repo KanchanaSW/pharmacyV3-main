@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eea.pms.DTO.Responses.LoginResponse;
 import com.eea.pms.ItemList;
+import com.eea.pms.ManageItemRequest;
 import com.eea.pms.Model.Item;
 import com.eea.pms.R;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.ItemApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.eea.pms.UserAddInquiry;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
@@ -112,7 +114,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView itemId;
         TextView itemName;
         TextView des;
@@ -123,6 +125,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+
             itemId=itemView.findViewById(R.id.item_id);
             itemName=itemView.findViewById(R.id.item_name);
             des=itemView.findViewById(R.id.item_des);
@@ -130,6 +134,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             quantity=itemView.findViewById(R.id.item_quantity);
             categoryName=itemView.findViewById(R.id.item_category);
             btnDelete=itemView.findViewById(R.id.ibtnToDelete);
+            if (loginResponse.getRoles().equals("ROLE_USER")){
+                btnDelete.setVisibility(View.GONE);
+            }
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int po=getAdapterPosition();
+            Item item=itemList.get(po);
+            if (loginResponse.getRoles().equals("ROLE_USER")){
+                context.startActivity(new Intent(v.getContext(), UserAddInquiry.class).putExtra("itemId",item.getItemId()));
+            }
         }
     }
 

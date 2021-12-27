@@ -26,4 +26,7 @@ public interface ItemApi {
 
     @DELETE("api/items/deleteItem/{itemId}")
     Call<Void> deleteItem(@Path("itemId") Integer itemId,@Header("Authorization") String token);
+
+    @GET("api/items/item/{itemId}")
+    Call<Item> getItem(@Path("itemId") Integer itemId,@Header("Authorization") String token);
 }
