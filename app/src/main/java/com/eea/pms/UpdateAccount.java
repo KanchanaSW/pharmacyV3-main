@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.eea.pms.DTO.Responses.LoginResponse;
 import com.eea.pms.Model.User;
@@ -31,7 +33,6 @@ public class UpdateAccount extends AppCompatActivity {
     DrawerLayout drawerLayoutAdmin;
     EditText etEmailUpdate,etUsernameUpdate,etNoUpdate,etPasswordUpdate,etPassword2Update,etUserId;
     TextInputLayout emailError,nameError,phoneError,passError,passError2;
-
     boolean isPass1Valid,isPass2Valid,isPhoneValid;
     Button btnUpdateAccount;
     LoginResponse loginResponse;
@@ -39,8 +40,8 @@ public class UpdateAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_account);
-        drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
+        drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
         etUserId=findViewById(R.id.etUserId);
         //set the user id visibiliy gone
         etUserId.setVisibility(View.GONE);
