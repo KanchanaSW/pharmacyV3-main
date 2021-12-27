@@ -2,6 +2,10 @@ package com.eea.pms;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,11 +14,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.eea.pms.Adapter.RequestsAdapter;
+import com.eea.pms.Adapter.UserRequestAdapter;
+import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.Model.ItemRequests;
+import com.eea.pms.RetrofitClient.RetrofitClient;
+import com.eea.pms.RetrofitInterface.UserApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserRequestList extends AppCompatActivity {
- DrawerLayout drawerLayoutUser;
+    DrawerLayout drawerLayoutUser;
+    RecyclerView recyclerViewUserRequestsList;
+    private LoginResponse loginResponse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +42,34 @@ public class UserRequestList extends AppCompatActivity {
          drawerLayoutUser=findViewById(R.id.drawer_layout_user);
         TextView mtaHeading=findViewById(R.id.mtuHeading);
         mtaHeading.setText("My-Requests");
+        recyclerViewUserRequestsList=findViewById(R.id.recyclerViewUserRequestsList);
+        loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
+        getMyRequests();
+    }
+
+    private void getMyRequests() {
+        String jwtToken="Bearer "+loginResponse.getToken();
+        Call<List<ItemRequests>> getMyRequests= RetrofitClient.getRetrofitClientInstance().create(UserApi.class).getMyRequests(jwtToken);
+        getMyRequests.enqueue(new Callback<List<ItemRequests>>() {
+            @Override
+            public void onResponse(Call<List<ItemRequests>> call, Response<List<ItemRequests>> response) {
+                List<ItemRequests> myRequests=response.body();
+                if (myRequests != null){
+                    UserRequestAdapter ra=new UserRequestAdapter(myRequests,getApplicationContext());
+                    recyclerViewUserRequestsList.setAdapter(ra);
+                    recyclerViewUserRequestsList.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+                    recyclerViewUserRequestsList.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
+                    recyclerViewUserRequestsList.setItemAnimator(new DefaultItemAnimator());
+                }else {
+                    FancyToast.makeText(getApplicationContext(), "Empty", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ItemRequests>> call, Throwable t) {
+                FancyToast.makeText(getApplicationContext(), "Please try again later", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+            }
+        });
     }
 
 

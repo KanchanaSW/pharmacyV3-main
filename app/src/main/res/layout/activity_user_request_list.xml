@@ -14,13 +14,12 @@ tools:context=".UserRequestList">
 
     <include layout="@layout/main_toolbar_user" />
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUserRequestsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="My-Requests-list"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:padding="10dp"
+        tools:listitem="@layout/user_requsts_list" />
 </LinearLayout>
 
 <RelativeLayout
