@@ -16,71 +16,62 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eea.pms.Adapter.OrderAdapter;
+import com.eea.pms.Adapter.OrderedItemAdapter;
 import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.Model.Order;
+import com.eea.pms.Model.OrderedItems;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AdminApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserOrderList extends AppCompatActivity {
-    DrawerLayout drawerLayoutUser;
-    RecyclerView recyclerViewOrdersListUser;
+public class UserOrderedItemsList extends AppCompatActivity {
     private LoginResponse loginResponse;
+    DrawerLayout drawerLayoutUser;
+    RecyclerView recyclerViewOrderedItemsListUser;
+    Integer orderedItemDTOId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_order_list);
+        setContentView(R.layout.activity_user_ordered_items_list);
+
+        //get the id form order adapter
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            orderedItemDTOId=bundle.getInt("orderedItemDTOId");
+        }else{
+            orderedItemDTOId=0;
+        }
         drawerLayoutUser=findViewById(R.id.drawer_layout_user);
         TextView mtaHeading=findViewById(R.id.mtuHeading);
-        mtaHeading.setText("My-Orders");
-        recyclerViewOrdersListUser=findViewById(R.id.recyclerViewOrdersListUser);
+        mtaHeading.setText("Ordered Items");
+        recyclerViewOrderedItemsListUser=findViewById(R.id.recyclerViewOrderedItemsListUser);
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
-        getAllOrders();
-
+        getAllOrderedItems(orderedItemDTOId);
     }
 
-    private void getAllOrders() {
+    private void getAllOrderedItems(Integer orderedItemDTOId) {
         String jwtToken="Bearer "+loginResponse.getToken();
-        Call<List<Order>> getAll= RetrofitClient.getRetrofitClientInstance().create(AdminApi.class).getAllOrders(jwtToken);
-        getAll.enqueue(new Callback<List<Order>>() {
+        Call<List<OrderedItems>> getOrderedItems= RetrofitClient.getRetrofitClientInstance().create(AdminApi.class).getOrderedItems(orderedItemDTOId,jwtToken);
+        getOrderedItems.enqueue(new Callback<List<OrderedItems>>() {
             @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                List<Order> list = new ArrayList<>();
-                if (response.body() != null) {
-                    for (Order orders : response.body()) {
-                        Order od = new Order();
-                        od.setOrdersDTOId(orders.getOrdersDTOId());
-                        od.setCusName(orders.getCusName());
-                        od.setCity(orders.getCity());
-                        od.setAddress(orders.getAddress());
-                        od.setDate(orders.getDate());
-                        od.setTotal(orders.getTotal());
-                        od.setStatus(orders.getStatus());
-                        od.setUsername(orders.getUsername());
-                        list.add(od);
-                    }
-                    System.out.println(list);
-                    OrderAdapter ra = new OrderAdapter(list, getApplicationContext());
-                    recyclerViewOrdersListUser.setAdapter(ra);
-                    recyclerViewOrdersListUser.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
-                    recyclerViewOrdersListUser.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
-                    recyclerViewOrdersListUser.setItemAnimator(new DefaultItemAnimator());
-                }else{
-                    FancyToast.makeText(getApplicationContext(), "Empty", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
-                }
+            public void onResponse(Call<List<OrderedItems>> call, Response<List<OrderedItems>> response) {
+                List<OrderedItems> oIList=response.body();
+                OrderedItemAdapter ra=new OrderedItemAdapter(oIList,getApplicationContext());
+                recyclerViewOrderedItemsListUser.setAdapter(ra);
+                recyclerViewOrderedItemsListUser.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+                recyclerViewOrderedItemsListUser.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
+                recyclerViewOrderedItemsListUser.setItemAnimator(new DefaultItemAnimator());
             }
+
             @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
+            public void onFailure(Call<List<OrderedItems>> call, Throwable t) {
                 FancyToast.makeText(getApplicationContext(), "Please try again later", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
             }
         });
@@ -103,7 +94,7 @@ public class UserOrderList extends AppCompatActivity {
         MainActivity.redirectActivityU(this,UserItemList.class);
     }
     public void ClickOrders(View view){
-        recreate();
+        MainActivity.redirectActivityU(this,UserOrderList.class);
     }
     public void ClickRequests(View view){
         MainActivity.redirectActivityU(this,UserRequestList.class);
@@ -141,5 +132,6 @@ public class UserOrderList extends AppCompatActivity {
         MainActivity.closeDrawerUser(drawerLayoutUser);
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 }

@@ -19,6 +19,7 @@ import com.eea.pms.Model.Order;
 import com.eea.pms.OrderedItemsList;
 import com.eea.pms.R;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.eea.pms.UserOrderedItemsList;
 
 import java.util.List;
 
@@ -91,7 +92,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             int po=getAdapterPosition();
             System.out.println(po);
             Order order= orderList.get(po);
-            context.startActivity(new Intent(v.getContext(), OrderedItemsList.class).putExtra("orderedItemDTOId",order.getOrdersDTOId()));
+            if (loginResponse.getRoles().equals("ROLE_USER")){
+                context.startActivity(new Intent(v.getContext(), UserOrderedItemsList.class).putExtra("orderedItemDTOId",order.getOrdersDTOId()));
+            }else if (loginResponse.getRoles().equals("ROLE_ADMIN")){
+                context.startActivity(new Intent(v.getContext(), OrderedItemsList.class).putExtra("orderedItemDTOId",order.getOrdersDTOId()));
+            }
         }
     }
 }
