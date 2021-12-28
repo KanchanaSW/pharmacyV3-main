@@ -38,6 +38,8 @@
                     android:id="@+id/nameError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
+                    android:hint="@string/name"
                     android:layout_marginTop="7dp">
 
                     <EditText
@@ -45,11 +47,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_text_border"
-                        android:ems="10"
-                        android:hint="@string/name"
+                        android:gravity="center"
+                        android:background="@android:drawable/editbox_background"
                         android:inputType="textNoSuggestions"
-                        android:maxLines="1"
+                        android:textSize="19sp"
                         android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -58,6 +59,7 @@
                     android:id="@+id/emailError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
                     android:layout_marginTop="7dp">
 
                     <EditText
@@ -65,12 +67,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_text_border"
-                        android:ems="10"
-                        android:hint="@string/prompt_email"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                        android:gravity="center"
+                        android:background="@android:drawable/editbox_background"
+                        android:textSize="19sp"
+                        android:singleLine="true"
+                        android:inputType="textEmailAddress"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,6 +79,7 @@
                     android:id="@+id/phoneError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/phone_number"
                     android:layout_marginTop="7dp">
 
                     <EditText
@@ -85,9 +87,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_text_border"
-                        android:ems="10"
-                        android:hint="@string/phone_number"
+                        android:gravity="center"
+                        android:background="@android:drawable/editbox_background"
+                        android:textSize="19sp"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true" />
@@ -98,6 +100,7 @@
                     android:id="@+id/passError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
                     android:layout_marginTop="7dp">
 
                     <EditText
@@ -105,9 +108,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_text_border"
-                        android:ems="10"
-                        android:hint="@string/prompt_password"
+                        android:gravity="center"
+                        android:background="@android:drawable/editbox_background"
+                        android:textSize="19sp"
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true" />
@@ -118,6 +121,7 @@
                     android:id="@+id/passError2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/prompt_confirm_password"
                     android:layout_marginTop="7dp">
 
                     <EditText
@@ -125,9 +129,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_text_border"
-                        android:ems="10"
-                        android:hint="@string/prompt_password"
+                        android:gravity="center"
+                        android:background="@android:drawable/editbox_background"
+                        android:textSize="19sp"
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true" />
@@ -138,12 +142,12 @@
                 <Button
                     android:id="@+id/btnRegisterR"
                     android:layout_width="match_parent"
+                    android:text="Register"
                     android:layout_height="55dp"
                     android:layout_margin="20dp"
-                    android:backgroundTint="#0070ff"
-                    android:text="Register"
+                    android:backgroundTint="@color/azure"
                     android:textColor="@color/white"
-                    android:textSize="16dp"
+                    android:textSize="19sp"
                     app:cornerRadius="20dp" />
             </LinearLayout>
         </RelativeLayout>
