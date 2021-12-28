@@ -31,6 +31,7 @@ public class SharedPreferenceManager {
         editor.putString("email", loginResponse.getEmail());
         editor.putString("roles", loginResponse.getRoles());
         editor.putString("tokenExpireTime", loginResponse.getTokenExpireTime());
+        editor.putString("status", loginResponse.getStatus());
         editor.putString(SHARED_PREF_INFO, new Gson().toJson(loginResponse));
         editor.apply();
     }
@@ -52,7 +53,8 @@ public class SharedPreferenceManager {
                 sharedPreferences.getString("username", null),
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("roles", null),
-                sharedPreferences.getString("tokenExpireTime",null)
+                sharedPreferences.getString("tokenExpireTime",null),
+                sharedPreferences.getString("status",null)
         );
     }
     public void clear() {

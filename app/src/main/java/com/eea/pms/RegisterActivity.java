@@ -10,18 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.eea.pms.CallBacks.ResponseCallback;
 import com.eea.pms.Model.User;
-import com.eea.pms.RetrofitAPIService.AuthenticationService;
+import com.eea.pms.RetrofitClient.RetrofitClient;
+import com.eea.pms.RetrofitInterface.AuthenticationApi;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity implements ResponseCallback {
-    public AuthenticationService authenticationService;
+public class RegisterActivity extends AppCompatActivity{
     Intent intent;
     Button btnRegister;
     EditText etUsername, etNo, etEmail, etPass1, etPass2;
@@ -32,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity implements ResponseCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        authenticationService = new AuthenticationService();
 
         nameError = findViewById(R.id.nameError);
         emailError = findViewById(R.id.emailError);
@@ -118,8 +118,26 @@ public class RegisterActivity extends AppCompatActivity implements ResponseCallb
 
             if (isNameValid && isEmailValid && isPhoneValid && isPasswordValid) {
                 User newUser = new User(email, u1, p1, no);
-                System.out.println("//// new user " + newUser + newUser.getEmail());
-                authenticationService.register(newUser, this);
+                //System.out.println("//// new user " + newUser + newUser.getEmail());
+                //authenticationService.register(newUser, this);
+                Call<User> register = RetrofitClient.getRetrofitClientInstance().create(AuthenticationApi.class)
+                        .registerUser(newUser);
+                register.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.isSuccessful()){
+                            FancyToast.makeText(getApplicationContext(), "Successfully Registered", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                            onRedirectLogin();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        System.out.println("*****Register page => " + t.getMessage().toString());
+                        FancyToast.makeText(getApplicationContext(), "Sorry something went wrong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+
+                    }
+                });
             }
 
         } catch (Exception exception) {
@@ -128,15 +146,4 @@ public class RegisterActivity extends AppCompatActivity implements ResponseCallb
         }
     }
 
-    @Override
-    public void onSuccess(Response response) {
-        FancyToast.makeText(this, "Successfully Registered", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
-        onRedirectLogin();
-    }
-
-    @Override
-    public void onError(String errorMessage) {
-        System.out.println("*****Register page => " + errorMessage);
-        FancyToast.makeText(this, "Sorry something went wrong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
-    }
 }

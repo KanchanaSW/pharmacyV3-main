@@ -16,6 +16,7 @@ public class LoginResponse {
     private String email;
     private String roles;
     private String tokenExpireTime;
+    private String status;
 
 
 }
