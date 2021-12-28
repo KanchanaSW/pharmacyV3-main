@@ -104,12 +104,21 @@ public class InquiryController {
     @RequestMapping("/ViewMyInquires")
     public ResponseEntity<?> viewMyInquires(Authentication authentication){
       try {
-          List<Inquiry> list = inquiryService.myInquires(authentication);
-          if (list.isEmpty()) {
-              return ResponseEntity.badRequest().body("empty");
-          } else {
-              return ResponseEntity.ok(list);
+          List<InquiryDTO> list=new ArrayList<>();
+          for (Inquiry inquiry:inquiryService.myInquires(authentication)){
+              InquiryDTO i=new InquiryDTO();
+              i.setInquiryId(inquiry.getInquiryId());
+              i.setUsername(inquiry.getUser().getUsername());
+              i.setItemName(inquiry.getItem().getItemName());
+              i.setQuestion(inquiry.getQuestion());
+              i.setAnswer(inquiry.getAnswer());
+              i.setDate(inquiry.getDate());
+              i.setRep(String.valueOf(inquiry.isReplied()));
+              list.add(i);
           }
+          System.out.println(list);
+          return ResponseEntity.ok(list);
+
       }catch (Exception e){
           return ResponseEntity.badRequest().body("error");
       }

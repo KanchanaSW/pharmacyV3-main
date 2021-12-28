@@ -71,7 +71,7 @@ public class AuthService {
         }
     }
 
-    public ResponseEntity<?> loginUserService(AuthRequest authRequest) {
+    public ResponseEntity<?>    loginUserService(AuthRequest authRequest) {
         try {
             if (!userRepository.existsByUsername(authRequest.getUsername())) {
                 return ResponseEntity.ok("User name doesn't exist");
@@ -84,9 +84,9 @@ public class AuthService {
             Date expiretime = jwtUtils.expirationTime();
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-            if (userDetails.getStatus().equals("pending")){
+           /* if (userDetails.getStatus().equals("pending")){
                 return ResponseEntity.ok("User is not verified");
-            }
+            }*/
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(item -> item.getAuthority())
                     .collect(Collectors.toList());

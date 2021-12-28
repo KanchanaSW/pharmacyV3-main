@@ -80,7 +80,7 @@ public class OrdersController {
     }
 
     //view all pending orders admin function
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/allOrders")
     public ResponseEntity<?> allOrders(HttpServletRequest request){
         List<OrderDTO> alt=new ArrayList<>();
