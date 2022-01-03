@@ -49,6 +49,11 @@ public class WebAuthController {
     @GetMapping("/AdminHome")
     public String getAdminHome(){return "AdminHome";} //Admin page
 
+    @GetMapping("/error")
+    public String getError(){
+        return "redirect:/error";
+    }
+
     @GetMapping("/SuccessLogin")
     public String successLogin(Authentication authentication){
         User userType = userService.directUserType(authentication.getName());
