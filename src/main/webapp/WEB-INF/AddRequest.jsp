@@ -24,6 +24,7 @@
                     align-items: center;
                     margin-top: 3%;
                     padding: 1%;
+                    background: white;
                 }
 
                 .fp {

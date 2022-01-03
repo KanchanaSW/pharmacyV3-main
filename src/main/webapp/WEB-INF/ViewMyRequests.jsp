@@ -21,7 +21,7 @@
 
 <body>
 <div class="container">
-    <h3 class="text-center p-2">MY-REQUESTS</h3>
+    <h3 class="text-center p-2" style="background: white">MY-REQUESTS</h3>
 
     <!--
 //////////////////////////////////////////////////////Search function
@@ -34,7 +34,7 @@
 </form:form>
 </div>
 -->
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
         <tr class="table-primary">
             <th><span>RequestID</span></th>

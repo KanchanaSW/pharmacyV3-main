@@ -21,6 +21,7 @@
             justify-content: center;
             align-items: center;
             padding: 1%;
+            background: white;
         }
 
         .row {

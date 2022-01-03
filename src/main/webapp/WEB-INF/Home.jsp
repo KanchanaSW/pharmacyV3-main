@@ -10,7 +10,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <style type="text/css">
+    <style>
+        body {
+            background-image: url("../Pic/bwBg2.jpg");
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-size: 30%;
+        }
         .container {
             display: flex;
             justify-content: center;
@@ -31,7 +37,7 @@
 <body>
 <div class="container">
 
-    <div class="card" style="width:390px">
+    <div class="card" style="border-color: silver">
         <div class="card-body">
             <h4 class="card-title">Login Page</h4>
 

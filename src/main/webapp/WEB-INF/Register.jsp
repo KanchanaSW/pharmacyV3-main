@@ -12,14 +12,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style type="text/css">
+    <style>
+        body {
+            background-image: url("../Pic/bwBg2.jpg");
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-size: 30%;
+        }
         .container {
-            border: 1px black solid;
+            border: 1px mediumblue solid;
             width: auto;
             justify-content: center;
             align-items: center;
             margin-top: 10%;
             padding: 1%;
+            background: white;
         }
         .msg {
             font-size: small;
@@ -36,7 +43,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 
-    <h4 class="card-title">Pharmacist Register Page</h4>
+    <h4 class="card-title">Register Page</h4>
     <form:form action="${pageContext.request.contextPath}/Register" method="POST"
                modelAttribute="Registers">
 

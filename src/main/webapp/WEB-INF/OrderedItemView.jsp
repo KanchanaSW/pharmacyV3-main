@@ -42,10 +42,10 @@
 </head>
 <body>
 <div class="container">
-    <h2>Ordered Items</h2>
-    <table>
+    <h2 style="background: white">Ordered Items</h2>
+    <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
-        <tr>
+        <tr class="table-primary">
             <th Class="col col-1"><span>Id</span></th>
             <th Class="col col-1"><span>Date</span></th>
             <th Class="col col-1"><span>ItemName</span></th>

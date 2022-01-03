@@ -1,4 +1,19 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<style>
+    body {
+    <sec:authorize access="hasRole('USER')" var="user">
+        background-image: url("../../Pic/blueBg.jpg");
+        background-size: 35%;
+    </sec:authorize>
+    <sec:authorize access="hasRole('ADMIN')" var="admin">
+        background-image: url("../../Pic/bwBg2.jpg");
+        background-size: 30%;
+    </sec:authorize>
+        background-repeat: repeat;
+        background-attachment: fixed;
+        font-family: "Arial Narrow";
+    }
+</style>
 <nav class="navbar navbar-expand-lg navbar-light justify-content-between" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="#"><strong>PMS</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -18,7 +33,6 @@
             <a class="nav-item nav-link" href="UpdateAUser">Account</a>
 
 
-
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -30,6 +44,16 @@
                             <a class="dropdown-item" href="NewItemPage">Add-Item</a>
                         </sec:authorize>
                         <a class="dropdown-item" href="ViewAllItems">Item-List</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarOrder" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Orders
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="OrdersView">Orders</a>
                         <a class="dropdown-item" href="CartListAndItems">Place-Order</a>
                     </div>
@@ -43,8 +67,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <sec:authorize access="hasRole('USER')">
-                        <a class="dropdown-item" href="AddRequestPage">Add-Request</a>
-                        <a class="dropdown-item" href="MyRequests">View-My-Requests</a>
+                            <a class="dropdown-item" href="AddRequestPage">Add-Request</a>
+                            <a class="dropdown-item" href="MyRequests">View-My-Requests</a>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ADMIN')">
                             <a class="dropdown-item" href="AllRequests">All-Requests</a>

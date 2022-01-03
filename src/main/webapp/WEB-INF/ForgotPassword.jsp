@@ -12,28 +12,37 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <style type="text/css">
-  .container{
-   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10%;
-  }
-  .fp{
-    margin-left: 45%;
-  }
+        body {
+            background-image: url("../Pic/bwBg2.jpg");
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-size: 30%;
+        }
 
-  </style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10%;
+        }
+
+        .fp {
+            margin-left: 45%;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
 
-    <div class="card" style="width:400px">
+    <div class="card" style="width:400px;background: white;border-color: mediumblue">
         <div class="card-body">
             <h4 class="card-title">Forgot Password</h4>
             <form:form action="${pageContext.request.contextPath}/SendOTPEmail" method="POST" modelAttribute="email">
                 <div class="form-group">
                     <label for="email">Email Address:</label>
-                    <input type="email" class="form-control" id="email" placeholder="abcde@gamil.com" name="email" required>
+                    <input type="email" class="form-control" id="email" placeholder="abcde@gamil.com" name="email"
+                           required>
                 </div>
                 <button type="submit" value="SendOTP" class="btn btn-primary">SendOTP</button>
                 <div class="Message">

@@ -11,36 +11,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <style type="text/css">
-  .container{
-   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10%;
-  }
-  .fp{
-    margin-left: 45%;
-  }
+    <style>
+        body {
+            background-image: url("../Pic/bwBg2.jpg");
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-size: 30%;
+        }
 
-  </style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10%;
+        }
+
+        .fp {
+            margin-left: 45%;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
 
-    <div class="card" style="width:400px">
+    <div class="card" style="width:400px;background: white;border-color: mediumblue">
         <div class="card-body">
             <h4 class="card-title">Reset Password</h4>
             <form:form action="${pageContext.request.contextPath}/ResetPassword" method="POST" modelAttribute="details">
 
                 <div class="form-group">
                     <label for="password">New Password:</label>
-                    <input type="password" class="form-control" id="password" placeholder="skynet123(*)" name="password">
+                    <input type="password" class="form-control" id="password" placeholder="skynet123(*)"
+                           name="password">
 
                 </div>
                 <input type="number" class="form-control" id="otpNumber" value=${otp} name="otpNumber" hidden>
                 <div class="form-group">
                     <label for="newpassword1">Re-Enter New Password </label>
-                    <input type="newpassword1" name="newpassword1" class="form-control" id="newpassword1" placeholder="skynet123(*)" name="newpassword1">
+                    <input type="newpassword1" name="newpassword1" class="form-control" id="newpassword1"
+                           placeholder="skynet123(*)" name="newpassword1">
 
                 </div>
                 <button type="submit" value="ResetPassword" class="btn btn-primary">ResetPassword</button>

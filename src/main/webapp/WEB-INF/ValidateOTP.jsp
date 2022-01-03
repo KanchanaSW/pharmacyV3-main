@@ -12,22 +12,30 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <style type="text/css">
-  .container{
-   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10%;
-  }
-  .fp{
-    margin-left: 45%;
-  }
+        body {
+            background-image: url("../Pic/bwBg2.jpg");
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-size: 30%;
+        }
 
-  </style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10%;
+        }
+
+        .fp {
+            margin-left: 45%;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
 
-    <div class="card" style="width:400px">
+    <div class="card" style="width:400px;background: white;border-color: mediumblue">
         <div class="card-body">
             <h4 class="card-title">Validate OTP</h4>
             <form:form action="${pageContext.request.contextPath}/ValidateOTP" method="POST" modelAttribute="otp">
@@ -40,7 +48,7 @@
                 <div class="Message">
                     <div>${msg}</div>
                 </div>
-                </form:form>
+            </form:form>
         </div>
     </div>
 </div>

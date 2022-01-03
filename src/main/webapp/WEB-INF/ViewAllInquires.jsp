@@ -34,7 +34,7 @@
 </form:form>
 </div>
 -->
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
         <tr class="table-primary">
             <th><span>Id</span></th>
