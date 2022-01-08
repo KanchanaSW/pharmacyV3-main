@@ -8,7 +8,7 @@ import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Repositories.CartRepository;
 import com.pharmacy.v3.Repositories.ItemRepository;
 import com.pharmacy.v3.Repositories.UserRepository;
-import com.pharmacy.v3.Response.MessageResponse;
+import com.pharmacy.v3.Models.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

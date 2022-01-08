@@ -2,21 +2,14 @@ package com.pharmacy.v3.Services;
 
 import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.OTP;
-import com.pharmacy.v3.Models.Role;
 import com.pharmacy.v3.Models.User;
 import com.pharmacy.v3.Repositories.OTPRepository;
 import com.pharmacy.v3.Repositories.RoleRepository;
 import com.pharmacy.v3.Repositories.UserRepository;
-import com.pharmacy.v3.Response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

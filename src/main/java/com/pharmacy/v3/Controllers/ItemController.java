@@ -1,8 +1,6 @@
 package com.pharmacy.v3.Controllers;
 
 import com.pharmacy.v3.DTO.ItemDTO;
-import com.pharmacy.v3.Models.Item;
-import com.pharmacy.v3.Response.MessageResponse;
 import com.pharmacy.v3.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")

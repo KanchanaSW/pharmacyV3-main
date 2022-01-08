@@ -2,19 +2,15 @@ package com.pharmacy.v3.Controllers.Web;
 
 import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.User;
-import com.pharmacy.v3.Response.MessageResponse;
 import com.pharmacy.v3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class WebUserController {

@@ -1,12 +1,11 @@
 package com.pharmacy.v3.Services;
 
-import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.DTO.ItemDTO;
 import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.Item;
 import com.pharmacy.v3.Repositories.CategoryRepository;
 import com.pharmacy.v3.Repositories.ItemRepository;
-import com.pharmacy.v3.Response.MessageResponse;
+import com.pharmacy.v3.Models.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

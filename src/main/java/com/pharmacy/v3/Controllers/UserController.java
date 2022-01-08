@@ -2,7 +2,6 @@ package com.pharmacy.v3.Controllers;
 
 import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.User;
-import com.pharmacy.v3.Response.MessageResponse;
 import com.pharmacy.v3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

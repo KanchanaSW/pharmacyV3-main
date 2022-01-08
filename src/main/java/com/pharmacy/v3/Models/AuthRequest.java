@@ -1,4 +1,4 @@
-package com.pharmacy.v3.Request;
+package com.pharmacy.v3.Models;
 
 
 public class AuthRequest {

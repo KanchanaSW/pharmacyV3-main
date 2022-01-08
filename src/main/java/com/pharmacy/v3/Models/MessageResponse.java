@@ -1,4 +1,4 @@
-package com.pharmacy.v3.Response;
+package com.pharmacy.v3.Models;
 
 public class MessageResponse {
     private String message;
