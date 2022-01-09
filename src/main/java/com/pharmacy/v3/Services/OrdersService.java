@@ -33,11 +33,11 @@ public class OrdersService {
 
     public List<OrderDTO> getAll() {
         SimpleDateFormat ft =
-                new SimpleDateFormat ("yyyy.MM.dd");
-        List<OrderDTO> alt=new ArrayList<>();
-        for (Orders orders: ordersRepository.findAll()){
-            OrderDTO od=new OrderDTO();
-            java.util.Date date=orders.getDate();
+                new SimpleDateFormat("yyyy.MM.dd");
+        List<OrderDTO> alt = new ArrayList<>();
+        for (Orders orders : ordersRepository.findAll()) {
+            OrderDTO od = new OrderDTO();
+            java.util.Date date = orders.getDate();
 
             od.setOrdersDTOId(orders.getOrdersId());
             od.setCusName(orders.getCusName());
@@ -65,6 +65,7 @@ public class OrdersService {
         User user = userRepository.findByUsername(userName).get();
         return ordersRepository.findByUserAndStatus(user, status);
     }
+
     //admin function
     public List<Orders> getAllPendingOrdersByStatus(String status) {
         return ordersRepository.findByStatus(status);
@@ -76,38 +77,48 @@ public class OrdersService {
         return ordersRepository.findByUser(user);
     }
 
-    public String cancel(int orderId){
-        Orders orders=get(orderId);
+    public String cancel(int orderId) {
+        Orders orders = get(orderId);
         orders.setStatus("cancelled");
         save(orders);
         return "cancelled";
     }
-    public String pay(int orderId){
-        Orders orders=get(orderId);
+
+    public String pay(int orderId) {
+        Orders orders = get(orderId);
         orders.setStatus("paid");
         save(orders);
         return "paid";
     }
-    public String delete(int orderId){
-       try {
-           Orders orders=get(orderId);
-           List<OrderedItems> oiList=orders.getOrderedItems();
 
-           for (OrderedItems orderedItems : oiList) {
-               OrderedItems oi = orderedItemsService.get(orderedItems.getOrderedItemsId());
-               int quant = oi.getQuantity();
-               Item item = itemService.find(oi.getItem().getItemId());
-               int itemQuant = item.getQuantity();
-               item.setQuantity(itemQuant + quant);
-               itemService.save(item);
+    public String delete(int orderId) {
+        try {
+            Orders orders = get(orderId);
+            List<OrderedItems> oiList = orders.getOrderedItems();
 
-               orderedItemsService.delete(oi);
-           }
-           ordersRepository.delete(orders);
-           return "deleted";
-       }catch (Exception e){
-           return e.toString();
-       }
+            for (OrderedItems orderedItems : oiList) {
+                OrderedItems oi = orderedItemsService.get(orderedItems.getOrderedItemsId());
+                int quant = oi.getQuantity();
+                Item item = itemService.find(oi.getItem().getItemId());
+                int itemQuant = item.getQuantity();
+                item.setQuantity(itemQuant + quant);
+                itemService.save(item);
+
+                orderedItemsService.delete(oi);
+            }
+            ordersRepository.delete(orders);
+            return "deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    public List<Orders> all() {
+        return ordersRepository.findAll();
+    }
+
+    public void deleteOrder(Orders orders) {
+        ordersRepository.delete(orders);
     }
 
     public ResponseEntity<?> addOrder(HttpServletRequest request, Orders newOrder) {

@@ -1,21 +1,14 @@
 package com.pharmacy.v3;
 
-import com.pharmacy.v3.DTO.CartDTO;
-import com.pharmacy.v3.DTO.InquiryDTO;
-import com.pharmacy.v3.DTO.ItemRequestsDTO;
 import com.pharmacy.v3.Models.*;
 import com.pharmacy.v3.Repositories.*;
-import com.pharmacy.v3.Security.jwt.JwtUtils;
 import com.pharmacy.v3.Services.*;
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -42,6 +35,14 @@ class V3ApplicationTests {
 	private InquiryService inquiryService;
 	@Autowired
 	private ItemRequestsService itemRequestsService;
+	@Autowired
+	private ItemService itemService;
+	@Autowired
+	private OrderedItemsService orderedItemsService;
+	@Autowired
+	private OrdersService ordersService;
+	@Autowired
+	private RoleService roleService;
 
 	@MockBean
 	private UserRepository userRepository;
@@ -61,6 +62,12 @@ class V3ApplicationTests {
 	private InquiryRepository inquiryRepository;
 	@MockBean
 	private ItemRequestsRepository itemRequestsRepository;
+	@MockBean
+	private OrderedItemsRepository orderedItemsRepository;
+	@MockBean
+	private OrdersRepository ordersRepository;
+	@MockBean
+	private RoleRepository roleRepository1;
 
 	//user service functions
 	@Test
@@ -259,10 +266,108 @@ class V3ApplicationTests {
 	}
 
 	//item service functions
+	@Test
+	public void getItemList(){
+		Item item=new Item();
+		Item item1=new Item();
+		when(itemRepository.findAll()).
+				thenReturn(Stream.of(item,item1).collect(Collectors.toList()));
+		assertEquals(2,itemService.getAll().size());
+	}
+	@Test
+	public void getItem(){
+		int id=111;
+		Item item=new Item();
+		when(itemRepository.findById(id)).thenReturn(Optional.of(item));
+		assertEquals(item,itemService.find(id));
+	}
+	@Test
+	public void addNewItem(){
+		Item item=new Item();
+		when(itemRepository.save(item)).thenReturn(item);
+		assertEquals(item,itemService.save(item));
+	}
+	@Test
+	public void deleteItem(){
+		Item item=new Item();
+		itemService.delete(item);
+		verify(itemRepository,times(1)).delete(item);
+	}
 
+	//ordered-items service functions
+	@Test
+	public void getOrderedItemsList(){
+		OrderedItems orderedItems=new OrderedItems();
+		OrderedItems orderedItems1=new OrderedItems();
+		when(orderedItemsRepository.findAll()).
+				thenReturn(Stream.of(orderedItems,orderedItems1).collect(Collectors.toList()));
+		assertEquals(2,orderedItemsService.getAll().size());
+	}
+	@Test
+	public void getOrderedItem(){
+		int id=111;
+		OrderedItems orderedItems=new OrderedItems();
+		when(orderedItemsRepository.findById(id)).thenReturn(Optional.of(orderedItems));
+		assertEquals(orderedItems,orderedItemsService.get(id));
+	}
+	@Test
+	public void addNewOrderedItem(){
+		OrderedItems orderedItems=new OrderedItems();
+		when(orderedItemsRepository.save(orderedItems)).thenReturn(orderedItems);
+		assertEquals(orderedItems,orderedItemsService.save(orderedItems));
+	}
+	@Test
+	public void deleteOrderedItem(){
+		OrderedItems orderedItems=new OrderedItems();
+		orderedItemsService.delete(orderedItems);
+		verify(orderedItemsRepository,times(1)).delete(orderedItems);
+	}
 
+	//orders service function tsting
+	@Test
+	public void getAllOrders(){
+		Orders orders=new Orders();
+		Orders orders1=new Orders();
+		when(ordersRepository.findAll())
+				.thenReturn(Stream.of(orders,orders1).collect(Collectors.toList()));
+		assertEquals(2,ordersService.all().size());
+	}
+	@Test
+	public void getOrder(){
+		int order=111;
+		Orders orders=new Orders();
+		when(ordersRepository.findById(order)).thenReturn(Optional.of(orders));
+		assertEquals(orders,ordersService.get(order));
+	}
+	@Test
+	public void addNewOrder(){
+		Orders orders=new Orders();
+		when(ordersRepository.save(orders)).thenReturn(orders);
+		assertEquals(orders,ordersService.save(orders));
+	}
+	@Test
+	public void deleteOrder(){
+		Orders orders=new Orders();
+		ordersService.deleteOrder(orders);
+		verify(ordersRepository,times(1)).delete(orders);
+	}
+	@Test
+	public void getAllPendingOrdersByStatus(){
+		String status="pending";
+		Orders orders=new Orders();
+		Orders orders1=new Orders();
+		when(ordersRepository.findByStatus(status))
+				.thenReturn(Stream.of(orders,orders1).collect(Collectors.toList()));
+		assertEquals(2,ordersService.getAllPendingOrdersByStatus(status).size());
+	}
 
-
-
+	//Role service functions testing
+	@Test
+	public void getRoleByName(){
+		String role="ROLE_USER";
+		Role role1=new Role();
+		when(roleRepository1.findByRole(role)).thenReturn(role1);
+		assertEquals(role1,roleService.getRoleByName(role));
+	}
 
 }
