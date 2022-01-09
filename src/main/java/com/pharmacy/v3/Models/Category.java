@@ -20,6 +20,11 @@ public class Category {
     public Category() {
     }
 
+    public Category(Integer categoryId, String category) {
+        this.categoryId = categoryId;
+        this.category = category;
+    }
+
     public Integer getCategoryId() {
         return categoryId;
     }

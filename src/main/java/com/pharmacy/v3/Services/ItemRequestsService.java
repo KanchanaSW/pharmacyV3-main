@@ -28,6 +28,8 @@ public class ItemRequestsService {
         this.userRepository = userRepository;
     }
 
+    public ItemRequests save(ItemRequests itemRequests){return itemRequestsRepository.save(itemRequests);}
+    public void delete(ItemRequests itemRequests){itemRequestsRepository.delete(itemRequests);}
     public ResponseEntity<?> addItemRequestsService(ItemRequestsDTO newRequestI, HttpServletRequest request) {
         try {
             User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
@@ -108,6 +110,9 @@ public class ItemRequestsService {
 
         return list;
 
+    }
+    public List<ItemRequests> all(){
+        return itemRequestsRepository.findAll();
     }
     public ItemRequests get(int itemId){
         return itemRequestsRepository.findById(itemId).get();

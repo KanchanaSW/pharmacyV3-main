@@ -1,10 +1,9 @@
 package com.pharmacy.v3;
 
 import com.pharmacy.v3.DTO.CartDTO;
-import com.pharmacy.v3.Models.Cart;
-import com.pharmacy.v3.Models.Item;
-import com.pharmacy.v3.Models.Role;
-import com.pharmacy.v3.Models.User;
+import com.pharmacy.v3.DTO.InquiryDTO;
+import com.pharmacy.v3.DTO.ItemRequestsDTO;
+import com.pharmacy.v3.Models.*;
 import com.pharmacy.v3.Repositories.*;
 import com.pharmacy.v3.Security.jwt.JwtUtils;
 import com.pharmacy.v3.Services.*;
@@ -12,6 +11,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,6 +38,10 @@ class V3ApplicationTests {
 	private CartService cartService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private InquiryService inquiryService;
+	@Autowired
+	private ItemRequestsService itemRequestsService;
 
 	@MockBean
 	private UserRepository userRepository;
@@ -49,10 +53,14 @@ class V3ApplicationTests {
 	private CartRepository cartRepository;
 	@MockBean
 	private ItemRepository itemRepository;
-	@MockBean
+	@Mock
 	HttpServletRequest request;
 	@MockBean
 	private CategoryRepository categoryRepository;
+	@MockBean
+	private InquiryRepository inquiryRepository;
+	@MockBean
+	private ItemRequestsRepository itemRequestsRepository;
 
 	//user service functions
 	@Test
@@ -72,7 +80,6 @@ class V3ApplicationTests {
 				.thenReturn(java.util.Optional.of(user));
 		assertEquals(user,userService.getUserByUserName(userName));
 	}
-
 	@Test
 	public void findUser(){
 		Role role= roleRepository.findByRole("ROLE_USER");
@@ -138,7 +145,7 @@ class V3ApplicationTests {
 		verify(cartRepository,times(1)).delete(cart);
 	}
 	@Test
-	public void getUserCart(){
+	public void getUserCartList(){
 		User user=userRepository.findUserByUsername("user123");
 		Item item=new Item();
 		Cart cart=new Cart(user,item,1000,2000,false);
@@ -149,5 +156,113 @@ class V3ApplicationTests {
 	}
 
 	//category functions
+	@Test
+	public void getAllCategories(){
+		Category category=new Category(111,"testCat");
+		Category category1=new Category(112,"testCat2");
+		when(categoryRepository.findAllByOrderByCategoryIdDesc()).thenReturn(Stream.of(category,category1).collect(Collectors.toList()));
+		assertEquals(2,categoryService.getAllCategories().size());
+	}
+	@Test
+	public void getCategory(){
+		String catName="testCat";
+		Category category=new Category(111,"testCat");
+		when(categoryRepository.categoryIs(catName)).thenReturn(category);
+		assertEquals(category,categoryService.getCategory(catName));
+	}
+
+	//inquiry functions
+	@Test
+	public void getAllInquiryByItemId(){
+		int itemId=111;
+		User user=userRepository.findUserByUsername("user123");
+		Item item=new Item();
+		Inquiry inquiry=new Inquiry(user,item,"question","answer","date",true);
+		Inquiry inquiry1=new Inquiry(user,item,"question","answer","date",true);
+		when(inquiryRepository.findByItemItemId(itemId)).
+				thenReturn(Stream.of(inquiry,inquiry1).collect(Collectors.toList()));
+		assertEquals(2,inquiryService.getAllInquiryByItemId(itemId).size());
+	}
+	@Test
+	public void getAllInquiryIsReplied(){
+		User user=userRepository.findUserByUsername("user123");
+		Item item=new Item();
+		Inquiry inquiry=new Inquiry(user,item,"question","answer","date",true);
+		Inquiry inquiry1=new Inquiry(user,item,"question","answer","date",true);
+		when(inquiryRepository.findByIsReplied(true)).
+				thenReturn(Stream.of(inquiry,inquiry1).collect(Collectors.toList()));
+		assertEquals(2,inquiryService.getAllInquiryIsReplied(true).size());
+	}
+	@Test
+	public void getInquiryById(){
+		int id=111;
+		User user=userRepository.findUserByUsername("user123");
+		Item item=new Item();
+		Inquiry inquiry=new Inquiry(user,item,"question","answer","date",true);
+		when(inquiryRepository.findById(id)).thenReturn(Optional.of(inquiry));
+		assertEquals(inquiry,inquiryService.getInquiryById(id));
+	}
+	@Test
+	public void allInquires(){
+		User user=userRepository.findUserByUsername("user123");
+		Item item=new Item();
+		Inquiry inquiry=new Inquiry(user,item,"question","answer","date",true);
+		Inquiry inquiry1=new Inquiry(user,item,"question","answer","date",true);
+		when(inquiryRepository.findAll()).
+				thenReturn(Stream.of(inquiry,inquiry1).collect(Collectors.toList()));
+		assertEquals(2,inquiryService.allInquires().size());
+	}
+	@Test
+	public void addNewInquiry(){
+		User user=userRepository.findUserByUsername("user123");
+		Item item=new Item();
+		Inquiry inquiry=new Inquiry(user,item,"question","answer","date",true);
+		when(inquiryRepository.save(inquiry)).thenReturn(inquiry);
+		assertEquals(inquiry,inquiryService.save(inquiry));
+	}
+	@Test
+	public void deleteInquiry(){
+		User user=userRepository.findUserByUsername("user123");
+		Item item=new Item();
+		Inquiry inquiry=new Inquiry(user,item,"question","answer","date",true);
+		inquiryService.delete(inquiry);
+		verify(inquiryRepository,times(1)).delete(inquiry);
+	}
+
+	//Item-Requests functions testing
+	@Test
+	public void getItemRequest(){
+		int iReqId=111;
+		ItemRequests itemRequests=new ItemRequests();
+		when(itemRequestsRepository.findById(iReqId)).thenReturn(Optional.of(itemRequests));
+		assertEquals(itemRequests,itemRequestsService.get(iReqId));
+	}
+	@Test
+	public void getAllItemRequests(){
+		ItemRequests i=new ItemRequests();
+		ItemRequests i2=new ItemRequests();
+		when(itemRequestsRepository.findAll()).
+				thenReturn(Stream.of(i,i2).collect(Collectors.toList()));
+		assertEquals(2,itemRequestsService.all().size());
+	}
+	@Test
+	public void addNewItemRequest(){
+		ItemRequests i=new ItemRequests();
+		when(itemRequestsRepository.save(i)).thenReturn(i);
+		assertEquals(i,itemRequestsService.save(i));
+	}
+	@Test
+	public void deleteItemRequest(){
+		ItemRequests i=new ItemRequests();
+		itemRequestsService.delete(i);
+		verify(itemRequestsRepository,times(1)).delete(i);
+	}
+
+	//item service functions
+
+
+
+
+
 
 }

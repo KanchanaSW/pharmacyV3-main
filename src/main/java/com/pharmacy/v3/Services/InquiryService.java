@@ -31,6 +31,8 @@ public class InquiryService {
         this.itemRepository = itemRepository;
         this.userRepository = userRepository;
     }
+    public Inquiry save(Inquiry inquiry){return inquiryRepository.save(inquiry);}
+    public void delete(Inquiry inquiry){inquiryRepository.delete(inquiry);}
 
     public ResponseEntity<?> addInquiryByItemId(Integer itemId, InquiryDTO newInquiry, HttpServletRequest request) {
         try {
