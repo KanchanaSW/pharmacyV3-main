@@ -22,8 +22,6 @@ public class CartService {
     private CartRepository cartRepository;
     private UserRepository userRepository;
     private ItemRepository itemRepository;
-    @Autowired
-    private ItemService itemService;
 
     @Autowired
     public CartService(CartRepository cartRepository, UserRepository userRepository, ItemRepository itemRepository) {
@@ -31,6 +29,9 @@ public class CartService {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
     }
+    public Cart save(Cart cart){return cartRepository.save(cart);}
+    public List<Cart> all(){return cartRepository.findAll();}
+    public void delete(Cart cart){cartRepository.delete(cart);}
     //add new item to cart
     public ResponseEntity<?> addNewCartToItem(Integer itemId, CartDTO newCart, HttpServletRequest request) {
         User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
@@ -74,6 +75,69 @@ public class CartService {
             return ResponseEntity.ok().body(new MessageResponse("Error: cart not available"));
         }
     }
+
+    public Cart getCartFromId(Integer cartId){
+        Optional<Cart> cart=cartRepository.findById(cartId);
+        Cart c=null;
+        if (cart.isPresent()){
+            c=cart.get();
+        }
+        return c;
+    }
+    //delete an item from the cart
+    public ResponseEntity<?> deleteItemFromCart(Integer itemId, HttpServletRequest request) {
+        try {
+            User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+            if (cartRepository.existsByItemItemIdAndUserUserId(itemId, user.getUserId())) {
+                Cart cart = cartRepository.findByItemItemIdAndUserUserId(itemId, user.getUserId());
+                cartRepository.delete(cart);
+                return ResponseEntity.ok().body(new MessageResponse("Success: Item deleted."));
+            } else {
+                return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: item not available"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
+        }
+    }
+    //display cart list
+    public List<Cart> viewCartItems(HttpServletRequest request) {
+        try {
+            User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+            List<Cart> cartList = cartRepository.findByUserAndIsPurchased(user, false);
+            return cartList;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    //get all pending cart items
+    public List<Cart> getAllPendingCartItems( boolean isPurchased, HttpServletRequest request) {
+        try {
+            User u = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
+            User user = userRepository.findById(u.getUserId()).get();
+            List<Cart> pendingCartList = cartRepository.findByUserAndIsPurchased(user, isPurchased);
+            return pendingCartList;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public List<Cart> getUserCart(User user) {
+        try {
+         //   User user=userRepository.findById(userId).get();
+            List<Cart> cartList = cartRepository.findByUserAndIsPurchased(user, false);
+            return cartList;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+/*
+    //get cart count for user
+    public List<CartDTO> getCartCountByUser(){
+        List<Cart> cartList=cartRepository.findAll();
+        for (int x=0;x<cartList.size();x++){
+            User user=cartList.get(x).getUser();
+            int cartCount=cartRepository.countCartsByUser(user);
+        }
+    }*/
 
 /*    //add new item to cart
     public ResponseEntity<?> addNewCartToItem(Integer itemId, CartDTO newCart, HttpServletRequest request) {
@@ -137,31 +201,7 @@ public class CartService {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }*/
-
-    public Cart getCartFromId(Integer cartId){
-        Optional<Cart> cart=cartRepository.findById(cartId);
-        Cart c=null;
-        if (cart.isPresent()){
-            c=cart.get();
-        }
-        return c;
-    }
-    //delete an item from the cart
-    public ResponseEntity<?> deleteItemFromCart(Integer itemId, HttpServletRequest request) {
-        try {
-            User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
-            if (cartRepository.existsByItemItemIdAndUserUserId(itemId, user.getUserId())) {
-                Cart cart = cartRepository.findByItemItemIdAndUserUserId(itemId, user.getUserId());
-                cartRepository.delete(cart);
-                return ResponseEntity.ok().body(new MessageResponse("Success: Item deleted."));
-            } else {
-                return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: item not available"));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
-        }
-    }
-/*
+    /*
     //delete whole cart by cartId
     public ResponseEntity<?> deleteCart(Integer cartId) {
         try {
@@ -183,44 +223,6 @@ public class CartService {
         }
     }*/
 
-    //display cart list
-    public List<Cart> viewCartItems(HttpServletRequest request) {
-        try {
-            User user = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
-            List<Cart> cartList = cartRepository.findByUserAndIsPurchased(user, false);
-            return cartList;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
-    //get all pending cart items
-    public List<Cart> getAllPendingCartItems( boolean isPurchased, HttpServletRequest request) {
-        try {
-            User u = userRepository.findByUsername(request.getUserPrincipal().getName()).get();
-            User user = userRepository.findById(u.getUserId()).get();
-            List<Cart> pendingCartList = cartRepository.findByUserAndIsPurchased(user, isPurchased);
-            return pendingCartList;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-    public List<Cart> getUserCart(int userId) {
-        try {
-            User user=userRepository.findById(userId).get();
-            List<Cart> cartList = cartRepository.findByUserAndIsPurchased(user, false);
-            return cartList;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-/*
-    //get cart count for user
-    public List<CartDTO> getCartCountByUser(){
-        List<Cart> cartList=cartRepository.findAll();
-        for (int x=0;x<cartList.size();x++){
-            User user=cartList.get(x).getUser();
-            int cartCount=cartRepository.countCartsByUser(user);
-        }
-    }*/
+
 }

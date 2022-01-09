@@ -19,16 +19,12 @@ import java.util.Optional;
 @Service
 public class ItemService {
     private ItemRepository itemRepository;
-    private CategoryRepository categoryRepository;
     @Autowired
     private CategoryService categoryService;
 
-
     @Autowired
-    public ItemService(ItemRepository itemRepository, CategoryRepository categoryRepository) {
+    public ItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
-        this.categoryRepository = categoryRepository;
-
     }
 
     //add item
@@ -111,12 +107,6 @@ public class ItemService {
         }
         return info;
     }
-    public void updateQuantity(int itemId,int quantity){
-        Item item = itemRepository.findById(itemId).get();
-        item.setQuantity(quantity);
-        itemRepository.save(item);
-    }
-
     //update item details
     public ResponseEntity<?> updateItemById(Integer itemId, ItemDTO updateItem) {
         try {
@@ -146,4 +136,9 @@ public class ItemService {
         List<Item> itemList=itemRepository.findByItemCategoryName(itemCategoryName);
         return itemList;
     }*/
+public void updateQuantity(int itemId,int quantity){
+    Item item = itemRepository.findById(itemId).get();
+    item.setQuantity(quantity);
+    itemRepository.save(item);
+}
 }

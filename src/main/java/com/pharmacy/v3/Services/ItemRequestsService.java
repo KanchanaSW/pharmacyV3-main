@@ -119,17 +119,7 @@ public class ItemRequestsService {
         ir=itemRequestsRepository.save(ir);
         return ResponseEntity.ok(ir);
     }
-    //reject request
-    public ResponseEntity<?> rejectRequest(int newItemId){
-        ItemRequests ir=itemRequestsRepository.findById(newItemId).get();
-        ir.setStatus("Rejected");
-        ir=itemRequestsRepository.save(ir);
-        return ResponseEntity.ok(ir);
-    }
 
-    private ItemRequests mapRequests(ItemRequests ir) {
-        return new ItemRequests(ir.getItemRequestsId(), ir.getNewItemName(), ir.getNote(),ir.getStatus());
-    }
     public ResponseEntity<?> rejectRequestService(ItemRequests requestI) {
         try {
           ItemRequests itemRequests=get(requestI.getItemRequestsId());
@@ -155,6 +145,17 @@ public class ItemRequestsService {
      }
 
      */
+    //reject request
+    public ResponseEntity<?> rejectRequest(int newItemId){
+        ItemRequests ir=itemRequestsRepository.findById(newItemId).get();
+        ir.setStatus("Rejected");
+        ir=itemRequestsRepository.save(ir);
+        return ResponseEntity.ok(ir);
+    }
+
+    private ItemRequests mapRequests(ItemRequests ir) {
+        return new ItemRequests(ir.getItemRequestsId(), ir.getNewItemName(), ir.getNote(),ir.getStatus());
+    }
 
 
 }

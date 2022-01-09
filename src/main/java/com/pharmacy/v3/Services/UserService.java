@@ -21,10 +21,6 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private OTPRepository otpRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private RoleService roleService;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -85,6 +81,16 @@ public class UserService {
                 u = user.get();
                 userRepository.delete(u);
             }
+        }
+    }
+    public void delete(User user){
+        try {
+            if (otpRepository.existsByUserUserId(user.getUserId())) {
+                OTP otp = otpRepository.findByUserUserId(user.getUserId());
+                otpRepository.delete(otp);
+            }
+        } finally {
+            userRepository.delete(user);
         }
     }
 
