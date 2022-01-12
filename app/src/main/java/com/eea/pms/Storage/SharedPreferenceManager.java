@@ -3,7 +3,7 @@ package com.eea.pms.Storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.Model.LoginResponse;
 import com.google.gson.Gson;
 
 public class SharedPreferenceManager {
@@ -22,6 +22,7 @@ public class SharedPreferenceManager {
         }
         return sharedPreferenceManagerIntance;
     }
+
     public void saveUserSharedPref(LoginResponse loginResponse) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_INFO, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -53,10 +54,11 @@ public class SharedPreferenceManager {
                 sharedPreferences.getString("username", null),
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("roles", null),
-                sharedPreferences.getString("tokenExpireTime",null),
-                sharedPreferences.getString("status",null)
+                sharedPreferences.getString("tokenExpireTime", null),
+                sharedPreferences.getString("status", null)
         );
     }
+
     public void clear() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_INFO, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

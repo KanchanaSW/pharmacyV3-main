@@ -1,4 +1,4 @@
-package com.eea.pms.DTO.Requests;
+package com.eea.pms.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

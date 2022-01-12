@@ -10,9 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.DTO.Responses.MessageResponse;
-import com.eea.pms.Model.OTP;
+import com.eea.pms.Model.LoginResponse;
+import com.eea.pms.Model.MessageResponse;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AuthenticationApi;
 import com.eea.pms.Storage.SharedPreferenceManager;

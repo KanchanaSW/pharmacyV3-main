@@ -12,9 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eea.pms.AdminDash;
-import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.LoginActivity;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.ManageItemRequest;
 import com.eea.pms.Model.ItemRequests;
 import com.eea.pms.R;
@@ -71,8 +69,6 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             holder.btnRejectReq.setVisibility(View.GONE);
         }
     }
-
-
 
     @Override
     public int getItemCount() {

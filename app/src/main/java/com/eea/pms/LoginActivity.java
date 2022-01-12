@@ -1,20 +1,14 @@
 package com.eea.pms;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.eea.pms.DTO.Requests.LoginRequest;
-import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.Model.User;
+import com.eea.pms.Model.LoginRequest;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AuthenticationApi;
 import com.eea.pms.Storage.SharedPreferenceManager;

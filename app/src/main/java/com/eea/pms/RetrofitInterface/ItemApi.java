@@ -1,6 +1,5 @@
 package com.eea.pms.RetrofitInterface;
 
-import com.eea.pms.DTO.Responses.MessageResponse;
 import com.eea.pms.Model.Category;
 import com.eea.pms.Model.Item;
 

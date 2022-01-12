@@ -1,6 +1,5 @@
 package com.eea.pms;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,23 +9,20 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.DTO.Responses.MessageResponse;
+import com.eea.pms.Model.LoginResponse;
+import com.eea.pms.Model.MessageResponse;
 import com.eea.pms.Model.Inquiry;
 import com.eea.pms.Model.Item;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.ItemApi;
 import com.eea.pms.RetrofitInterface.UserApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
 

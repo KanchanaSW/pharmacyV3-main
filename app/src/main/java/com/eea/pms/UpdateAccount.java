@@ -11,12 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.Model.User;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AdminApi;

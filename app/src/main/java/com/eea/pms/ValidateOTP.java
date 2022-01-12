@@ -8,9 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.eea.pms.DTO.Responses.MessageResponse;
+import com.eea.pms.Model.MessageResponse;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AuthenticationApi;
 import com.shashank.sony.fancytoastlib.FancyToast;

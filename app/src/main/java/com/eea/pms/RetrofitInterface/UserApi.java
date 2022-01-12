@@ -1,8 +1,7 @@
 package com.eea.pms.RetrofitInterface;
 
-import com.eea.pms.DTO.Responses.MessageResponse;
+import com.eea.pms.Model.MessageResponse;
 import com.eea.pms.Model.Inquiry;
-import com.eea.pms.Model.Item;
 import com.eea.pms.Model.ItemRequests;
 
 import java.util.List;

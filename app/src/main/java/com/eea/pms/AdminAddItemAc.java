@@ -19,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.Model.Category;
 import com.eea.pms.Model.Item;
 import com.eea.pms.RetrofitClient.RetrofitClient;

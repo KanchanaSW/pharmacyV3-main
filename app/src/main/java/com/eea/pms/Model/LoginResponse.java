@@ -1,4 +1,4 @@
-package com.eea.pms.DTO.Responses;
+package com.eea.pms.Model;
 
 import java.util.Date;
 

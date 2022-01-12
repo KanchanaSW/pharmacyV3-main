@@ -3,7 +3,6 @@ package com.eea.pms;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,19 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eea.pms.Adapter.ItemAdapter;
-import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.Model.Item;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.ItemApi;
@@ -47,29 +44,30 @@ public class ItemList extends AppCompatActivity {
 
     public ItemList() {
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
-        drawerLayoutAdmin=findViewById(R.id.drawer_layout_admin);
+        drawerLayoutAdmin = findViewById(R.id.drawer_layout_admin);
         recyclerViewAI = findViewById(R.id.recyclerViewAI);
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
         //Initiate items list
         getItemL();
-        TextView mtaHeading=findViewById(R.id.mtaHeading);
+        TextView mtaHeading = findViewById(R.id.mtaHeading);
         mtaHeading.setText("Item List");
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav_item);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_item);
         bottomNavigationView.setSelectedItemId(R.id.view_item_list);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.view_item_list:
                         return true;
                     case R.id.add_item:
-                        startActivity(new Intent(getApplicationContext(),AdminAddItemAc.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), AdminAddItemAc.class));
+                        overridePendingTransition(0, 0);
                 }
                 return false;
             }
@@ -84,36 +82,71 @@ public class ItemList extends AppCompatActivity {
         });*/
     }
 
+
+    public void getItemL() {
+        Call<List<Item>> getItemsList = RetrofitClient.getRetrofitClientInstance().create(ItemApi.class).getAllItems(loginResponse.getToken());
+        getItemsList.enqueue(new Callback<List<Item>>() {
+            @Override
+            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                List<Item> list = response.body();
+                ItemAdapter adapter = new ItemAdapter(list, getApplicationContext());
+                recyclerViewAI.setAdapter(adapter);
+                recyclerViewAI.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
+                recyclerViewAI.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
+                recyclerViewAI.setItemAnimator(new DefaultItemAnimator());
+            }
+
+            @Override
+            public void onFailure(Call<List<Item>> call, Throwable t) {
+                FancyToast.makeText(getApplicationContext(), "Please try again later", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+            }
+        });
+    }
+
+
+    private void addNewItem() {
+        startActivity(new Intent(getApplicationContext(), AdminAddItemAc.class));
+    }
+
     //drawer functions  ===/////==
-    public void ClickMenu(View view){
+    public void ClickMenu(View view) {
         AdminDash.openDrawer(drawerLayoutAdmin);
     }
-    public void ClickLogo(View view){
+
+    public void ClickLogo(View view) {
         AdminDash.closeDrawer(drawerLayoutAdmin);
     }
-    public void ClickHome(View view){
-        AdminDash.redirectActivity(this,AdminDash.class);
+
+    public void ClickHome(View view) {
+        AdminDash.redirectActivity(this, AdminDash.class);
     }
-    public void ClickUsers(View view){
-        AdminDash.redirectActivity(this,AdminUsersList.class);
+
+    public void ClickUsers(View view) {
+        AdminDash.redirectActivity(this, AdminUsersList.class);
     }
-    public void ClickAccount(View view){
-        AdminDash.redirectActivity(this,UpdateAccount.class);
+
+    public void ClickAccount(View view) {
+        AdminDash.redirectActivity(this, UpdateAccount.class);
     }
-    public void ClickProductsAdmin(View view){
+
+    public void ClickProductsAdmin(View view) {
         recreate();
     }
-    public void ClickRequestsAdmin(View view){
-        AdminDash.redirectActivity(this,AdminRequestsList.class);
+
+    public void ClickRequestsAdmin(View view) {
+        AdminDash.redirectActivity(this, AdminRequestsList.class);
     }
-    public void ClickInquiresAdmin(View view){
+
+    public void ClickInquiresAdmin(View view) {
         AdminDash.redirectActivity(this, AdminInquiresList.class);
     }
-    public void ClickLogOut(View view){
+
+    public void ClickLogOut(View view) {
         logOut(this);
     }
+
     public void logOut(Activity activity) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Logout");
         builder.setMessage("Are you sure you want to logout ?");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
@@ -134,6 +167,7 @@ public class ItemList extends AppCompatActivity {
         //show dialog
         builder.show();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -141,29 +175,6 @@ public class ItemList extends AppCompatActivity {
     }
     //               ===/////==
 
-    public void getItemL(){
-        Call<List<Item>> getItemsList= RetrofitClient.getRetrofitClientInstance().create(ItemApi.class).getAllItems(loginResponse.getToken());
-        getItemsList.enqueue(new Callback<List<Item>>() {
-            @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                List<Item> list=response.body();
-                ItemAdapter adapter=new ItemAdapter(list,getApplicationContext());
-                recyclerViewAI.setAdapter(adapter);
-                recyclerViewAI.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
-                recyclerViewAI.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
-                recyclerViewAI.setItemAnimator(new DefaultItemAnimator());
-            }
-            @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-                FancyToast.makeText(getApplicationContext(), "Please try again later", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
-            }
-        });
-    }
-
-
-    private void addNewItem() {
-        startActivity(new Intent(getApplicationContext(),AdminAddItemAc.class));
-    }
 
 
 }

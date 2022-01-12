@@ -1,16 +1,13 @@
 package com.eea.pms.RetrofitInterface;
 
-import com.eea.pms.DTO.Requests.LoginRequest;
-import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.DTO.Responses.MessageResponse;
-import com.eea.pms.Model.OTP;
+import com.eea.pms.Model.LoginRequest;
+import com.eea.pms.Model.LoginResponse;
+import com.eea.pms.Model.MessageResponse;
 import com.eea.pms.Model.User;
 
-import retrofit.http.Path;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 

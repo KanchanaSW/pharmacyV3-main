@@ -12,9 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.Model.Inquiry;
-import com.eea.pms.Model.Item;
 import com.eea.pms.R;
 import com.eea.pms.Storage.SharedPreferenceManager;
 
@@ -25,7 +24,6 @@ public class InquiryAdapter extends RecyclerView.Adapter<InquiryAdapter.ViewHold
     Context context;
     SharedPreferences sharedPreference;
     private LoginResponse loginResponse;
-    Intent intent;
 
     public InquiryAdapter(List<Inquiry> inquiryList, Context context) {
         this.inquiryList = inquiryList;

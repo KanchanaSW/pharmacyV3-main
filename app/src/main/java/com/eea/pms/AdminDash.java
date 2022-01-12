@@ -17,10 +17,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eea.pms.Adapter.InquiryAdapter;
 import com.eea.pms.Adapter.OrderAdapter;
-import com.eea.pms.DTO.Responses.LoginResponse;
-import com.eea.pms.Model.Inquiry;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.Model.Order;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AdminApi;

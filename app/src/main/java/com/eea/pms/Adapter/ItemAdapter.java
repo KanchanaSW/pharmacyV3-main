@@ -14,9 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eea.pms.DTO.Responses.LoginResponse;
+import com.eea.pms.Model.LoginResponse;
 import com.eea.pms.ItemList;
-import com.eea.pms.ManageItemRequest;
 import com.eea.pms.Model.Item;
 import com.eea.pms.R;
 import com.eea.pms.RetrofitClient.RetrofitClient;
