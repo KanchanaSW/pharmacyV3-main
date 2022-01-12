@@ -23,6 +23,7 @@ import com.eea.pms.Model.Order;
 import com.eea.pms.RetrofitClient.RetrofitClient;
 import com.eea.pms.RetrofitInterface.AdminApi;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class AdminDash extends AppCompatActivity {
     DrawerLayout drawerLayoutAdmin;
     RecyclerView recyclerViewOrdersList;
     private LoginResponse loginResponse;
+    FloatingActionButton notes_listFbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,13 @@ public class AdminDash extends AppCompatActivity {
         recyclerViewOrdersList=findViewById(R.id.recyclerViewOrdersList);
         loginResponse = SharedPreferenceManager.getSharedPreferenceInstance(this).getUser();
         getAllOrders();
+        notes_listFbtn=findViewById(R.id.notes_listFbtn);
+        notes_listFbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AdminNotes.class));
+            }
+        });
     }
 
     private void getAllOrders() {

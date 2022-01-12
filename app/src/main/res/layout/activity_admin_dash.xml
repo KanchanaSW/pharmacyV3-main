@@ -16,12 +16,29 @@
         <include
             layout="@layout/main_toolbar_admin"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewOrdersList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp"
             tools:listitem="@layout/orders_list" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/notes_listFbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="570dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="28dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/ic_add"
+            tools:ignore="SpeakableTextPresentCheck" />
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout

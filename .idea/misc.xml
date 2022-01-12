@@ -7,14 +7,17 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/drawable/edit_text_border.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/drawable/ic_add.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/drawable/ic_add_item_2.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/drawable/ic_empty.xml" value="0.19907407407407407" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/drawable/ic_item.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/drawable/ic_products.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/drawable/selector.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_about_us.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_add_notes.xml" value="0.22" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_add_item.xml" value="0.18840579710144928" />
-        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_dash.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_dash.xml" value="0.17" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_inquires_list.xml" value="0.22" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_nd.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_notes.xml" value="0.16032608695652173" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_requests_list.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_admin_users_list.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_inquires.xml" value="0.18840579710144928" />
@@ -25,12 +28,14 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_main_admin.xml" value="0.19021739130434784" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_manage_item_request.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_new_password.xml" value="0.19746376811594202" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_notes.xml" value="0.2" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_ordered_items_list.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_register.xml" value="0.2056159420289855" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_reject_request.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_reset_password.xml" value="0.19746376811594202" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_update_account.xml" value="0.13513513513513514" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_update_account_user.xml" value="0.17980072463768115" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_update_note.xml" value="0.16032608695652173" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_add_inquiry.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_add_request.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/activity_user_inquiry_list.xml" value="0.2" />
@@ -52,6 +57,7 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_nd_user.xml" value="0.25" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_toolbar_admin.xml" value="0.192481884057971" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/main_toolbar_user.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/my_row.xml" value="0.18" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/ordered_item_list.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/orders_list.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/layout/requests_list.xml" value="0.18840579710144928" />
@@ -63,6 +69,7 @@
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/menu_nav_items.xml" value="0.209375" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/menu_nav_request.xml" value="0.209375" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/menu_nav_users.xml" value="0.209375" />
+        <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/menu/my_row.xml" value="0.209375" />
         <entry key="..\:/Users/KanchanaSW/AndroidStudioProjects/PMS/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16018518518518518" />
         <entry key="..\:/Users/KanchanaSW/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/btn_dropdown.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/KanchanaSW/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/editbox_background.xml" value="0.22552083333333334" />

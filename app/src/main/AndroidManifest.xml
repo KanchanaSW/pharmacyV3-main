@@ -14,6 +14,15 @@
         android:theme="@style/Theme.PMS"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AdminNotes"
+            android:exported="false" />
+        <activity
+            android:name=".Storage.ContentProvider.UpdateNote"
+            android:exported="false" />
+        <activity
+            android:name=".Storage.ContentProvider.AddNotes"
+            android:exported="false" />
+        <activity
             android:name=".UserOrderedItemsList"
             android:exported="false" />
         <activity

@@ -1,34 +1,57 @@
 package com.eea.pms;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.eea.pms.Storage.ContentProvider.AddNotes;
+import com.eea.pms.Storage.ContentProvider.MyDatabaseHelper;
+import com.eea.pms.Storage.ContentProvider.NotesAdapter;
 import com.eea.pms.Storage.SharedPreferenceManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     //Initialize vars
     DrawerLayout drawerLayoutUser;
-    //Button btnLogout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayoutUser=findViewById(R.id.drawer_layout_user);
         TextView mtaHeading=findViewById(R.id.mtuHeading);
-        mtaHeading.setText("User-Home");
+        mtaHeading.setText("Notes");
+    /*    notesbtn=findViewById(R.id.notesbtn);
+        notesbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getApplicationContext(), NotesActivity.class);
+                startActivity(intent);
+            }
+        });*/
+
+
 
     }
+
 
 
     public static void openDrawerUser(DrawerLayout drawerLayoutUser) {
