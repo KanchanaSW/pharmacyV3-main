@@ -24,8 +24,8 @@ public interface AdminApi {
     @GET("api/users/user")
     Call<User> get( @Header("Authorization") String token);
     //update status of the user pending --> verified
-    @GET("api/users/update-status/{userId}")
-    Call<Void> updateUserStatus(@Path("userId") Integer userId, @Header("Authorization") String token);
+    //@GET("api/users/update-status/{userId}")
+   // Call<Void> updateUserStatus(@Path("userId") Integer userId, @Header("Authorization") String token);
     //update user account details
     @POST("api/users/update-user")
     Call<String> updateMyAcc(@Body User user, @Header("Authorization") String token);
