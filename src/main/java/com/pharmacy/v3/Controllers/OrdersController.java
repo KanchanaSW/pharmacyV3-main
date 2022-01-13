@@ -28,52 +28,53 @@ public class OrdersController {
     private OrdersService ordersService;
     @Autowired
     private OrderedItemsService orderedItemsService;
-    @Autowired
-    private UserService userService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PostMapping(value = "/addNewOrder")
     public ResponseEntity<?> addNewOrder(@RequestBody Orders orders, HttpServletRequest request) {
-         return ordersService.addOrder(request,orders);
+        return ordersService.addOrder(request, orders);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PutMapping(value = "/cancelOrder/{ordersId}")
     public ResponseEntity<?> cancelOrder(@PathVariable int ordersId) {
-        String st=ordersService.cancel(ordersId);
+        String st = ordersService.cancel(ordersId);
         return ResponseEntity.ok(st);
     }
+
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @DeleteMapping(value = "/deleteOrder/{ordersId}")
     public ResponseEntity<?> deleteOrder(@PathVariable int ordersId) {
-        String st=ordersService.delete(ordersId);
+        String st = ordersService.delete(ordersId);
         return ResponseEntity.ok(st);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/viewAllMyOrders")
-    public ResponseEntity<?> viewAllMyOrders(HttpServletRequest request){
-        List<Orders> list=ordersService.getAllUserOrders(request);
-        if (list.isEmpty()){
+    public ResponseEntity<?> viewAllMyOrders(HttpServletRequest request) {
+        List<Orders> list = ordersService.getAllUserOrders(request);
+        if (list.isEmpty()) {
             return ResponseEntity.badRequest().body("Empty");
         }
         return ResponseEntity.ok(list);
     }
+
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/viewMyPendingOrders")
-    public ResponseEntity<?> viewMyPendingOrders(HttpServletRequest request){
-        List<Orders> list=ordersService.getByUserAndStatusList(request,"pending");
-        if (list.isEmpty()){
+    public ResponseEntity<?> viewMyPendingOrders(HttpServletRequest request) {
+        List<Orders> list = ordersService.getByUserAndStatusList(request, "pending");
+        if (list.isEmpty()) {
             return ResponseEntity.badRequest().body("Empty");
         }
         return ResponseEntity.ok(list);
     }
+
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/viewSingleOrder/{ordersDTOId}")
-    public ResponseEntity<?> viewSingleOders(@PathVariable int ordersDTOId){
-        Orders orders=ordersService.get(ordersDTOId);
-        List<OrderedItemsDTO> list=orderedItemsService.getOrderedItemsByOrder(orders);
-        if (list.isEmpty()){
+    public ResponseEntity<?> viewSingleOders(@PathVariable int ordersDTOId) {
+        Orders orders = ordersService.get(ordersDTOId);
+        List<OrderedItemsDTO> list = orderedItemsService.getOrderedItemsByOrder(orders);
+        if (list.isEmpty()) {
             return ResponseEntity.badRequest().body("Empty");
         }
         return ResponseEntity.ok(list);
@@ -82,10 +83,10 @@ public class OrdersController {
     //view all pending orders admin function
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/allOrders")
-    public ResponseEntity<?> allOrders(HttpServletRequest request){
-        List<OrderDTO> alt=new ArrayList<>();
-        for (OrderDTO orders: ordersService.getAll()){
-            OrderDTO od=new OrderDTO();
+    public ResponseEntity<?> allOrders(HttpServletRequest request) {
+        List<OrderDTO> alt = new ArrayList<>();
+        for (OrderDTO orders : ordersService.getAll()) {
+            OrderDTO od = new OrderDTO();
             od.setOrdersDTOId(orders.getOrdersDTOId());
             od.setCusName(orders.getCusName());
             od.setCity(orders.getCity());

@@ -15,9 +15,6 @@ import java.util.List;
 @RestController
 public class ItemController {
 
-    @Autowired
-    private EntityManager entityManager;
-
     private ItemService itemService;
 
     @Autowired
