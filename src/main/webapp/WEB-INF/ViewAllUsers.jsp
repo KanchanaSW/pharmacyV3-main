@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html xmlns:form="http://www.w3.org/1999/xhtml">
@@ -10,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--Admin Navigation Bar-->
     <jsp:include page="Utills/Navbar.jsp" >
         <jsp:param name="page" value="home" />
@@ -54,12 +55,17 @@
                 <td class="col col-2" style="width: 25%">${users.status}</td>
                 <c:if test="${users.username == 'admin'}">
                     <td Class="col col-2" style="width: 25%"><button disabled type="button" class="btn btn-outline-primary">Update</button></td>
-                    <td Class="col col-2" style="width: 25%"><button disabled type="button" class="btn btn-outline-danger" >Delete</button></td>
+                    <td Class="col col-2" style="width: 25%"><button disabled type="button" class="btn btn-outline-danger" >BlackList</button></td>
 
                 </c:if>
                 <c:if test="${users.username != 'admin'}">
-                    <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-primary" onclick="myFunction2()"><a href="${pageContext.request.contextPath}/UpdateStatus/${users.userId}">Update</a></button></td>
-                    <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-danger" onclick="myFunction()"><a href="${pageContext.request.contextPath}/DeleteUser/${users.userId}">Delete</a></button></td>
+                    <td Class="col col-2" style="width: 25%"><button type="button" class="btn btn-outline-primary"
+                        onclick="myFunction2(${users.userId})"><a>Update</a></button></td>
+
+                    <td Class="col col-1" style="color: white">
+                        <button class="btn btn-outline-danger" type="button" onclick="myFunction(${users.userId})"><a
+                        >BlackList</a></button>
+                    </td>
 
                 </c:if>
             </tr>
@@ -71,11 +77,39 @@
 </div>
 </body>
 <script>
-    function myFunction() {
-        confirm("Are you sure you want to delete this user?");
+    function myFunction(id) {
+        //confirm("Are you sure you want to delete this user?");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, BlackList user!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/DeleteUser/" + id;
+                //  window.location = "ViewAllItems";
+            }
+        })
     }
-    function myFunction2() {
-        confirm("Are you sure you want to update this user status to -verified-?");
+    function myFunction2(id) {
+       // confirm("Are you sure you want to update this user status to -verified-?");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want to update this user status to -verified-?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update user!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "${pageContext.request.contextPath}/UpdateStatus/" + id;
+                //  window.location = "ViewAllItems";
+            }
+        })
     }
 </script>
 </html>

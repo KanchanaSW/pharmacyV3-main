@@ -41,6 +41,12 @@ public class UserService {
         u=userRepository.save(u);
        return u;
     }
+    public User blacklistUser(Integer userId){
+        User u=findUser(userId);
+        u.setStatus("blacklisted");
+        u=userRepository.save(u);
+        return u;
+    }
 
     public User getUserByUserName(String username) {
         return userRepository.findByUsername(username).get();

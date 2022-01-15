@@ -12,7 +12,7 @@ import java.util.concurrent.Executor;
 @SpringBootApplication
 @EnableAsync(proxyTargetClass = true)
 public class V3Application {
-
+//Enable asynchronous multithreading
 	public static void main(String[] args) {
 		SpringApplication.run(V3Application.class, args);
 		System.out.println("Start Pharmacy System");

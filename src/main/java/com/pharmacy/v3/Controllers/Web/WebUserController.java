@@ -56,7 +56,7 @@ public class WebUserController {
     @RequestMapping("/DeleteUser/{userId}")
     public String deleteUser(@PathVariable(name = "userId")Integer userId, Model model){
         try{
-            userService.deleteUser(userId);
+            userService.blacklistUser(userId);
             model.addAttribute("success","User Was Successfully Deleted");
 
         }catch(Exception e){

@@ -101,8 +101,8 @@ public class OrdersService {
                 int quant = oi.getQuantity();
                 Item item = itemService.find(oi.getItem().getItemId());
                 int itemQuant = item.getQuantity();
-                item.setQuantity(itemQuant + quant);
-                itemService.save(item);
+               // item.setQuantity(itemQuant + quant);
+                //itemService.save(item);
 
                 orderedItemsService.delete(oi);
             }
@@ -142,9 +142,9 @@ public class OrdersService {
             for (int x = 0; x < cartList.length; x++) {
                 Cart cart = cartService.getCartFromId(cartList[x]);//get single cart
                 Item item = itemService.find(cart.getItem().getItemId());
-                int itemQuantity = item.getQuantity();
-                item.setQuantity(itemQuantity - cart.getQuantity());//update item q
-                item = itemService.save(item);
+             //   int itemQuantity = item.getQuantity();
+               // item.setQuantity(itemQuantity - cart.getQuantity());//update item q
+               // item = itemService.save(item);
 
                 OrderedItems oi = new OrderedItems();
                 oi.setItem(item);

@@ -70,7 +70,7 @@
             <div class="col-sm">
                 <label for="des">Description:</label>
                 <textarea class="form-control z-depth-1" rows="3" cols="47" name="des" id="des"
-                          placeholder="Enter description here..."></textarea>
+                        maxlength="120"  placeholder="Enter description here..."></textarea>
             </div>
         </div>
 

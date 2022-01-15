@@ -116,20 +116,18 @@ public class WebInquiryController {
     }
 
     //detete an inquiry
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @RequestMapping("/DeleteInquiry/{inquiryId}")
     public String deleteInquiry(@PathVariable(name = "inquiryId")Integer inquiryId,Model model){
-        try {
-            ResponseEntity<?> dI = inquiryService.deleteInquiry(inquiryId);
-            if (dI.getStatusCodeValue() == 422) {
-                model.addAttribute("error", "Empty");
-            } else {
-                model.addAttribute("info", dI);
-            }
-        }catch (Exception e){
-            model.addAttribute("error","error");
+        try{
+            inquiryService.deleteInquiry(inquiryId);
+            model.addAttribute("success","Inquiry Was Successfully Deleted");
+
+        }catch(Exception e){
+            model.addAttribute("error","Failed To Delete The Inquiry");
+
         }
-        return "ViewAllInquires";
+        return "redirect:/ViewMyInquiry";
     }
 
     //view all inquires

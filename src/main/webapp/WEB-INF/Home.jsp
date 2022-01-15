@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<html xmlns:form="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Home Page</title>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             background-image: url("../Pic/bwBg2.jpg");
@@ -53,21 +54,32 @@
                 </div>
 
                 <button style="width: 350px;" type="submit" value="Login" class="btn btn-primary">Login</button>
-                <div class="Message">
-                    <div>${success}${error}</div>
-                </div>
+
 
             </form>
             Did you forgot your password?
             <a class="fp" href="${pageContext.request.contextPath}/ForgotPasswordPage"> Reset Password</a>
-            <div class="Message">
-                <div>${error}</div>
+            <div class="msg" id="error">
+                ${error}
             </div>
 
             <a class="rg" href="${pageContext.request.contextPath}/RegisterPage">Create Account</a>
         </div>
     </div>
 </div>
+<script>
+    var x = document.getElementById("error");
+    if (x.innerText === "bad") {
+        swal.fire({
+            title: "Bad Credentials!",
+            text: "Check username and password!",
+            type: "error",
+            icon: 'warning',
+        }).then(function () {
+            window.location = "Home";
+        });
+    }
+</script>
 </body>
 
 </html>

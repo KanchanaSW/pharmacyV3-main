@@ -71,6 +71,7 @@
             <div class="col-sm">
                 <label for="note">Brief Note:</label>
                 <textarea class="form-control z-depth-1" rows="4" cols="47" name="note" id="note"
+                          maxlength = "180"
                           placeholder="Enter brief note about the item here..."></textarea>
             </div>
 

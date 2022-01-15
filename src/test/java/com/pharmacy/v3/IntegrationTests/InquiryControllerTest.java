@@ -1,17 +1,22 @@
 package com.pharmacy.v3.IntegrationTests;
 
+import com.pharmacy.v3.Controllers.InquiryController;
 import com.pharmacy.v3.V3Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
@@ -23,23 +28,38 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 public class InquiryControllerTest {
     @Autowired
     MockMvc mockMvc;
+    @MockBean
+    private InquiryController inquiryController;
 
     @Test
     public void addInquiryByItemId() throws Exception {
-        MvcResult mvcResult=mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/inquiry/item/123")
-                        .accept(MediaType.APPLICATION_JSON)
-        ).andReturn();
-        System.out.println(mvcResult.getResponse());
+        //language=JSON
+        String json = "{\n" +
+                "  \"question\": \"hello test\"\n" +
+                "}";
+        mockMvc.perform(
+                post("/api/inquiry/item/123")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(status().isOk());
     }
 
     @Test
     public void addReplyByInquiryId() throws Exception {
-        MvcResult mvcResult=mockMvc.perform(
+        //language=JSON
+        String json = "{\n" +
+                "  \"question\": \"hello test\"\n" +
+                "}";
+        mockMvc.perform(
+                post("/api/inquiry/answer/123")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(status().isOk());
+/*        MvcResult mvcResult=mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/inquiry/answer/123")
                         .accept(MediaType.APPLICATION_JSON)
         ).andReturn();
-        System.out.println(mvcResult.getResponse());
+        System.out.println(mvcResult.getResponse());*/
     }
 
     @Test
@@ -96,7 +116,11 @@ public class InquiryControllerTest {
         System.out.println(mvcResult.getResponse());
     }
 }
-
+ /*       MvcResult mvcResult=mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/inquiry/item/123")
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andReturn();
+        System.out.println(mvcResult.getResponse());*/
 
 
 

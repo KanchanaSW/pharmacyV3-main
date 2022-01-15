@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -36,8 +37,12 @@ public class WebAuthController {
 
 
     @GetMapping("/Home")
-    public String getLogin(){
-        return "Home";
+    public ModelAndView getLogin(String error){
+        ModelAndView modelAndView=new ModelAndView();
+        if (error != null){
+            modelAndView.addObject("error","bad");
+        }
+        return modelAndView;
     }
 
     @GetMapping("/UserHome")
@@ -50,8 +55,9 @@ public class WebAuthController {
     public String getAdminHome(){return "AdminHome";} //Admin page
 
     @GetMapping("/error")
-    public String getError(){
-        return "redirect:/error";
+    public String getError(Model model){
+        model.addAttribute("error","Crediential error!");
+        return "/error";
     }
 
     @GetMapping("/SuccessLogin")
@@ -62,7 +68,7 @@ public class WebAuthController {
             return "redirect:/AdminHome";
         }else if(userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("verified")){
             return "redirect:/UserHome";
-        }else if (userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("pending")){
+        }else if (userType.getRole().getRoleId().equals(2) && userType.getStatus().equals("pending") || userType.getStatus().equals("blacklisted")){
             return "redirect:/UserHomePending";
         }else {
             return "/Home";

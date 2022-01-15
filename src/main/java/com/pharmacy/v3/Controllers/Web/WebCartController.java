@@ -41,12 +41,16 @@ public class WebCartController {
     public String addTOCart(@PathVariable(name = "itemId")Integer itemId, @ModelAttribute("cartItem") CartDTO cartDTO, HttpServletRequest request, Model model){
         try {
             ResponseEntity<?> a2c = cartService.addNewCartToItem(itemId, cartDTO, request);
-            if (a2c.getStatusCodeValue() == 200) {
+           if (a2c.getStatusCodeValue() == 406){
+               model.addAttribute("error","inventory");
+           }
+           else if (a2c.getStatusCodeValue() == 200) {
                 model.addAttribute("success", "added success");
             } else {
                 model.addAttribute("error", "added failed");
             }
-            return "redirect:/CartListAndItems";
+           return "/Add2CartViewItem";
+            //return "redirect:/CartListAndItems";
         }catch (Exception e){
             model.addAttribute("status", e);
             return "redirect:/Error404";
@@ -93,16 +97,17 @@ public class WebCartController {
         try{
             //Cart cart = cartService.getCartFromId(cartDTO.getCartId());
             ResponseEntity<?> cart=cartService.updateCartItem(cartDTO.getCartId(),cartDTO);
-            if (cart.getStatusCodeValue()==200){
-                model.addAttribute("success","updated success");
-                return "redirect:/CartListAndItems";
+            if (cart.getStatusCodeValue() == 406){
+                model.addAttribute("error","inventory");
+            }
+            else if (cart.getStatusCodeValue()==200){
+                model.addAttribute("success","added success");
             }else if (cart.getStatusCodeValue()==422){
-                model.addAttribute("error","unable to update");
-                return "redirect:/Error404";
+                model.addAttribute("error","added to update");
             }else{
                 model.addAttribute("error","error");
-                return "redirect:/Error404";
             }
+            return "/Add2CartViewItem";
 
         }catch (Exception e){
             model.addAttribute("error","error e");

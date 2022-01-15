@@ -73,7 +73,7 @@
             <div class="col-sm">
                 <label>Question:</label>
                 <textarea class="form-control z-depth-1" rows="3" cols="47" name="question" id="question"
-                          placeholder="Enter the inquiry here..."></textarea>
+                          required  placeholder="Enter the inquiry here..."></textarea>
             </div>
         </div>
 

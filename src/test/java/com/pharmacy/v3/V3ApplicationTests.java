@@ -1,7 +1,9 @@
 package com.pharmacy.v3;
 
+import com.pharmacy.v3.DTO.UserDTO;
 import com.pharmacy.v3.Models.*;
 import com.pharmacy.v3.Repositories.*;
+import com.pharmacy.v3.Security.jwt.JwtUtils;
 import com.pharmacy.v3.Services.*;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +11,11 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +49,8 @@ class V3ApplicationTests {
 	private OrdersService ordersService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private AuthService authService;
 
 	@MockBean
 	private UserRepository userRepository;
@@ -68,8 +76,29 @@ class V3ApplicationTests {
 	private OrdersRepository ordersRepository;
 	@MockBean
 	private RoleRepository roleRepository1;
+	@MockBean
+	private AuthenticationManager authenticationManager;
+	@MockBean
+	private JwtUtils jwtUtils;
 
 	//user service functions
+	@Test
+	public void registerUser(){
+		String roleName="ROLE_USER";
+		UserDTO user=new UserDTO("user123", "sachithraka123.ks@gmail.com", "0771556916", "password");
+		authService.registerUserService(user,roleName);
+		verify(userRepository,times(1)).save(any(User.class));
+	}
+/*	@Test
+	public void registerUser_EmailExists(){
+		when(userRepository.existsByEmail("sachithrakanchana.ks@gmail.com")).thenReturn(true);
+		String roleName="ROLE_USER";
+		UserDTO user=new UserDTO("user123", "sachithrakanchana.ks@gmail.com", "0771556916", "password");
+		ResponseEntity<?> expect=ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+		ResponseEntity<?> actual=authService.registerUserService(user,roleName);
+		assertEquals(expect,(actual));
+	}*/
+// @WithMockUser(username = "admin",password = "password",roles = "ADMIN")
 	@Test
 	public void getAllUsers(){
 		Role role= roleRepository.findByRole("ROLE_USER");

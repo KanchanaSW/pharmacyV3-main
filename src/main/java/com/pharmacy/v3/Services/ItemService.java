@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -122,11 +123,14 @@ public class ItemService {
         return itemRepository.findById(itemId).get();
     }
 
+    @Transactional
     public Item save(Item item) {
         return itemRepository.save(item);
     }
-
+    //Enables multi threading
+    @Transactional
     public List<Item> getAll(){return itemRepository.findAll();}
+
     public void delete(Item item){itemRepository.delete(item);}
 
     public Item updateQuantity(int itemId, int quantity) {
