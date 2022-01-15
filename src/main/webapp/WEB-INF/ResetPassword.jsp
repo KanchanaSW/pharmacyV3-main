@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             background-image: url("../Pic/bwBg2.jpg");
@@ -54,12 +54,35 @@
 
                 </div>
                 <button type="submit" value="ResetPassword" class="btn btn-primary">ResetPassword</button>
-                <div class="Message">
+                <div class="Message" id="success">
                     <div>${msg}</div>
                 </div>
             </form:form>
         </div>
     </div>
 </div>
+<script>
+    var x = document.getElementById("success");
+    if (x.innerText === "ok") {
+        swal.fire({
+            title: "otp is valid!",
+            text: "Change your password!",
+            type: "success",
+            icon: 'success',
+        }).then(function () {
+            // window.location;
+
+        });
+    } else if (x.innerText === "fail") {
+        swal.fire({
+            title: "OTP not valid !",
+            text: "Failed!",
+            type: "error",
+            icon: 'warning',
+        }).then(function () {
+             window.location = "Home";
+        });
+    }
+</script>
 </body>
 </html>

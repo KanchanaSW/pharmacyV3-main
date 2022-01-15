@@ -78,6 +78,24 @@
         }).then(function () {
             window.location = "Home";
         });
+    }else if (x.innerText === "passwordResetOk"){
+        swal.fire({
+            title: "password reset success!",
+            text: "You can log in now!",
+            type: "success",
+            icon: 'success',
+        }).then(function () {
+            window.location = "Home";
+        });
+    }else if (x.innerText === "fail"){
+        swal.fire({
+            title: "password reset fail!",
+            text: "try reseting again!",
+            type: "error",
+            icon: 'warning',
+        }).then(function () {
+            window.location = "Home";
+        });
     }
 </script>
 </body>

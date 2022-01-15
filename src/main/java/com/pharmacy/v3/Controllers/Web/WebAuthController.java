@@ -124,17 +124,27 @@ public class WebAuthController {
     @PostMapping("/SendOTPEmail")
     public String sendOTPEmail(@ModelAttribute("email") String email,Model model){
         ResponseEntity<?> sendEmail=otpService.sendOTPEmail(email);
-        model.addAttribute("msg",sendEmail.getStatusCodeValue());
+        if (sendEmail.getStatusCodeValue()==200){
+            model.addAttribute("msg","ok");
+        }else{
+            model.addAttribute("msg","fail");
+        }
 
+        //return "ForgotPasswordPage";
         return "ValidateOTP";
     }
 
     @PostMapping("/ValidateOTP")
     public String validateOTP(@ModelAttribute("otp") Integer otp,Model model){
         ResponseEntity<?> validCheck=otpService.checkOTPAvailable(otp);
-        model.addAttribute("msg",validCheck.getStatusCodeValue());
-        //add the otp to next page div
-        model.addAttribute("otp",otp);
+        if (validCheck.getStatusCodeValue()==200){
+            model.addAttribute("msg","ok");
+            //add the otp to next page div
+            model.addAttribute("otp",otp);
+        }else{
+            model.addAttribute("msg","fail");
+        }
+
         return "ResetPassword";
     }
 
@@ -143,7 +153,11 @@ public class WebAuthController {
         String password=otpDto.getPassword();
         Integer otpNumber=otpDto.getOtpNumber();
         ResponseEntity<?> resetPass=otpService.resetPasswordWithOTP(password,otpNumber);
-        model.addAttribute("msg",resetPass.getStatusCodeValue());
-        return "Home";
+        if (resetPass.getStatusCodeValue()==200){
+            model.addAttribute("error","passwordResetOk");
+        }else{
+            model.addAttribute("error","fail");
+        }
+        return "/Home";
     }
 }

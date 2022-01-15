@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style type="text/css">
         body {
             background-image: url("../Pic/bwBg2.jpg");
@@ -45,12 +45,35 @@
 
                 </div>
                 <button type="submit" value="ValidateOTP" class="btn btn-primary">ValidateOTP</button>
-                <div class="Message">
+                <div class="Message" id="success">
                     <div>${msg}</div>
                 </div>
             </form:form>
         </div>
     </div>
 </div>
+<script>
+    var x = document.getElementById("success");
+    if (x.innerText === "ok") {
+        swal.fire({
+            title: "Email send Success!",
+            text: "Check your email!",
+            type: "success",
+            icon: 'success',
+        }).then(function () {
+           // window.location;
+
+        });
+    } else if (x.innerText === "fail") {
+        swal.fire({
+            title: "OTP send faild!",
+            text: "Failed!",
+            type: "error",
+            icon: 'warning',
+        }).then(function () {
+           // window.location = "Home";
+        });
+    }
+</script>
 </body>
 </html>
