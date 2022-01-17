@@ -46,9 +46,9 @@
         <activity
             android:name=".UserUpdateAcc"
             android:exported="false" />
-        <activity
+     <!--   <activity
             android:name=".UserFun.UpdateAccountUser"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
             android:name=".OrderedItemsList"
             android:exported="false" />
