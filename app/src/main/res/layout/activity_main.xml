@@ -14,15 +14,29 @@
 
         <include layout="@layout/main_toolbar_user" />
 
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:textSize="50dp"
-      android:gravity="center"
-      android:text="user home">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:paddingStart="80dp"
+            android:text="user home"
+            android:textSize="50dp"></TextView>
 
-  </TextView>
+        <Button
+            android:id="@+id/buttonCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="130dp"
+            android:text="call ADMIN" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/junk"
+            android:textColor="@color/black"
+            android:textSize="20dp">
 
+        </TextView>
 
 
     </LinearLayout>

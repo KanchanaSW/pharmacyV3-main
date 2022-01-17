@@ -3,16 +3,20 @@ package com.eea.pms;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +34,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     //Initialize vars
     DrawerLayout drawerLayoutUser;
+    private Button button;
 
 
     @Override
@@ -39,16 +44,21 @@ public class MainActivity extends AppCompatActivity {
         drawerLayoutUser=findViewById(R.id.drawer_layout_user);
         TextView mtaHeading=findViewById(R.id.mtuHeading);
         mtaHeading.setText("Notes");
-    /*    notesbtn=findViewById(R.id.notesbtn);
-        notesbtn.setOnClickListener(new View.OnClickListener() {
+        button=findViewById(R.id.buttonCall);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), NotesActivity.class);
-                startActivity(intent);
+                System.out.println("arrived");
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:+94771556815"));
+                if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    System.out.println("granted");
+                    return;
+                }
+                startActivity(callIntent);
             }
-        });*/
-
-
+        });
 
     }
 
