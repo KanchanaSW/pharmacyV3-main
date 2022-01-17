@@ -37,7 +37,7 @@
 
     <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
-        <tr class="table-primary">
+        <tr class="table bg-primary" style="color: white;">
             <th><span>ItemID</span></th>
             <th><span>ItemName</span></th>
             <th><span>Description</span></th>

@@ -50,13 +50,25 @@ public class WebAuthController {
     }
 
     @GetMapping("/UserHome")
-    public String getUserHome(){return "UserHome";}
+    public String getUserHome(Model model,Authentication authentication){
+        User userType = userService.directUserType(authentication.getName());
+        model.addAttribute("name",userType.getUsername());
+        model.addAttribute("email",userType.getEmail());
+        model.addAttribute("role",userType.getRole().getRole());
+        return "UserHome";
+    }
 
     @GetMapping("/UserHomePending")
     public String getUserHomePending(){return "AccountPending";}
 
     @GetMapping("/AdminHome")
-    public String getAdminHome(){return "AdminHome";} //Admin page
+    public String getAdminHome(Model model,Authentication authentication){
+        User userType = userService.directUserType(authentication.getName());
+        model.addAttribute("name",userType.getUsername());
+        model.addAttribute("email",userType.getEmail());
+        model.addAttribute("role",userType.getRole().getRole());
+        return "AdminHome";
+    } //Admin page
 
     @GetMapping("/error")
     public String getError(Model model){
@@ -141,12 +153,12 @@ public class WebAuthController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public String contactAdmin(@ModelAttribute("message") String message, Authentication authentication, RedirectAttributes ra) {
         User userType = userService.directUserType(authentication.getName());
-       String msg= otpService.contactAdmin(userType.getEmail(),message);
-       if (msg.equals("success")){
-           ra.addFlashAttribute("msg","success");
-       }else {
-           ra.addFlashAttribute("msg","error");
-       }
+        String msg= otpService.contactAdmin(userType.getEmail(),message);
+        if (msg.equals("success")){
+            ra.addFlashAttribute("msg","success");
+        }else {
+            ra.addFlashAttribute("msg","error");
+        }
         return "redirect:/UserHomePending";
     }
 

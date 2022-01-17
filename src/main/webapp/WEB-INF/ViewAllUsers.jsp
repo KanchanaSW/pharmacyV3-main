@@ -35,7 +35,7 @@
     -->
     <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
-        <tr class="table-primary">
+        <tr class="table  bg-primary" style="color: white">
             <th><span>UserID</span></th>
             <th><span>UserName</span></th>
             <th><span>Email</span></th>

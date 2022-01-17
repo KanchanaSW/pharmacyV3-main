@@ -22,6 +22,19 @@
         }
     </style>
 </head>
+
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark justify-content-between">
+    <a class="navbar-brand" href="#"><strong>PMS</strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+    </div>
+    <a class="nav-item" style="color: white;" href="/logout">Logout</a>
+</nav>
+
 <body>
 <h3 class="text-center p-2">Account pending</h3>
 <div class="container">

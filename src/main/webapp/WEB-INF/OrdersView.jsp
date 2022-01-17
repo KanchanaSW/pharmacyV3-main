@@ -29,7 +29,7 @@
     <h2 class="text-center p-2" style="background: white">ALL-USER-ORDERS</h2>
     <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
-        <tr class="table-primary">
+        <tr class="table bg-primary" style="color: white">
             <th Class="col col-1"><span>OrderId</span></th>
             <th Class="col col-1"><span>CustomerName</span></th>
             <th Class="col col-1"><span>City</span></th>

@@ -49,7 +49,7 @@
             <h3 class="text-center">PRODUCT-LIST</h3>
             <table class="table table-bordered">
                 <thead Class="table-header">
-                <tr class="table-primary">
+                <tr class="table bg-primary" style="color: white">
                     <%-- <th><span>ItemID</span></th>--%>
                     <th class="col col-1"><span>ItemName</span></th>
                     <%--  <th><span>Description</span></th>--%>
@@ -89,7 +89,7 @@
             <h3 class="pl-5">CART</h3>
             <table class="table table-bordered">
                 <thead Class="table-header">
-                <tr class="table-primary">
+                <tr class="table bg-primary" style="color: white">
                     <th class="col col-1"><span></span></th>
                     <th Class="col col-1"><span>Item</span></th>
                     <%-- <th Class="col col-1"><span>CartId</span></th>

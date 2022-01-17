@@ -2,19 +2,19 @@
 <style>
     body {
     <sec:authorize access="hasRole('USER')" var="user">
-        background-image: url("../../Pic/blueBg.jpg");
-        background-size: 35%;
+        background-image: url("../../Pic/D2.png");
+        background-size: 70%;
     </sec:authorize>
     <sec:authorize access="hasRole('ADMIN')" var="admin">
-        background-image: url("../../Pic/bwBg2.jpg");
-        background-size: 30%;
+        background-image: url("../../Pic/D2.png");
+        background-size: 70%;
     </sec:authorize>
         background-repeat: repeat;
         background-attachment: fixed;
         font-family: "Arial Narrow";
     }
 </style>
-<nav class="navbar navbar-expand-lg navbar-light justify-content-between" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark justify-content-between">
     <a class="navbar-brand" href="#"><strong>PMS</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,5 +97,5 @@
 
         </div>
     </div>
-    <a class="nav-item" href="/logout">Logout</a>
+    <a class="nav-item" style="color: white;" href="/logout">Logout</a>
 </nav>

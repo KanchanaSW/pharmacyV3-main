@@ -36,7 +36,7 @@
 -->
     <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
-        <tr class="table-primary">
+        <tr class="table  bg-primary" style="color: white">
             <th><span>RequestID</span></th>
             <th><span>Item Name</span></th>
             <th><span>Note</span></th>

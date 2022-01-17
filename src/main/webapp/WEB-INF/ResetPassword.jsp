@@ -13,10 +13,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
-            background-image: url("../Pic/bwBg2.jpg");
+            background-image: url("../Pic/D2.png");
             background-repeat: repeat;
             background-attachment: fixed;
-            background-size: 30%;
+            background-size: 70%;
         }
 
         .container {
@@ -33,6 +33,14 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark justify-content-between">
+    <a class="navbar-brand" href="#"><strong>PMS</strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="nav-item" style="color: white;" href="/Home">HOME</a>
+</nav>
 <div class="container">
 
     <div class="card" style="width:400px;background: white;border-color: mediumblue">

@@ -14,17 +14,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
-            background-image: url("../Pic/bwBg2.jpg");
+            background-image: url("../Pic/D2.png");
             background-repeat: repeat;
             background-attachment: fixed;
-            background-size: 30%;
+            background-size: 70%;
         }
         .container {
-            border: 1px mediumblue solid;
+            border: 1px silver solid;
             width: auto;
             justify-content: center;
             align-items: center;
-            margin-top: 10%;
+            margin-top: 6%;
             padding: 1%;
             background: white;
         }
@@ -142,11 +142,11 @@
 </div>
 <script>
     function validateU() {
-        var patternU = /^[a-z0-9]{5,15}$/;
-        var username = document.getElementById('username').value;
+        var patternU = /^[a-z|A-Z0-9]{5,15}$/;
+        var username = document.getElementById('username');
         var uEE = document.getElementById("usernameError");
         var textU = document.getElementById('textU');
-        if (username.match(patternU)) {
+        if (username.value.match(patternU)) {
 
             textU.innerHTML = "";
             textU.style.color = "";

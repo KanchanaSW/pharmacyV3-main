@@ -45,7 +45,7 @@
     <h2 style="background: white">Ordered Items</h2>
     <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
-        <tr class="table-primary">
+        <tr class="table bg-primary" style="color: white">
             <th Class="col col-1"><span>Id</span></th>
             <th Class="col col-1"><span>Date</span></th>
             <th Class="col col-1"><span>ItemName</span></th>
