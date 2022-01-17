@@ -78,6 +78,21 @@ public class ItemService {
         }
         return list;
     }
+    //seach items
+    public List<ItemDTO> seachItem(String itemName){
+        List<ItemDTO> list=new ArrayList<>();
+        for (Item item : itemRepository.name(itemName)) {
+            ItemDTO i = new ItemDTO();
+            i.setItemId(item.getItemId());
+            i.setItemName(item.getItemName());
+            i.setDes(item.getDes());
+            i.setPrice(item.getPrice());
+            i.setQuantity(item.getQuantity());
+            i.setCategoryName(item.getCategory().getCategory());
+            list.add(i);
+        }
+        return list;
+    }
 
     //view item by id
     public ItemDTO getItemById(Integer id) {

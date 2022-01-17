@@ -19,19 +19,22 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="text-center p-2">ALL-PHARMACY-PRODUCTS</h2>
 
-    <!--
-    //////////////////////////////////////////////////////Search function
-    <div class="searchFunction" style="align-items: center">
-        <form:form action="${pageContext.request.contextPath}/SearchUserName" method="GET">
-            <div class="searchBar">
-                <input type="text" name ="searchName" placeholder="Search..">
+    <div class="card-header main-search">
+        <form:form action="${pageContext.request.contextPath}/SearchItem" method="GET">
+            <div class="row">
+                <div class="col-10">
+                    <input type="text" placeholder="Type Item Name.." class="form-control" name="searchItem">
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary search-btn" type="submit">🔍 Search</button>
+                    <button class="btn btn-dark" href="/ViewAllItems">List</button>
+                </div>
             </div>
-            <button class="searchButton" type="submit">Search</button>
         </form:form>
     </div>
-    -->
+
+
     <table class="table table-bordered" style="background: white">
         <thead Class="table-header">
         <tr class="table-primary">
@@ -68,7 +71,6 @@
                         >❌</a></button>
                     </td>
                 </sec:authorize>
-
 
 
             </tr>

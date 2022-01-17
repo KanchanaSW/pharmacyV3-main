@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -63,6 +64,16 @@ public class WebItemController {
         }
         return "ViewAllItems";
     }
+    //search item
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping(value = "/SearchItem")
+    public String seacrhItem(HttpServletRequest request,Model model){
+        String name=request.getParameter("searchItem");
+        List<ItemDTO> seachItems=itemService.seachItem(name);
+        model.addAttribute("info",seachItems);
+        return "ViewAllItems";
+    }
+
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/ViewItem/{itemId}")
     public String viewAnItem(@PathVariable(name = "itemId")Integer itemId, Model model){
@@ -117,6 +128,9 @@ public class WebItemController {
         }
         return "UpdateItem";
     }
+
+
+
 }
 
 

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -96,6 +97,15 @@ public class OTPService {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
+    public String contactAdmin(String email,String message){
+        try {
+            resetPassword.contactAdmin(email,message);
+            return "success";
+        }
+        catch (Exception ex){
+            return "error";
+        }
+    }
 
 
 ///////////////////////
@@ -140,5 +150,7 @@ public class OTPService {
             return ResponseEntity.badRequest().body(new MessageResponse(("Error") + e));
         }
     }
+
+
 
 }

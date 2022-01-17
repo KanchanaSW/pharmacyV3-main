@@ -49,7 +49,7 @@
                 <input type="number" class="form-control" id="otpNumber" value=${otp} name="otpNumber" hidden>
                 <div class="form-group">
                     <label for="newpassword1">Re-Enter New Password </label>
-                    <input type="newpassword1" name="newpassword1" class="form-control" id="newpassword1"
+                    <input type="password" name="newpassword1" class="form-control" id="newpassword1"
                            placeholder="skynet123(*)" name="newpassword1">
 
                 </div>

@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("api/otp")
 @RestController
@@ -44,5 +46,7 @@ public class OTPController {
         return otpService.resetPasswordWithOTP(password, otpNumber);
         //return otpService.resetPassword(newPassword, userId);
     }
+
+
 
 }

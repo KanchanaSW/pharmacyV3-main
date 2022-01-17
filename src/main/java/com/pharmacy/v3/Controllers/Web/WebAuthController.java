@@ -14,6 +14,7 @@ import com.pharmacy.v3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.mail.MessagingException;
 
 
 @Controller
@@ -132,6 +136,18 @@ public class WebAuthController {
 
         //return "ForgotPasswordPage";
         return "ValidateOTP";
+    }
+    @PostMapping(value = "/contactAdmin")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public String contactAdmin(@ModelAttribute("message") String message, Authentication authentication, RedirectAttributes ra) {
+        User userType = userService.directUserType(authentication.getName());
+       String msg= otpService.contactAdmin(userType.getEmail(),message);
+       if (msg.equals("success")){
+           ra.addFlashAttribute("msg","success");
+       }else {
+           ra.addFlashAttribute("msg","error");
+       }
+        return "redirect:/UserHomePending";
     }
 
     @PostMapping("/ValidateOTP")
