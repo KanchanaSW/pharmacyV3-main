@@ -1,8 +1,11 @@
 package com.pharmacy.v3.Models;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
+@Builder
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

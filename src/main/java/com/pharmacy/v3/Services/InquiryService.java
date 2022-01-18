@@ -14,12 +14,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class InquiryService {
     private InquiryRepository inquiryRepository;
     private ItemRepository itemRepository;
