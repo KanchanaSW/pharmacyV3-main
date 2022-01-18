@@ -66,7 +66,6 @@
                         <button class="btn btn-outline-danger" type="button" onclick="myFunction(${users.userId})"><a
                         >BlackList</a></button>
                     </td>
-
                 </c:if>
             </tr>
         </c:forEach>

@@ -385,7 +385,7 @@ class V3ApplicationTests {
 		String status="pending";
 		Orders orders=new Orders();
 		Orders orders1=new Orders();
-		when(ordersRepository.findByStatus(status))
+		when(ordersRepository.findByStatusOrderByOrdersId(status))
 				.thenReturn(Stream.of(orders,orders1).collect(Collectors.toList()));
 		assertEquals(2,ordersService.getAllPendingOrdersByStatus(status).size());
 	}

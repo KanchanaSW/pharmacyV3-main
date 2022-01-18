@@ -46,7 +46,21 @@
 <div class="container">
     <div class="row">
         <div class="col" style=" border:#7a7a7a 1pt solid; margin-right: 10px; padding: 1%;">
-            <h3 class="text-center">PRODUCT-LIST</h3>
+            <h3 onclick=functionIL(); class="text-center">PRODUCT-LIST</h3>
+            <%--search item--%>
+            <div class="card-header main-search">
+                <form:form action="${pageContext.request.contextPath}/SearchItemOV" method="GET">
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="text" placeholder="Type Item Name.." class="form-control" name="searchItem">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary search-btn" type="submit">🔍</button>
+                        </div>
+                    </div>
+                </form:form>
+            </div>
+            <%--end--%>
             <table class="table table-bordered">
                 <thead Class="table-header">
                 <tr class="table bg-primary" style="color: white">
@@ -219,7 +233,9 @@
             }
         })
     }
-
+   function functionIL(){
+        location.href= "/CartListAndItems";
+    }
 
 </script>
 </body>

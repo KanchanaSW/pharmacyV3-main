@@ -2,8 +2,10 @@ package com.pharmacy.v3.Controllers.Web;
 
 import com.pharmacy.v3.DTO.CategoryDTO;
 import com.pharmacy.v3.DTO.ItemDTO;
+import com.pharmacy.v3.Models.Cart;
 import com.pharmacy.v3.Models.Category;
 import com.pharmacy.v3.Models.Item;
+import com.pharmacy.v3.Services.CartService;
 import com.pharmacy.v3.Services.CategoryService;
 import com.pharmacy.v3.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,6 @@ import java.util.List;
 
 @Controller
 public class WebItemController {
-    @Autowired
-    private EntityManager entityManager;
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -73,7 +73,6 @@ public class WebItemController {
         model.addAttribute("info",seachItems);
         return "ViewAllItems";
     }
-
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping(value = "/ViewItem/{itemId}")
     public String viewAnItem(@PathVariable(name = "itemId")Integer itemId, Model model){

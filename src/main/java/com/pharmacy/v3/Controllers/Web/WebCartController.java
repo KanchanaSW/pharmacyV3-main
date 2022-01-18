@@ -128,7 +128,20 @@ public class WebCartController {
             model.addAttribute("error","error");
         }
         return "redirect:/CartListAndItems";
-    }}
+    }
+    //search item
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping(value = "/SearchItemOV")
+    public String seacrhItemOV(HttpServletRequest request,Model model){
+        String name=request.getParameter("searchItem");
+        List<ItemDTO> seachItems=itemService.seachItem(name);
+        model.addAttribute("info",seachItems);
+
+        List<Cart> list=cartService.viewCartItems(request);
+        model.addAttribute("cItem",list);
+        return "CartView";
+    }
+}
 
 
 

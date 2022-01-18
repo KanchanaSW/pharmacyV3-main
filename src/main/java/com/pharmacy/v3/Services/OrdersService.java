@@ -63,18 +63,18 @@ public class OrdersService {
     public List<Orders> getByUserAndStatusList(HttpServletRequest request, String status) {
         String userName = request.getUserPrincipal().getName();
         User user = userRepository.findByUsername(userName).get();
-        return ordersRepository.findByUserAndStatus(user, status);
+        return ordersRepository.findByUserAndStatusOrderByOrdersId(user, status);
     }
 
     //admin function
     public List<Orders> getAllPendingOrdersByStatus(String status) {
-        return ordersRepository.findByStatus(status);
+        return ordersRepository.findByStatusOrderByOrdersId(status);
     }
 
     public List<Orders> getAllUserOrders(HttpServletRequest request) {
         String userName = request.getUserPrincipal().getName();
         User user = userRepository.findByUsername(userName).get();
-        return ordersRepository.findByUser(user);
+        return ordersRepository.findByUserOrderByOrdersId(user);
     }
 
     public String cancel(int orderId) {
