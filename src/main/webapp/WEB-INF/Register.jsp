@@ -97,13 +97,14 @@
             <div class="col-sm">
                 <label for="phone">Phone No:</label>
                 <c:if test="${rPhone == null}">
-                    <input type="phone" class="form-control" id="phone" placeholder="0773556712" name="phone"
+                    <input type="number" class="form-control" id="phone" placeholder="0773556712" name="phone"
                            required>
                 </c:if>
                 <c:if test="${rPhone != null}">
-                    <input type="phone" class="form-control" id="phone" value="${rPhone}" name="phone"
+                    <input type="number" class="form-control" id="phone" value="${rPhone}" name="phone"
                            required>
                 </c:if>
+                <span><small id="phoneError"></small></span>
             </div>
         </div>
 
@@ -141,6 +142,23 @@
 
 </div>
 <script>
+    var phone =document.getElementById("phone");
+    var phoneError=document.getElementById("phoneError");
+    function validatePhone(){
+        const regex = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;
+        //const input= `0777777777`;
+        //let matches;
+//        matches= regex.exec(input);
+  //      console.log(matches);
+        if (phone.value.match(regex)){
+            phoneError.innerText="";
+        }else {
+            phoneError.innerText="Please enter valid phone no."
+            phoneError.style.color = "#ff0000";
+        }
+    }
+    phone.onkeyup =validatePhone;
+
     function validateU() {
         var patternU = /^[a-z|A-Z0-9]{5,15}$/;
         var username = document.getElementById('username');
