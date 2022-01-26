@@ -60,14 +60,23 @@
                             href="${pageContext.request.contextPath}/ViewOrderedItems/${info.ordersDTOId}">View</a>
                     </button>
                 </td>
+                <c:if test="${info.status == 'paid'}">
                 <td Class="col col-1" style="color: white">
-                    <button class="btn btn-outline-primary" type="button" onclick="myFunction1(${info.ordersDTOId})"><a
+                    <button disabled class="btn btn-outline-primary" type="button" ><a
                            >Pay</a>
                     </button>
                 </td>
+                </c:if>
+                <c:if test="${info.status != 'paid'}">
+                    <td Class="col col-1" style="color: white">
+                        <button class="btn btn-outline-primary" type="button" onclick="myFunction1(${info.ordersDTOId})"><a
+                        >Pay</a>
+                        </button>
+                    </td>
+                </c:if>
                 <td Class="col col-1" style="color: white">
                     <button class="btn btn-outline-danger" type="button" onclick="myFunction(${info.ordersDTOId})"><a
-                          ">❌</a>
+                          >❌</a>
                     </button>
                 </td>
 
@@ -80,7 +89,7 @@
 </div>
 </body>
 <script>
-    function myFunction() {
+    function myFunction(id) {
         //confirm("Are you sure you want to delete this order?");
         Swal.fire({
             title: 'Are you sure?',
@@ -97,7 +106,7 @@
             }
         })
     }
-    function myFunction1(orderId) {
+    function myFunction1(id) {
 
         //confirm("Are you sure you want to pay this order?");
         Swal.fire({

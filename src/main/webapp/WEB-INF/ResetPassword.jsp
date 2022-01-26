@@ -51,15 +51,15 @@
                 <div class="form-group">
                     <label for="password">New Password:</label>
                     <input type="password" class="form-control" id="password" placeholder="skynet123(*)"
-                           name="password">
-
+                           name="password" required>
+                    <span><small id="dm"></small></span>
                 </div>
                 <input type="number" class="form-control" id="otpNumber" value=${otp} name="otpNumber" hidden>
                 <div class="form-group">
-                    <label for="newpassword1">Re-Enter New Password </label>
-                    <input type="password" name="newpassword1" class="form-control" id="newpassword1"
-                           placeholder="skynet123(*)" name="newpassword1">
-
+                    <label for="re-password">Re-Enter New Password </label>
+                    <input type="password" name="re-password" class="form-control" id="re-password"
+                           placeholder="skynet123(*)" required>
+                    <span><small id="dm2"></small></span>
                 </div>
                 <button type="submit" value="ResetPassword" class="btn btn-primary">ResetPassword</button>
                 <div class="Message" id="success">
@@ -91,6 +91,35 @@
              window.location = "Home";
         });
     }
+
+    //password similarity check
+    var pattern = /^(?=.*\d)(?=.*[a-z]).{3,10}$/;
+
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("re-password");
+    var valid = document.getElementById("dm");
+    var dontMatch2 = document.getElementById("dm2");
+
+    function validatePassword() {
+        if (password.value.match(pattern)) {
+            valid.innerText = "";//valid.style.color = "#00ff00";
+        } else {
+            valid.innerText = "Invalid: Provide at least 3-letter and no.";
+            valid.style.color = "#ff0000";
+        }
+        if (password.value !== confirm_password.value) {
+            dontMatch2.innerText = "Dont match";
+            dontMatch2.style.color = "#ff0000";
+            confirm_password.style.borderColor = "#ff0000";
+            console.log("dont-match")
+        } else {
+            dontMatch2.innerText = "";
+            confirm_password.style.borderColor = "";
+            console.log("match")
+        }
+    }
+    password.onkeyup = validatePassword;
+    confirm_password.onkeyup = validatePassword;
 </script>
 </body>
 </html>
