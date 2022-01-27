@@ -53,12 +53,12 @@
                 <label for="username">Username:</label>
                 <c:if test="${uName == null}">
                     <input type="text" class="form-control" id="username" onkeydown="validateU();"
-                           placeholder="SamanKumara"
+                           placeholder="SamanKumara" min=3 maxlength=13
                            name="username" required>
                 </c:if>
                 <c:if test="${uName != null}">
                     <input type="text" class="form-control" id="username" onkeydown="validateU();"
-                           value="${uName}"
+                           value="${uName}" min=3 maxlength=13
                            name="username" required>
                 </c:if>
                 <span><small id="textU"></small></span>
@@ -91,7 +91,7 @@
             <div class="col-sm">
                 <label for="password">Password: </label>
                 <input type="password" name="password" class="form-control" id="password" value=""
-                       placeholder="saman123&*%" required>
+                       placeholder="saman123&*%" required min=3 maxlength=13>
                 <span><small id="dm"></small></span>
             </div>
             <div class="col-sm">
@@ -113,7 +113,7 @@
 
                 <label for="re-password">Repeat Password: </label>
                 <input type="password" name="re-password" class="form-control" id="re-password" value=""
-                       placeholder="saman123&*%" required>
+                       placeholder="saman123&*%" required min=3 maxlength=13>
                 <span><small id="dm2"></small></span>
             </div>
             <div class="col-sm">

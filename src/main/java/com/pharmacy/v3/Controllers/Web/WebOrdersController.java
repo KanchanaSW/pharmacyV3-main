@@ -92,6 +92,6 @@ public class WebOrdersController {
     public String deleteAOrder(@PathVariable int ordersId,Model model) {
         String st = ordersService.delete(ordersId);
         model.addAttribute("success","order deleted");
-        return "OrdersView";
+        return "redirect:/OrdersView";
     }
 }

@@ -44,12 +44,16 @@
         <div class="card-title">Pharmacy Management System</div>
         <div class="card-body">
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum orci a sapien imperdiet
-                maximus. Suspendisse vel ex eget mauris efficitur finibus eu a enim. Aenean tellus neque, consectetur
-                sit amet lacus a, hendrerit ornare urna. Fusce venenatis lorem vitae augue suscipit, eu tempor massa
-                vulputate. Praesent iaculis velit libero, vel faucibus sem pulvinar vel. Curabitur viverra nisl dui, a
-                venenatis felis pellentesque id. Donec non lacus diam.
+                Pharmacy management system Admin dashboard is here. Admin functionalities are,
             </p>
+            <ul>
+                <li>View all items</li>
+                <li>Handle users</li>
+                <li>Add drug items</li>
+                <li>Manage Inquires</li>
+                <li>Manage orders</li>
+                <li>Manage requests</li>
+            </ul>
             <h3>Hi!&ensp; ${name} &emsp; ${email}</h3>
         </div>
     </div>

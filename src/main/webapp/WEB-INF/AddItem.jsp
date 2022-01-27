@@ -59,7 +59,7 @@
             <div class="col-sm">
                 <label for="itemName">Item Name:</label>
                 <input type="text" class="form-control" id="itemName" placeholder="Panadol" name="itemName"
-                       required>
+                       required min=3 maxlength=30>
                 <div class="itemNameError">
                     <div>${nError}</div>
                 </div>

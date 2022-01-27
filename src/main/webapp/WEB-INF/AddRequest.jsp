@@ -58,7 +58,7 @@
             <div class="col-sm">
                 <label for="newItemName">Requested Item Name:</label>
                 <input type="text" class="form-control" id="newItemName" placeholder="Amoxicillin" name="newItemName"
-                       required>
+                       required min=3 maxlength=13>
                 <div class="newItemNameError">
                     <div>${nIError}</div>
                 </div>
